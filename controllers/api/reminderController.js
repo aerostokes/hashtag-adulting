@@ -4,7 +4,7 @@ const { Reminder, Category } = require("../../models")
 
 // Routes for /api/reminders
 
-// Get all Reminders
+// Get all Reminders for logged in user
 router.get("/", (req, res) => {
     if (!req.session.loggedIn) {
         return res.status(403).json({ msg: "Login required" })
@@ -48,7 +48,7 @@ router.get("/:id", (req, res) => {
     };
 });
 
-// Post new User
+// Post new reminder
 router.post("/", (req, res) => {
     if (!req.session.loggedIn) {
         return res.status(403).json({ msg: "Login required" })
