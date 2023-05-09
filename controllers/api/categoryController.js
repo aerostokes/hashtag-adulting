@@ -34,6 +34,8 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
+    if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
+    
     try {
         const id = await Category.destroy({ where: { id: req.body.id }});
         res.json({ msg: `Successfully deleted Category with ID: ${id}`});
