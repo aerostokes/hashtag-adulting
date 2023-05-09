@@ -28,11 +28,11 @@ User.init({
             //TODO: add regexp for phone number
         },
     },
-    contact_email: {
+    contactEmail: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-    contact_text: {
+    contactText: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },

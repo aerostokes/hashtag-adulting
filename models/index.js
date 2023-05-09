@@ -1,6 +1,6 @@
 const User = require("./User");
 // const Category = require("./Category");
-// const Reminder = require("./Reminder");
+const Reminder = require("./Reminder");
 
 
 // Category.belongsTo(User, { onDelete: "CASCADE" });
@@ -12,5 +12,5 @@ const User = require("./User");
 module.exports = {
     User: User,
     // Category: Category,
-    // Reminder: Reminder,
+    Reminder: Reminder,
 };
