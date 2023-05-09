@@ -151,3 +151,12 @@
     border: 1px dashed grey;
   }
 
+  #addCategory{
+    background-color:#38B7E3 ;
+    height: 10rem;
+    width: 10rem;
+    /* border: 1px dashed grey; */
+  }
+  #acc{
+    margin:5px;
+  }
