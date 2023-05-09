@@ -66,7 +66,7 @@
     font-weight: 300;
     font-style: normal;
     color:rgb(232, 230, 230);
-  
+    list-style-type:none;
     line-height: 23px;
   }
   
@@ -85,6 +85,7 @@
   main{
     display:flex;
     flex-direction: row;
+   
   }
   
  #chalkBoard{
@@ -115,7 +116,7 @@
   border: none;
   border-top: 1px solid rgb(232, 230, 230);
   padding:10px;
-  width: 65%
+  width: 65%;
  }
  
  #about{
@@ -138,11 +139,13 @@
   #center{
     display: flex;
     flex-direction: row;
+    width: 100%
   }
 
   #allHome{
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   #sticky{
@@ -160,3 +163,101 @@
   #acc{
     margin:5px;
   }
+
+  #nextUp{
+    /* border: 1px dashed grey; */
+    width: 75%;
+    margin-left: 40px;
+  }
+  
+  #biggerSticky{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #F469F4;
+  /* border: 1px dashed grey; */
+    height: 29rem;
+    width: 50rem;
+    
+}
+
+ol{
+  margin-top: 20px;
+}
+#lineDash{
+  display: flex;
+  border: none;
+  border-top: 1px solid rgb(232, 230, 230);
+  width:65%;
+}
+
+li{
+  font-family: "larken", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color:rgb(232, 230, 230);
+  list-style-type:none;
+  line-height: 25px;
+  margin-left:10px;
+  text-align: left;
+}
+#taskList{
+  max-height: 29rem;
+  height: 100%;
+  width: 100%;
+  border: 1px dashed grey;
+  margin: 20px
+}
+#emoji{
+  font-size: 2rem;
+  padding: 5px;
+  border: 3px solid rgb(3, 3, 3);
+  border-radius: 2px;
+}
+#stickHead{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+
+}
+button{
+  background-color: black;
+  color:white;
+  border-style: none;
+  border-radius: 2px;
+  padding: 5px 10px 5px 10px;
+  margin: 25px;
+}
+#reminders{
+  margin: 10px;
+  color: black;
+  
+}
+
+.bigStickyTitle{
+  margin:0 0 30px 30px;
+  font-family: "grenadine-mvb", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4rem;
+}
+
+#remindList{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+#btn{
+  display: flex;
+  justify-content: center;
+}
+
+#listCenter{
+  height:200px;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items:center
+}
