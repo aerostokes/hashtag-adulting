@@ -38,9 +38,8 @@ router.get("/:id", (req, res) => {
 // Post new User
 router.post("/", (req, res) => {
     User.create({
-        username: req.body.username,
-        password: req.body.password,
         email: req.body.email,
+        password: req.body.password,
         mobile: req.body.mobile,
         contact_email: req.body.contact_email,
         contact_text: req.body.contact_text,
@@ -55,10 +54,10 @@ router.post("/", (req, res) => {
 // Login
 router.post("/login", (req, res) => {
     User.findOne({
-        where: { username: req.body.username },
+        where: { email: req.body.email },
     }).then(userObj => {
         if (!userObj) {
-            return res.status(401).json({ msg: "Invalid username/password" });
+            return res.status(401).json({ msg: "Invalid email/password" });
         } else if (bcrypt.compareSync(req.body.password, userObj.password)) {
             req.session.UserId = userObj.id;
             req.session.loggedIn = true;
@@ -67,7 +66,7 @@ router.post("/login", (req, res) => {
                 req.session,
             ]);
         } else {
-            return res.status(401).json({ msg: "Invalid username/password" });
+            return res.status(401).json({ msg: "Invalid email/password" });
         };
     }).catch(err => {
         console.log(err);
@@ -90,7 +89,7 @@ router.put("/:id", (req, res) => {
     } else {
         User.update(req.body, {
             where: { id: req.params.id },
-        }).then(userArr => {
+        }).then(() => {
             return res.json({ msg: "Successfully updated" });
         }).catch(err => {
             console.log(err);
@@ -108,7 +107,7 @@ router.delete("/:id", (req, res) => {
     } else {
         User.destroy({
             where: { id: req.params.id },
-        }).then(userObj => {
+        }).then(() => {
             req.session.destroy();
             return res.json({ msg: "Successfully deleted" });
         }).catch(err => {

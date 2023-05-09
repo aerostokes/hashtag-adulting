@@ -3,8 +3,8 @@ const router = express.Router();
 
 const { User, Category } = require('../../models');
 
-router.get("/", async (_, res) => {
-    if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
+router.get("/", async (req, res) => {
+    if (!req.session.loggedIn) return res.status(403).json({ msg: 'You are not logged in!' });
     const userId = req.session.UserId;
 
     // const currentUser = await User.findByPk(UserId);
@@ -22,7 +22,7 @@ router.get("/", async (_, res) => {
 });
 
 router.post("/", async (req, res) => {
-    if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
+    if (!req.session.loggedIn) return res.status(403).json({ msg: 'You are not logged in!' });
     const currentUser = await User.findByPk(req.session.UserId);
 
     try {
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-    if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
+    if (!req.session.loggedIn) return res.status(403).json({ msg: 'You are not logged in!' });
 
     try {
         await Category.destroy({ where: { id: req.params.id }});
