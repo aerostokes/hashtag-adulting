@@ -4,10 +4,13 @@ const brcrypt = require("bcrypt");
 
 class User extends Model{};
 User.init({
-    username: {
+    email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+            isEmail: true,
+        },
     },
     password: {
         type: DataTypes.STRING,
@@ -16,23 +19,17 @@ User.init({
             len: [8],
         },
     },
-    email: {
-        type: DataTypes.STRING,
-        validate: {
-            isEmail: true,
-        },
-    },
     mobile: {
         type: DataTypes.STRING,
         validate: {
             //TODO: add regexp for phone number
         },
     },
-    contact_email: {
+    contactEmail: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-    contact_text: {
+    contactText: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
