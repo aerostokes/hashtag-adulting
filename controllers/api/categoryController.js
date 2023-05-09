@@ -5,9 +5,15 @@ const { User, Category } = require('../../models');
 
 router.get("/", async (_, res) => {
     if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
+    const userId = req.session.UserId;
 
-    const currentUser = await User.findByPk(req.session.UserId);
-    const categories = await currentUser.getCategories();
+    // const currentUser = await User.findByPk(UserId);
+    // const categories = await currentUser.getCategories();
+
+    // const currentUser = await User.findByPk(userId, {include: Category});
+    // const categories = currentUser.Categories;
+
+    const categories = await Category.findAll({ where: { UserId: userId }});
 
     if (categories.length === 0) {
         return res.status(404).json({ msg: "No Categories found" });
@@ -35,10 +41,10 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
-    
+
     try {
-        const id = await Category.destroy({ where: { id: req.body.id }});
-        res.json({ msg: `Successfully deleted Category with ID: ${id}`});
+        await Category.destroy({ where: { id: req.params.id }});
+        res.json({ msg: `Successfully deleted Category with ID: ${req.params.id}`});
     } catch (error) {
         res.status(500).json({ msg: "Error Occurred", error });
     }
