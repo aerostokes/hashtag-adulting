@@ -10,13 +10,11 @@ module.exports = Category.init(
             allowNull: false,
         },
         emoji: {
-            type: DataTypes.STRING(255),
+            type: DataTypes.STRING(2),
         },
         color: {
             type: DataTypes.STRING,
         },
-
-
     }, 
     { sequelize },
 );
