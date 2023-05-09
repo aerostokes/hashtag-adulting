@@ -19,7 +19,6 @@ Reminder.init({
     },
     timePeriod: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     nextDue: {
         type: DataTypes.DATEONLY,
