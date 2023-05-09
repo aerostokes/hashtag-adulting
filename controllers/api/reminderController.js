@@ -77,16 +77,15 @@ router.put("/:id", async (req, res) => {
         return res.status(403).json({ msg: "Login required" }); 
     };
     try {
-        const reminderObj = await Reminder.findByPk(req.params.id, { include: Category });
-        if (!reminderObj) {
+        const reminderEntry = await Reminder.findByPk(req.params.id, { include: Category });
+        if (!reminderEntry) {
             return res.status(404).json({ msg: "ReminderId not found" });
-        } else if (req.session.UserId !== reminderObj.Category.UserId) {
+        } else if (req.session.UserId !== reminderEntry.Category.UserId) {
             return res.status(403).json({ msg: "Not authorized for this UserId" });
+        } else {
+            await reminderEntry.update(req.body);
+            return res.json({ msg: "Successfully updated" });
         };
-        await Reminder.update(req.body, { 
-            where: { id: req.params.id },
-        });
-        return res.json({ msg: "Successfully updated" });
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "Error Occurred", err });
@@ -99,16 +98,15 @@ router.delete("/:id", async (req, res) => {
         return res.status(403).json({ msg: "Login required" });
     };
     try {
-        const reminderObj = await Reminder.findByPk(req.params.id, { include: Category });
-        if (!reminderObj) {
+        const reminderEntry = await Reminder.findByPk(req.params.id, { include: Category });
+        if (!reminderEntry) {
             return res.status(404).json({ msg: "ReminderId not found" });
-        } else if (req.session.UserId !== reminderObj.Category.UserId) {
+        } else if (req.session.UserId !== reminderEntry.Category.UserId) {
             return res.status(403).json({ msg: "Not authorized for this UserId" });
+        } else {
+            await reminderEntry.destroy();
+            return res.json({ msg: "Successfully deleted" });
         };
-        await Reminder.destroy({ 
-            where: {id: req.params.id },
-        });
-        return res.json({ msg: "Successfully deleted" });
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "Error Occurred", err });
