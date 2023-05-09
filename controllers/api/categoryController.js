@@ -7,12 +7,15 @@ router.get("/", async (_, res) => {
     if (!req.session.loggedIn) return res.status(404).json({ msg: 'You are not logged in!' });
     const userId = req.session.UserId;
 
+    // !! slowest
     // const currentUser = await User.findByPk(UserId);
     // const categories = await currentUser.getCategories();
 
+    // !! slightly faster
     // const currentUser = await User.findByPk(userId, {include: Category});
     // const categories = currentUser.Categories;
 
+    // !! probably fastest
     const categories = await Category.findAll({ where: { UserId: userId }});
 
     if (categories.length === 0) {
