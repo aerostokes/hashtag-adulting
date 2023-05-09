@@ -1,4 +1,22 @@
-// fetch request to get all stickies for the loged in user
-// .then(data) => {
-// append to page 
-// }
+// Login Form
+const signupForm = document.querySelector("#login-form");
+signupForm.addEventListener("Login",e=>{
+    e.preventDefault();
+    const userObj = {
+        email:document.querySelector("#login-email").value,
+        password:document.querySelector("#login-password").value,
+    }
+    fetch("/api/user",{
+        method:"POST",
+        body:JSON.stringify(userObj),
+        headers:{
+            "Content-Type":"application/json"
+        }
+    }).then(res=>{
+        if(res.ok){
+           location.href = "/"
+        } else {
+            alert("trumpet sound")
+        }
+    })
+})
