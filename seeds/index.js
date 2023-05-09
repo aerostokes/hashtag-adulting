@@ -8,13 +8,13 @@ const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 const usersArr = [
     {
         email: "user1@email.com",
-        password: "password1",
+        password: "password",
         mobile: "123-456-1111",
         contact_email: true,
         contact_text: false,
     },{
         email: "user2@email.com",
-        password: "password2",
+        password: "password",
         mobile: "123-456-2222",
         contact_email: false,
         contact_text: true,

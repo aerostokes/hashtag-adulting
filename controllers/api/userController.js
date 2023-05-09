@@ -89,7 +89,7 @@ router.put("/:id", (req, res) => {
     } else {
         User.update(req.body, {
             where: { id: req.params.id },
-        }).then(userArr => {
+        }).then(() => {
             return res.json({ msg: "Successfully updated" });
         }).catch(err => {
             console.log(err);
@@ -107,7 +107,7 @@ router.delete("/:id", (req, res) => {
     } else {
         User.destroy({
             where: { id: req.params.id },
-        }).then(userObj => {
+        }).then(() => {
             req.session.destroy();
             return res.json({ msg: "Successfully deleted" });
         }).catch(err => {
