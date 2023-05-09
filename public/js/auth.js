@@ -1,12 +1,12 @@
-// Login Form
-const signupForm = document.querySelector("#login-form");
-signupForm.addEventListener("Login",e=>{
+// signup form
+const loginForm = document.querySelector("#signup-form");
+loginForm.addEventListener("Submit", e=>{
     e.preventDefault();
-    const userObj = {
-        email:document.querySelector("#login-email").value,
-        password:document.querySelector("#login-password").value,
+    const userObj= {
+        email:document.querySelector("#email").value,
+        password:document.querySelector("#pass").value,
     }
-    fetch("/api/user",{
+    fetch("/api/user/login",{
         method:"POST",
         body:JSON.stringify(userObj),
         headers:{

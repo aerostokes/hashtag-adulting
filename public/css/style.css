@@ -1,6 +1,6 @@
-:root {
-  
-}   
+/* :root {
+         TODO add our colors.
+}    */
 
 /* Resets the box size of every element */
 * {
@@ -15,13 +15,59 @@
   }
   
   body {
+    background-image: url("../images/darkChalkBoard.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100%;
     line-height: 1;
     font-family: sans-serif;
+    margin-left: 1.5rem;
+    margin-right: 2rem;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
+  }
+
+  h1{
+    font-family: "iskra", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 1.5rem;
+    margin:20px;
+    color: rgb(232, 230, 230);
+  }
+
+  h2{
+    font-size: 47px;
+  font-family: "larken", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color:rgb(232, 230, 230);
+  margin-top: 25px;
+  margin-bottom: 8px;
+  }
+
+  h3{
+    font-size: 21px;
+    font-family: "larken", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color:rgb(232, 230, 230);
+    margin-bottom: 15px;
+    margin-top: 5px;
+    
+  }
+
+  p{
+    text-align: right;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 300;
+    font-style: normal;
+    color:rgb(232, 230, 230);
+  
+    line-height: 23px;
   }
   
   /* Matches the font of special elements to the rest of the page */
@@ -30,5 +76,87 @@
     font-size: 100%;
     font-family: inherit;
   }
+
+  header{
+    align-items: center;
+    height: 2.5rem;
+  }
+
+  main{
+    display:flex;
+    flex-direction: row;
+  }
   
-  
+ #chalkBoard{
+  /* border: 1px dashed grey; */
+  height: 20rem;
+  width:60%;
+ }
+
+
+ #bigSticky{
+  background-color: #F469F4;
+  /* border: 1px dashed grey; */
+  height: 22rem;
+  width: 22rem;
+ }
+
+ #catchPhrase{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 87%;
+  height: 100%;
+  margin-top: 15px;
+ }
+
+ #line{
+  border: none;
+  border-top: 1px solid rgb(232, 230, 230);
+  padding:10px;
+  width: 65%
+ }
+ 
+ #about{
+  height: 22rem;
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  }
+
+  #desk{
+    /* border: 1px dashed grey; */
+    width:100%;
+    height:13rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
+  #center{
+    display: flex;
+    flex-direction: row;
+  }
+
+  #allHome{
+    display: flex;
+    flex-direction: column;
+  }
+
+  #sticky{
+    height: 10rem;
+    width: 10rem;
+    border: 1px dashed grey;
+  }
+
+  #addCategory{
+    background-color:#38B7E3 ;
+    height: 10rem;
+    width: 10rem;
+    /* border: 1px dashed grey; */
+  }
+  #acc{
+    margin:5px;
+  }

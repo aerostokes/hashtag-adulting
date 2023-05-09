@@ -1,38 +1,96 @@
 const mysql = require("mysql2/promise");
 
 const sequelize = require("../config/connection");
-const { User, Category } = require("../models");
+const { User, Category, Reminder } = require("../models");
 
 const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-const USERS = [
+const usersArr = [
     {
-        username: "user1",
-        password: "password1",
         email: "user1@email.com",
+        password: "password",
         mobile: "123-456-1111",
         contact_email: true,
         contact_text: false,
     },{
-        username: "user2",
-        password: "password2",
         email: "user2@email.com",
+        password: "password",
         mobile: "123-456-2222",
         contact_email: false,
         contact_text: true,
     },
 ];
 
-const CATEGORIES = [
+const categoriesArr = [
     {
-        name: 'Car',
+        name: 'Car 1',
         emoji: '🚗',
         color: 'blue',
+        UserId: 1,
     },
     {
-        name: 'House',
+        name: 'House 1',
         emoji: '🏠',
         color: 'green',
+        UserId: 1,
+    },    
+    {
+        name: 'Car 2',
+        emoji: '🚙',
+        color: 'yellow',
+        UserId: 2,
+    },
+    {
+        name: 'House 2',
+        emoji: '🏡',
+        color: 'pink',
+        UserId: 2,
+    },
+];
+
+const remindersArr = [
+    {
+        task: "Oil change 1",
+        lastDone: 2023-01-01,
+        isRecurring: true,
+        numPeriods: 3,
+        timePeriod: "month",
+        nextDue: 2023-04-01,
+        note: "",
+        CategoryId: 1,
+    },{
+        task: "Rotate tires 1",
+        lastDone: 2023-01-01,
+        isRecurring: true,
+        numPeriods: 6,
+        timePeriod: "month",
+        nextDue: 2023-07-01,
+        note: "",
+        CategoryId: 1,
+    },{
+        task: "Rotate tires 3",
+        lastDone: 2023-06-01,
+        isRecurring: true,
+        numPeriods: 6,
+        timePeriod: "month",
+        nextDue: 2023-12-01,
+        note: "",
+        CategoryId: 3,
+    },{
+        task: "Check smoke detector batteries",
+        lastDone: 2023-01-01,
+        isRecurring: true,
+        numPeriods: 1,
+        timePeriod: "year",
+        nextDue: 2023-12-01,
+        note: "",
+        CategoryId: 2,
+    },{
+        task: "Paint the deck",
+        isRecurring: false,
+        nextDue: 2023-12-01,
+        note: "one time task",
+        CategoryId: 2,
     },
 ];
 
@@ -51,14 +109,11 @@ const startSeedin = async () => {
 
         await sequelize.sync({ force: true });
 
-        const users = await User.bulkCreate(USERS, { individualHooks: true });
+        await User.bulkCreate(usersArr, { individualHooks: true });
+        await Category.bulkCreate(categoriesArr);
+        await Reminder.bulkCreate(remindersArr);
 
-        for (let i = 0; i < users.length; i++) {
-            await users[i].createCategory(CATEGORIES[0]);
-            await users[i].createCategory(CATEGORIES[1]);
-        }
-
-        console.log("Seeded Users and Categories");
+        console.log("Seeded Users, Categories and Reminders");
         process.exit(0);
     } catch(err) {
         console.log(err);
@@ -66,3 +121,4 @@ const startSeedin = async () => {
 };
 
 startSeedin();
+
