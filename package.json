@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "seed": "node seeds"
+    "seed": "node seeds",
+    "buildTemplates": "node templates"
   },
   "repository": {
     "type": "git",
