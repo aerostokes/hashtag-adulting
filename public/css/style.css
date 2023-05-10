@@ -102,10 +102,15 @@
 
 
  #bigSticky{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:first baseline;
   background-color: #F469F4;
   /* border: 1px dashed grey; */
   height: 22rem;
   width: 22rem;
+  padding: 20px;
  }
 
  #catchPhrase{
@@ -271,4 +276,41 @@ font-size: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#logHead{
+color: black
+}
+#logTitle{
+  margin-top: 35px;
+  color: rgb(57, 56, 56);
+  font-weight: 900;
+}
+#login-form{
+ display: flex;
+  flex-direction: column;
+}
+
+input{
+  height: 35px;
+  border: 2px solid rgb(129, 128, 128);
+  border-radius: 6px;
+  margin: 0 0 5px 0;
+}
+
+label{
+  font-size: 12px;
+  color: rgb(77, 76, 76);
+  margin:3px;
+}
+
+#logBtn{
+  font-family: "larken", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+margin-top: 15px;
+padding: 5px 10px 5px 10px;
+font-size: 18px;
+color: rgb(181, 178, 178);
+border-radius: 15px;
 }

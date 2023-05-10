@@ -16,11 +16,16 @@
     </section>
 
     <aside id="bigSticky">
-      <h3>Login</h3>
+      <div id="logHead">
+        <h3 id="logTitle">Login</h3>
+      </div>
+      
       <form action="" id="login-form">
-        <input type="email" placeholder="email" id="login-email">
-        <input type="password" placeholder="password" id="login-password">
-        <button>Login</button>
+        <label for="login-email">email</label>
+        <input type="email" id="login-email">
+        <label for="login-password">password</label>
+        <input type="password"id="login-password">
+        <button id="logBtn">Login</button>
       </form>
 
       <script src="/js/script.js"></script>
