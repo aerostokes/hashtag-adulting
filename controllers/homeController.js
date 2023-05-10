@@ -13,5 +13,9 @@ router.get("/wizard", (req, res) => {
     res.render('../views/wizard.handlebars');
 });
 
+router.get("/signup", (req, res) => {
+    res.render('../views/signup.handlebars')
+})
+
 
 module.exports = router;
