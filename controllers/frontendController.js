@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User, Category, Reminder, TemplateCategory, TemplateReminder } = require("../models")
-
+const bcrypt = require("bcrypt");
 
 
 router.get("/", async (req, res) => {

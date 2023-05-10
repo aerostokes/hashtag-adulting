@@ -45,6 +45,8 @@ router.post("/", (req, res) => {
         contact_email: req.body.contact_email,
         contact_text: req.body.contact_text,
     }).then(userObj => {
+        req.session.UserId = userObj.id;
+        req.session.loggedIn = true;
         res.json({ msg: "Successfully created", userObj })
     }).catch(err => {
         console.log(err);
