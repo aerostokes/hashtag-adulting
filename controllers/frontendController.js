@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { User, Category, Reminder, TemplateCategory, TemplateReminder } = require("../models")
-const bcrypt = require("bcrypt");
 
 
 router.get("/", async (req, res) => {
@@ -31,37 +30,64 @@ router.get("/", async (req, res) => {
     
 });
 
-// Login
-router.post("/login", (req, res) => {
-    User.findOne({
-        where: { email: req.body.email },
-    }).then(userObj => {
-        if (!userObj) {
-            return res.status(401).json({ msg: "Invalid email/password" });
-        } else if (bcrypt.compareSync(req.body.password, userObj.password)) {
-            req.session.UserId = userObj.id;
-            req.session.loggedIn = true;
-            return res.json([
-                { msg: "Login successful" },
-                req.session,
-            ]);
-        } else {
-            return res.status(401).json({ msg: "Invalid email/password" });
-        };
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({ msg: "Error occurred", err });
-    });
-});
-
 // Logout
-router.get("/logout", (req, res) => {
-    req.session.destroy();
-    res.redirect("/")
+router.get("/logout", async (req, res) => {
+    await req.session.destroy();
+    return res.redirect("/")
 });
 
-router.get("/dashboard", (req, res) => {
-    res.render('../views/dashboard.handlebars');
+router.get("/dashboard", async (req, res) => {
+    try {
+        if (!req.session.loggedIn) {
+            res.redirect("/");
+        } else {
+            const categoriesData = await Category.findAll({ 
+                where: { UserId: req.session.UserId },
+                include: Reminder,
+            });
+            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
+            if (categoriesArr.length == 0) {
+                res.redirect("/wizard")
+            } else {
+                return res.render('../views/dashboard.handlebars', {
+                    sticky: categoriesArr,
+                    loggedIn: true,
+                    bigSticky: categoriesArr[0],
+                });
+            };
+        };
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ msg: "Error Occurred", err });
+    };
+});
+
+router.get("/dashboard/:id", async (req, res) => {
+    console.log(req.params.id);
+    try {
+        if (!req.session.loggedIn) {
+            return res.redirect("/");
+        } else {
+            const categoriesData = await Category.findAll({ 
+                where: { UserId: req.session.UserId },
+                include: Reminder,
+            });
+            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
+            const bigStickyArr = categoriesArr.filter(cateogryObj => cateogryObj.id === parseInt(req.params.id));
+            if (bigStickyArr.length == 0) {
+                return res.redirect("/dashboard")
+            } else {
+                return res.render('../views/dashboard.handlebars', {
+                    loggedIn: true,
+                    sticky: categoriesArr,
+                    bigSticky: bigStickyArr[0],
+                });
+            };
+        };
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ msg: "Error Occurred", err });
+    };
 });
 
 router.get("/wizard", (req, res) => {

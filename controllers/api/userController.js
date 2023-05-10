@@ -20,7 +20,6 @@ router.get("/", (req, res) => {
     });
 });
 
-
 // Get User by id
 router.get("/:id", (req, res) => {
     User.findByPk(req.params.id)
@@ -33,6 +32,26 @@ router.get("/:id", (req, res) => {
     }).catch(err => {
         console.log(err);
         res.status(500).json({ msg: "Error Occurred", err });
+    });
+});
+
+// Login
+router.post("/login", (req, res) => {
+    User.findOne({
+        where: { email: req.body.email },
+    }).then(userObj => {
+        if (!userObj) {
+            return res.status(401).json({ msg: "Invalid email/password" });
+        } else if (bcrypt.compareSync(req.body.password, userObj.password)) {
+            req.session.UserId = userObj.id;
+            req.session.loggedIn = true;
+            return res.json({ msg: "Login successful" });
+        } else {
+            return res.status(401).json({ msg: "Invalid email/password" });
+        };
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({ msg: "Error occurred", err });
     });
 });
 
