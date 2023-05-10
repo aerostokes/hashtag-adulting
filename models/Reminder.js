@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 
 const sequelize = require("../config/connection");
-const { sendMail, scheduleJob, getJobByName } = require("../services");
+const { sendMail, scheduleJob, cancleJob } = require("../services");
 
 class Reminder extends Model {}
 
@@ -34,6 +34,7 @@ Reminder.init({
     hooks: {
         afterCreate: handleAfterCreateAndUpdate,
         afterUpdate: handleAfterCreateAndUpdate,
+        beforeDestroy: handleBeforeDestroy,
     }
 });
 
@@ -48,6 +49,10 @@ async function handleAfterCreateAndUpdate(reminder) {
         new Date(reminder.nextDue),
         () => sendMail(user.email, reminder.note),
     );
+}
+
+function handleBeforeDestroy(reminder) {
+    cancelJob(`${reminder.id}`);
 }
 
 module.exports = Reminder;
