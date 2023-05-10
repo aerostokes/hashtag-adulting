@@ -224,13 +224,13 @@ li{
   display: flex;
   justify-content: center;
   align-items: center;
-  height:60px;
-  width:60px;
-  font-size: 2rem;
+  height:50px;
+  width:50px;
+  font-size: 29px;
   text-align: center;
-  border: 1px solid white;
+  border: 1px solid rgb(117, 115, 115);
   border-radius: 50px;
-  background-color: white;
+  background-color: rgb(250, 249, 249);
   margin-bottom: 10px;
 }
 #stickHead{
@@ -242,13 +242,16 @@ li{
 
 }
 button{
-  font-size: 1.5rem;
-  background-color: black;
-  color:white;
-  border-style: none;
-  border-radius: 2px;
-  padding: 5px 15px 5px 15px;
-  margin: 2px;
+  font-family: "larken", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+margin-top: 15px;
+padding: 5px 10px 5px 10px;
+font-size: 18px;
+color: rgb(181, 178, 178);
+border-radius: 15px;
+background-color: rgb(41, 41, 41);
+border-style: none;
 }
 #reminders{
   font-size: 20px;
@@ -258,7 +261,8 @@ button{
 }
 
 .bigStickyTitle{
-font-size: 4rem;
+font-size: 3rem;
+color:rgb(41, 41, 41);
 }
 
 #remindList{
