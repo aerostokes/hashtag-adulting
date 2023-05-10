@@ -1,9 +1,5 @@
-const mysql = require("mysql2/promise");
-
 const sequelize = require("../config/connection");
 const { User, Category, Reminder } = require("../models");
-
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const usersArr = [
     {
@@ -96,17 +92,6 @@ const remindersArr = [
 
 const startSeedin = async () => {
     try {
-        const db = await mysql.createConnection({
-            host: DB_HOST,
-            user: DB_USER,
-            password: DB_PASSWORD,
-        });
-
-        await db.connect();
-        await db.query(`CREATE DATABASE IF NOT EXISTS ${DB_NAME}`);
-        
-        db.destroy();
-
         await sequelize.sync({ force: true });
 
         await User.bulkCreate(usersArr, { individualHooks: true });

@@ -1,28 +1,26 @@
 const { TemplateCategory, TemplateReminder } = require("../models");
 
 
-//----------------------------------------------------------------
-// Enter Template Info Here
+// Customize Template Info Here: ----------------------------------
 const templateRemindersArr = [
     {
         task: "Check smoke detector batteries",
         isRecurring: true,
         numPeriods: 1,
         timePeriod: "year",
-        note: "",
     },{
         task: "Change filters",
         isRecurring: true,
         numPeriods: 6,
         timePeriod: "month",
-        note: "",
     },
 ];
 
 const templateCategoryObj = {
         name: 'House',
         emoji: '🏠',
-        color: 'yellow',
+        color: 'blue',
+        // choose from: blue, yel-grn, pink, teal, yellow, magenta
         TemplateReminders: templateRemindersArr
     };
 //----------------------------------------------------------------
