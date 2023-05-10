@@ -6,7 +6,7 @@ loginForm.addEventListener("Submit", e=>{
         email:document.querySelector("#email").value,
         password:document.querySelector("#pass").value,
     }
-    fetch("/api/user/login",{
+    fetch("/api/users/",{
         method:"POST",
         body:JSON.stringify(userObj),
         headers:{
@@ -20,3 +20,4 @@ loginForm.addEventListener("Submit", e=>{
         }
     })
 })
+
