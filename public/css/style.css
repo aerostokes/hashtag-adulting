@@ -19,7 +19,14 @@
   html {
     height: 100%;
   }
-  
+
+  a {
+    color: inherit; 
+    text-decoration: none; 
+  }
+  a:hover{
+    color: var(--blue-sticky)
+  }
   body {
     background-image: url("../images/darkChalkBoard.jpg");
     background-position: center;
@@ -250,7 +257,7 @@ li{
 }
 
 #emoji{
-  box-shadow: 0 0 12px -5px black;
+  box-shadow: 0 0 12px -5px rgb(251, 250, 250);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,7 +265,7 @@ li{
   width:70px;
   font-size: 29px;
   text-align: center;
-  border: 2px solid rgb(207, 206, 206);
+  border: 1px solid rgb(200, 198, 198);
   border-radius: 50px;
   background-color: rgb(250, 249, 249);
   margin-bottom: 10px;
@@ -350,3 +357,61 @@ color: rgb(181, 178, 178);
 border-radius: 15px;
 }
 
+#categoryArr{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 30px 0 30px 0;
+
+}
+
+.checkbox{
+  height: 2rem;
+  width: 2rem;
+  margin:0;
+ 
+}
+
+.wizLab{
+ 
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 20px;
+  background-color: rgb(45, 45, 45);
+  color:azure;
+  border-radius: 2px;
+  border: 1px solid black;
+  margin: 0;
+  width:100%;
+  padding-right: 5px;
+  line-height: 2rem;
+  
+}
+.checkCat{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top:5px;
+  margin-bottom:5px;
+  justify-content: flex-end;
+  
+}
+input[type="checkbox"] {
+  /* define the appearance of the unchecked checkbox */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color:  #c1c3c1;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+  border-radius: 20px;
+  
+}
+
+input[type="checkbox"]:checked {
+  /* define the appearance of the checked checkbox */
+  background-color: var(--blue-sticky);
+  border-color: var(--blue-sticky);
+}
