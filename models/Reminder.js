@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
+const { sendMail, scheduleJob } = require("../services");
 
 class Reminder extends Model{};
 Reminder.init({
@@ -28,6 +29,16 @@ Reminder.init({
     },
 },{
     sequelize,
+    hooks: {
+        afterCreate: (reminder) => {
+            scheduleJob(
+                // TODO: replace with actual date
+                new Date(),
+                // TODO: get user's actual email address
+                () => sendMail('example@example.com', reminder.note),
+            );
+        }
+    }
 });
 
 module.exports = Reminder;
