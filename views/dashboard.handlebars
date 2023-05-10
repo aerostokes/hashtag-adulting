@@ -18,21 +18,20 @@
       </div>
     </section>
 
-    <aside id="biggerSticky">
+    <aside id="biggerSticky" data-CategoryId={{bigSticky.id}} style="background-color:{{bigSticky.color}}">
       <div id="stickHead">
-        <h4 id="name" class="bigStickyTitle">House</h4>
-        <h4 id="emoji">🏠</h4>
+        <h4 id="name" class="bigStickyTitle">{{bigSticky.name}}</h4>
+        <h4 id="emoji">{{bigSticky.emoji}}</h4>
       </div>
       <div id="remindList">
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
+          {{#each bigSticky.Reminders as |reminder|}}
+            <li class="reminders" data-id="{{id}}">{{task}} - due: {{nextDue}} 
+              {{#if isRecurring}} 
+              <i>every {{numPeriods}} {{timePeriod}}(s)</i>
+              {{/if}}
+            </li>
+          {{/each}}
+
 
       </div>
 
@@ -42,21 +41,16 @@
 
     </aside>
   </section>
-  <section id="desk">
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+    {{#each sticky}}
+      {{>sticky}}
+    {{/each}}
+
     <div id="addCategory">
-      <h5 id="acc">Add Custom Category</h5>
+      <h5>➕</h5>
+      <h5 id="acc">Add New Category</h5>
     </div>
+
+    <script src="/js/desk.js"></script>
   </section>
 </section>
