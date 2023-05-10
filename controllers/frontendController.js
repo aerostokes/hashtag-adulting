@@ -17,5 +17,9 @@ router.get("/signup", (req, res) => {
     res.render('../views/signup.handlebars')
 })
 
+router.get("/category-editor", (req, res) => {
+    res.render('../views/category-editor.handlebars')
+})
+
 
 module.exports = router;
