@@ -1,6 +1,12 @@
-/* :root {
-         TODO add our colors.
-}    */
+:root {
+  --blue-sticky: #38B7E3;
+  --Yel-Grn-sticky: #D8F226;
+  --pink-sticky: #FF478D;
+  --teal-sticky: #9AD8DA;
+  --yellow-sticky: #FFCA21;
+  --magenta-sticky: #F469F4;
+
+}   
 
 /* Resets the box size of every element */
 * {
@@ -134,6 +140,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-end;
+    flex-wrap: wrap;
   }
 
   #center{
@@ -152,12 +159,14 @@
     height: 10rem;
     width: 10rem;
     border: 1px dashed grey;
+    margin: 20px 10px 20px 10px;
   }
 
   #addCategory{
     background-color:#38B7E3 ;
     height: 10rem;
     width: 10rem;
+    margin: 20px 10px 20px 10px;
     /* border: 1px dashed grey; */
   }
   #acc{
@@ -169,13 +178,16 @@
     width: 75%;
     margin-left: 40px;
   }
+
+  #chalkHeader{
+    font-size: 1rem;
+  }
   
   #biggerSticky{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     padding: 30px;
-    background-color: #F469F4;
+    background-color: var(--pink-sticky);
   /* border: 1px dashed grey; */
     height: 29rem;
     width: 50rem;
@@ -202,62 +214,61 @@ li{
   margin-left:10px;
   text-align: left;
 }
-#taskList{
-  max-height: 29rem;
-  height: 100%;
-  width: 100%;
-  border: 1px dashed grey;
-  margin: 20px
-}
+
 #emoji{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:60px;
+  width:60px;
   font-size: 2rem;
-  padding: 5px;
-  border: 3px solid rgb(3, 3, 3);
-  border-radius: 2px;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 50px;
+  background-color: white;
+  margin-bottom: 10px;
 }
 #stickHead{
+  margin: 0 30px 0 30px;
   display: flex;
   flex-direction: row;
-  align-items:center;
+  justify-content: space-between;
+  height: 5rem;
 
 }
 button{
+  font-size: 1.5rem;
   background-color: black;
   color:white;
   border-style: none;
   border-radius: 2px;
-  padding: 5px 10px 5px 10px;
-  margin: 25px;
+  padding: 5px 15px 5px 15px;
+  margin: 2px;
 }
 #reminders{
-  margin: 10px;
+  font-size: 20px;
+  font-weight: 900;
   color: black;
   
 }
 
 .bigStickyTitle{
-  margin:0 0 30px 30px;
-  font-family: "grenadine-mvb", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 4rem;
+font-size: 4rem;
 }
 
 #remindList{
+  height: 22rem;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  justify-content:flex-start;
+  align-items: center;
+  margin: 15px 40px 5px 40px
+
 }
 
 #btn{
+  height:2rem;
   display: flex;
   justify-content: center;
-}
-
-#listCenter{
-  height:200px;
-  width:100%;
-  display: flex;
-  justify-content: center;
-  align-items:center
+  align-items: center;
 }
