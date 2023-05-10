@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const homeRoutes = require("./homeController");
+const frontendRoutes = require("./frontendController");
 const apiRoutes = require("./api");
 
 
 router.use("/api", apiRoutes);
-router.use("/", homeRoutes);
+router.use("/", frontendRoutes);
 
 
 
