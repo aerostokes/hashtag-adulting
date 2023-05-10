@@ -200,7 +200,7 @@
   }
 
   #chalkHeader{
-    font-size: 1rem;
+    font-size: 2rem;
   }
   
   #biggerSticky{
@@ -250,6 +250,7 @@ li{
 }
 
 #emoji{
+  box-shadow: 0 0 12px -5px black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -257,7 +258,7 @@ li{
   width:70px;
   font-size: 29px;
   text-align: center;
-  border: 2px solid rgb(184, 183, 183);
+  border: 2px solid rgb(207, 206, 206);
   border-radius: 50px;
   background-color: rgb(250, 249, 249);
   margin-bottom: 10px;
@@ -278,7 +279,7 @@ button{
 margin-top: 15px;
 padding: 5px 10px 5px 10px;
 font-size: 18px;
-color: rgb(181, 178, 178);
+color: rgb(191, 189, 189);
 border-radius: 15px;
 background-color: rgb(41, 41, 41);
 border-style: none;
@@ -348,3 +349,4 @@ font-size: 18px;
 color: rgb(181, 178, 178);
 border-radius: 15px;
 }
+
