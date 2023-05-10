@@ -53,6 +53,7 @@ router.post("/", (req, res) => {
 
 // Login
 router.post("/login", (req, res) => {
+    res.render("signUp")
     User.findOne({
         where: { email: req.body.email },
     }).then(userObj => {
