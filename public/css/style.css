@@ -111,7 +111,22 @@
   height: 22rem;
   width: 22rem;
   padding: 15px;
+  animation-name: shrink;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  margin-right: 50px;
+
  }
+ @keyframes shrink {
+  from { /* start state of the animation */
+    width: 50rem;
+    height: 29rem;
+  }
+  to { /* end state of the animation */
+    width: 22rem;
+    height: 22rem;
+  }
+}
 
  #catchPhrase{
   display: flex;
@@ -194,10 +209,23 @@
     padding: 10px;
     padding-bottom: 40px;
     background-color: var(--blue-sticky);
-  /* border: 1px dashed grey; */
+    margin-right: 50px;
     height: 29rem;
     width: 50rem;
+    animation-name: grow;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
     
+}
+@keyframes grow {
+  from { /* start state of the animation */
+    width: 22rem;
+    height: 22rem;
+  }
+  to { /* end state of the animation */
+    width: 50rem;
+    height: 29rem;
+  }
 }
 
 ol{
