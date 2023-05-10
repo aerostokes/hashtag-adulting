@@ -31,6 +31,7 @@ Reminder.init({
     sequelize,
     hooks: {
         afterCreate: (reminder) => {
+            // TODO: determine whether this is best location to schedule the email
             scheduleJob(
                 // TODO: replace with actual date
                 new Date(),
