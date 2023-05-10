@@ -2,7 +2,8 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 const { sendMail, scheduleJob } = require("../services");
 
-class Reminder extends Model{};
+class Reminder extends Model {}
+
 Reminder.init({
     task: {
         type: DataTypes.STRING,
@@ -30,13 +31,13 @@ Reminder.init({
 },{
     sequelize,
     hooks: {
-        afterCreate: (reminder) => {
-            // TODO: determine whether this is best location to schedule the email
+        afterCreate: async (reminder) => {
+            const category = await reminder.getCategory();
+            const user = category.getUser();
+
             scheduleJob(
-                // TODO: replace with actual date
-                new Date(),
-                // TODO: get user's actual email address
-                () => sendMail('example@example.com', reminder.note),
+                new Date(reminder.nextDue),
+                () => sendMail(user.email, reminder.note),
             );
         }
     }
