@@ -1,0 +1,53 @@
+<section id="allHome">
+  <section id="center">
+    <section id="chalkBoard">
+      <div id="nextUp">
+        <h2 id="chalkHeader">Up next...</h2>
+        <span id="lineDash"></span>
+        <ol id="nextTasks">
+          {{#each chalkBoard}}
+            <li class="task" data-ReminderId={{id}} {{#if overdue}}style="color:red"{{/if}}>{{Category.name}}: {{task}} - due: {{nextDue}}</li>
+          {{/each}}
+        </ol>
+
+      </div>
+    </section>
+
+    <aside id="biggerSticky" data-CategoryId={{bigSticky.id}} style="background-color:{{bigSticky.color}}">
+      <div id="stickHead">
+        <h4 id="name" class="bigStickyTitle">{{bigSticky.name}}</h4>
+        <h4 id="emoji">{{bigSticky.emoji}}</h4>
+      </div>
+      <ol id="remindList">
+          {{#each bigSticky.Reminders as |reminder|}}
+            <li class="reminders" data-ReminderId="{{id}}">{{task}} - due: {{nextDue}}
+              {{#if isRecurring}} 
+              <i>  every {{numPeriods}} {{timePeriod}}(s)</i>
+              {{/if}}
+              {{#if note}} 
+                  ({{note}})
+              {{/if}}
+            </li>
+
+          {{/each}}
+      </ol>
+      <div id="btn">;
+        <button id="addTask">+ Add Task</button>
+      </div>
+
+    </aside>
+  </section>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+    {{#each sticky}}
+      {{>sticky}}
+    {{/each}}
+
+    <div id="addCategory">
+      <h5>➕</h5>
+      <h5 id="acc">Add New Category</h5>
+    </div>
+
+    <script src="/js/desk.js"></script>
+  </section>
+      <script src="/js/dashboard.js"></script>
+</section>

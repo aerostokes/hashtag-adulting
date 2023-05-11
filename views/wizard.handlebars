@@ -1,0 +1,41 @@
+<section id="allHome">
+  <section id="center">
+    <section id="chalkBoard">
+      <div id="nextUp">
+        <h2 id="chalkHeader">Select the categories you wish to add:</h2>
+        <span id="lineDash"></span>
+        <ul id="categoryArr">
+          {{#each chalkBoard as |templateCategory| }}
+            <div class="checkCat">
+                <input type="checkbox" id="categoryName{{id}}" data-templateCategoryId={{id}} class="checkbox">
+                <label for="categoryName{{id}}" class="wizLab">{{name}}</label>
+          </div>
+          {{/each}}
+        </ul>
+        <div id="wizBtn">
+            <button id="save">Save</button>
+            <button id="cancel">Cancel</button>
+        </div>
+
+      </div>
+    </section>
+
+    <aside id="biggerSticky">
+      <div id="stickHead">
+      </div>
+      <ul id="remindList">
+      </ul>
+
+
+    </aside>
+  </section>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+    {{#each sticky}}
+      {{>sticky}}
+    {{/each}}
+    <script src="/js/desk.js"></script>
+  </section>
+  </section>
+  
+  <script src="/js/wizard.js"></script>
+</section>

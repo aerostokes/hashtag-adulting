@@ -1,0 +1,43 @@
+<section id="allHome">
+  <section id="center">
+    <section id="chalkBoard">
+      <div id="catchPhrase">
+        <h2>Adulting made easy:</h2>
+        <h3>Hassle-free reminders for your busy life.</h3>
+        <span id="line"></span>
+        <div id="about">
+          <p>
+            With easy-to-use reminders for everything from changing air filters
+            to getting your oil changed, #Adulting makes it easy to stay on
+            track and avoid costly repairs down the line. Download #Adulting
+            today and take the first step towards stress-free maintenance!</p>
+        </div>
+      </div>
+    </section>
+
+    <aside id="bigSticky">
+      <div id="logHead">
+        <h3 id="logTitle">Login</h3>
+      </div>
+      
+      <form action="" id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="login-email">
+        <label for="password">Password:</label>
+        <input type="password" id="login-password">
+        <button id="login-button">Login</button>
+        <a id="sI" href="/signup">Sign Up</a>
+      </form>
+
+      <script src="/js/login.js"></script>
+
+    </aside>
+  </section>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+      {{#each sticky}}
+        {{>sticky}}
+      {{/each}}
+
+      <script src="/js/desk.js"></script>
+  </section>
+</section>
