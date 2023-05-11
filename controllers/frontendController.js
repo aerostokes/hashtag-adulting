@@ -20,8 +20,6 @@ router.get("/", async (req, res) => {
         console.log(err);
         res.status(500).json({ msg: "Error Occurred", err });
     };
-
-    
 });
 
 // Logout
@@ -53,7 +51,6 @@ router.get("/dashboard", async (req, res) => {
 });
 
 router.get("/dashboard/:id", async (req, res) => {
-    console.log(req.params.id);
     try {
         if (!req.session.loggedIn) {
             return res.redirect("/");
@@ -83,7 +80,7 @@ router.get("/dashboard/:id", async (req, res) => {
                     loggedIn: true,
                     sticky: categoriesArr,
                     bigSticky: bigStickyArr[0],
-                    upNext: priorityArr,
+                    chalkBoard: priorityArr,
                 });
             };
         };
@@ -93,8 +90,29 @@ router.get("/dashboard/:id", async (req, res) => {
     };
 });
 
-router.get("/wizard", (req, res) => {
-    res.render('../views/wizard.handlebars');
+router.get("/wizard", async (req, res) => {
+    try {
+        if (!req.session.loggedIn) {
+            return res.redirect("/");
+        } else {
+            const categoriesData = await Category.findAll({ 
+                where: { UserId: req.session.UserId },
+            });
+            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
+            const templateCategoriesData = await TemplateCategory.findAll();
+            const templateCategoriesArr = templateCategoriesData.map(templateCategoryObj => templateCategoryObj.get({ plain: true }));
+            console.log(templateCategoriesArr);
+            return res.render('../views/wizard.handlebars', {
+                loggedIn: true,
+                sticky: categoriesArr,
+                chalkBoard: templateCategoriesArr,
+            });
+        };
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ msg: "Error Occurred", err });
+    };
+
 });
 
 router.get("/signup", (req, res) => {
