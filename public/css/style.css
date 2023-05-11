@@ -341,7 +341,7 @@ color: black
   color: rgb(57, 56, 56);
   font-weight: 900;
 }
-#login-form{
+#login-form, #signup-form{
  display: flex;
   flex-direction: column;
 }
@@ -523,8 +523,8 @@ input[type="radio"]:checked {
   
 }
 
-.emojiBox{
-width:30px;
+#emojiBox{
+width:2rem;
 }
 
 #create{
