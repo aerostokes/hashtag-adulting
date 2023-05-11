@@ -138,7 +138,6 @@ main {
 }
 
 #chalkBoard {
-  /* border: 1px dashed grey; */
   width: 60%;
 }
 
@@ -215,19 +214,41 @@ main {
 }
 
 #sticky {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   height: 10rem;
   width: 10rem;
-  border: 1px dashed grey;
   margin: 20px 10px 20px 10px;
 }
 
+#lStickEmoj{
+  margin:5px;
+justify-content: center;
+align-self: center;
+font-size:40px;
+}
+#lStickText{
+  text-align: center;
+  font-size: 20px;
+  margin:5px;
+  justify-content: center;
+  align-self: center;
+  color: rgb(57, 56, 56);
+}
+
 #addCategory {
-  background-color: #38b7e3;
+  display: flex;
+  justify-content: center;
+  background-color: #bcadff;
   height: 10rem;
   width: 10rem;
   margin: 20px 10px 20px 10px;
 }
-#acc {
+.acc {
+  padding-top: 15px;
+  color: rgb(57, 56, 56);
+  font-size: 20px;
   margin: 5px;
 }
 
@@ -426,7 +447,7 @@ label {
   margin-bottom: 5px;
   justify-content: flex-end;
 }
-input[class="checkCircle"] {
+.checkCircle {
   /* define the appearance of the unchecked checkbox */
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -438,7 +459,7 @@ input[class="checkCircle"] {
   border-radius: 20px;
 }
 
-input [class="checkCircle"]:checked {
+.checkCircle:checked {
   /* define the appearance of the checked checkbox */
   background-color: var(--blue-sticky);
   border-color: var(--blue-sticky);
@@ -563,6 +584,8 @@ input[type="radio"]:checked {
 .color6 {
   color: var(--Yel-Grn-sticky);
 }
+
+
 
 /* MEDIA QUERIES */
 
