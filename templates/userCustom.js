@@ -11,12 +11,14 @@ const templateRemindersArr = [
         timePeriod: "month",
     },{
         task: "Your Task 2",
-        isRecurring: false,
+        isRecurring: true,
+        numPeriods: 1,
+        timePeriod: "year",
     },
 ];
 
 const templateCategoryObj = {
-        name: "Build Your Own Cateogry",
+        name: "Build Your Own",
         emoji: "🛠️",
         color: "#FFCA21",
         // choose from: #38B7E3, #D8F226, #FF478D, #9AD8DA, #FFCA21, #F469F4

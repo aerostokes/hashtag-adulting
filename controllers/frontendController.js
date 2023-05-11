@@ -14,21 +14,12 @@ router.get("/", async (req, res) => {
                 loggedIn: false,
             });
         } else {
-            const categoriesData = await Category.findAll({ 
-                where: { UserId: req.session.UserId },
-            });
-            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
-            return res.render('../views/home.handlebars', {
-                sticky: categoriesArr,
-                loggedIn: true
-            });
+            return res.redirect("/dashboard")
         };
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "Error Occurred", err });
     };
-
-    
 });
 
 // Logout
@@ -40,34 +31,17 @@ router.get("/logout", async (req, res) => {
 router.get("/dashboard", async (req, res) => {
     try {
         if (!req.session.loggedIn) {
-            res.redirect("/");
+            return res.redirect("/");
         } else {
             const categoriesData = await Category.findAll({ 
-                where: { UserId: req.session.UserId },
-                include: { 
-                    model: Reminder,
-                    include: Category,
-                }
+                where: { UserId: req.session.UserId }
             });
             const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
             if (categoriesArr.length == 0) {
-                res.redirect("/wizard")
+                return res.redirect("/wizard");
             } else {
-                const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
-                remindersArr.forEach(reminderObj => {
-                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MMM DD, YY")
-                });
-                const priorityArr = remindersArr.filter(reminderObj => dayjs(reminderObj.nextDue).isBefore(dayjs().add(2,"week")))
-                priorityArr.sort((a,b) => dayjs(a.nextDue).diff(dayjs(b.nextDue)));
-                priorityArr.forEach(reminderObj => {
-                    if (dayjs(reminderObj.nextDue).isBefore(dayjs().add(1,"day"))) { reminderObj.overdue = true }
-                });
-                return res.render('../views/dashboard.handlebars', {
-                    sticky: categoriesArr,
-                    loggedIn: true,
-                    bigSticky: categoriesArr[0],
-                    upNext: priorityArr,
-                });
+                const firstCategoryId = categoriesArr[0].id;
+                return res.redirect(`/dashboard/${firstCategoryId}`)
             };
         };
     } catch(err) {
@@ -77,7 +51,6 @@ router.get("/dashboard", async (req, res) => {
 });
 
 router.get("/dashboard/:id", async (req, res) => {
-    console.log(req.params.id);
     try {
         if (!req.session.loggedIn) {
             return res.redirect("/");
@@ -96,7 +69,7 @@ router.get("/dashboard/:id", async (req, res) => {
             } else {
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {
-                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MMM DD, YY")
+                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MM/DD/YY")
                 });
                 const priorityArr = remindersArr.filter(reminderObj => dayjs(reminderObj.nextDue).isBefore(dayjs().add(2,"week")))
                 priorityArr.sort((a,b) => dayjs(a.nextDue).diff(dayjs(b.nextDue)));
@@ -107,7 +80,7 @@ router.get("/dashboard/:id", async (req, res) => {
                     loggedIn: true,
                     sticky: categoriesArr,
                     bigSticky: bigStickyArr[0],
-                    upNext: priorityArr,
+                    chalkBoard: priorityArr,
                 });
             };
         };
@@ -117,8 +90,29 @@ router.get("/dashboard/:id", async (req, res) => {
     };
 });
 
-router.get("/wizard", (req, res) => {
-    res.render('../views/wizard.handlebars');
+router.get("/wizard", async (req, res) => {
+    try {
+        if (!req.session.loggedIn) {
+            return res.redirect("/");
+        } else {
+            const categoriesData = await Category.findAll({ 
+                where: { UserId: req.session.UserId },
+            });
+            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
+            const templateCategoriesData = await TemplateCategory.findAll();
+            const templateCategoriesArr = templateCategoriesData.map(templateCategoryObj => templateCategoryObj.get({ plain: true }));
+            console.log(templateCategoriesArr);
+            return res.render('../views/wizard.handlebars', {
+                loggedIn: true,
+                sticky: categoriesArr,
+                chalkBoard: templateCategoriesArr,
+            });
+        };
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ msg: "Error Occurred", err });
+    };
+
 });
 
 router.get("/signup", (req, res) => {
