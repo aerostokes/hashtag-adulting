@@ -140,7 +140,6 @@ main {
 }
 
 #chalkBoard {
-  /* border: 1px dashed grey; */
   width: 60%;
 }
 
@@ -222,7 +221,6 @@ main {
   justify-content: space-around;
   height: 10rem;
   width: 10rem;
-  border: 1px dashed grey;
   margin: 20px 10px 20px 10px;
 }
 
@@ -230,24 +228,30 @@ main {
   margin:5px;
 justify-content: center;
 align-self: center;
-font-size:50px;
+font-size:40px;
 }
 #lStickText{
-  font-size: 22px;
+  text-align: center;
+  font-size: 20px;
   margin:5px;
   justify-content: center;
   align-self: center;
-  
+  color: rgb(57, 56, 56);
 }
 
 #addCategory {
-  background-color: #38b7e3;
+  display: flex;
+  justify-content: center;
+  background-color: #bcadff;
   height: 10rem;
   width: 10rem;
   margin: 20px 10px 20px 10px;
  
 }
-#acc {
+.acc {
+  padding-top: 15px;
+  color: rgb(57, 56, 56);
+  font-size: 20px;
   margin: 5px;
 }
 
