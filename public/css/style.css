@@ -355,7 +355,7 @@ button {
 #logHead {
   color: black;
 }
-#logTitle {
+.logTitle {
   margin-top: 35px;
   color: rgb(57, 56, 56);
   font-weight: 900;
@@ -642,7 +642,7 @@ header{
 #about{
   display:flex;
   justify-content: center;
-  max-height: 300px;
+  height: 300px;
   overflow-y: auto;
   padding-right: 5px;
   width: 100%;
@@ -659,6 +659,17 @@ aside{
 }
 
 @media only screen and (max-width: 480px) {
+#about{
+  height: 600px;
+  margin-bottom: 20px;
+}
+span{
+  display:flex;
+  align-self: center;
+}
+#catchPhrase{
 
+  height: 380px;
+}
 }
 
