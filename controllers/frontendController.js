@@ -69,7 +69,7 @@ router.get("/dashboard/:id", async (req, res) => {
             } else {
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {
-                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MMM DD, YY")
+                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MM/DD/YY")
                 });
                 const priorityArr = remindersArr.filter(reminderObj => dayjs(reminderObj.nextDue).isBefore(dayjs().add(2,"week")))
                 priorityArr.sort((a,b) => dayjs(a.nextDue).diff(dayjs(b.nextDue)));
