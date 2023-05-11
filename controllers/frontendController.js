@@ -55,22 +55,28 @@ router.get("/dashboard/:id", async (req, res) => {
         if (!req.session.loggedIn) {
             return res.redirect("/");
         } else {
+            // Fetch all Categories for the User, sort by Reminder.nextDue so that stickies will be ordered by what needs most immediate attention
             const categoriesData = await Category.findAll({ 
                 where: { UserId: req.session.UserId },
                 include: { 
                     model: Reminder,
                     include: Category,
-                }
+                },
+                order: [[Reminder, "nextDue", "ASC"]],
             });
             const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
+            
+            // Find the Category entry for the /:id. If it doesn't exist (or doesn't belong to this user), then redirect to the dashboard
             const bigStickyArr = categoriesArr.filter(cateogryObj => cateogryObj.id === parseInt(req.params.id));
             if (bigStickyArr.length == 0) {
                 return res.redirect("/dashboard")
             } else {
+                // From the array of Categories (with associated Reminders), create an array of all Reminders for this user
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {
                     reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MM/DD/YY")
                 });
+                // From the array of all Reminders, filter down to everything due within the next 2 weeks (incuding overdue items), and sort by due date
                 const priorityArr = remindersArr.filter(reminderObj => dayjs(reminderObj.nextDue).isBefore(dayjs().add(2,"week")))
                 priorityArr.sort((a,b) => dayjs(a.nextDue).diff(dayjs(b.nextDue)));
                 priorityArr.forEach(reminderObj => {
