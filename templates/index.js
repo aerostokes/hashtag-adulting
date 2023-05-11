@@ -11,6 +11,8 @@ const buildTemplates = async () => {
 // Call template files here:------------------------------
         await require("./house");
         await require("./car");
+        await require("./dog");
+        await require("./apartment");
 //--------------------------------------------------------------------
         await require("./userCustom");
 
