@@ -566,24 +566,6 @@ width:2rem;
 
 /* MEDIA QUERIES */
 
-/* Media queries for smaller screens */
-@media only screen and (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.5rem;
-  }
-  
-  header a {
-    margin-bottom: 0.5rem;
-  }
-
-  main {
-    margin-top: 60px;
-  }
-}
-
-/* Media queries for even smaller screens */
 
 
 @media screen and (max-width: 992px) {
@@ -628,6 +610,22 @@ justify-content: center;
 #catchPhrase{
   margin-bottom: 10px;
 }
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem;
+  }
+  
+  header a {
+    margin-bottom: 0.5rem;
+  }
+
+  main {
+    margin-top: 60px;
+  }
 }
 
 
