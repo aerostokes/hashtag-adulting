@@ -217,10 +217,27 @@ main {
 }
 
 #sticky {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   height: 10rem;
   width: 10rem;
   border: 1px dashed grey;
   margin: 20px 10px 20px 10px;
+}
+
+#lStickEmoj{
+  margin:5px;
+justify-content: center;
+align-self: center;
+font-size:50px;
+}
+#lStickText{
+  font-size: 22px;
+  margin:5px;
+  justify-content: center;
+  align-self: center;
+  
 }
 
 #addCategory {
@@ -561,6 +578,8 @@ width:2rem;
 .color6 {
   color: var(--Yel-Grn-sticky);
 }
+
+
 
 /* MEDIA QUERIES */
 
