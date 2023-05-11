@@ -8,12 +8,11 @@ const buildTemplates = async () => {
         await TemplateCategory.drop();
         await sequelize.sync(); // DO NOT FORCE
 
-// Call all templates to be (re)created:------------------------------
-        // Call all templates to be (re)created:
+// Call template files here:------------------------------
         await require("./house");
         await require("./car");
-        await require("./userCustom");
 //--------------------------------------------------------------------
+        await require("./userCustom");
 
         process.exit(0);
     } catch(err) {

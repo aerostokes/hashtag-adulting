@@ -33,21 +33,11 @@
 
     </aside>
   </section>
-  <section id="desk">
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="addCategory">
-            <h5 id="acc">Add Custom Category</h5>
-        </div>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+      {{#each sticky}}
+        {{>sticky}}
+      {{/each}}
+
+      <script src="/js/desk.js"></script>
   </section>
 </section>
