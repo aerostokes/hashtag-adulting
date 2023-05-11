@@ -5,6 +5,7 @@ const addTaskBtn = document.getElementById("addTask")
 // On page load
 chalkboard.addEventListener("click", handlerEditTask);
 addTaskBtn.addEventListener("click", handlerAddTask);
+bigStickyOl.addEventListener("click", handlerBigStickClick)
 
 
 function handlerEditTask() {
@@ -132,3 +133,6 @@ function handlerAddTask() {
     cancelBtn.addEventListener("click", () => location.reload());
 };
 
+function handlerBigStickClick() {
+    console.log("hello world");
+}

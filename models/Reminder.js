@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 
 const sequelize = require("../config/connection");
-const { sendMail, scheduleJob, cancleJob } = require("../services");
+const { sendMail, scheduleJob, cancelJob } = require("../services");
 
 class Reminder extends Model {}
 
