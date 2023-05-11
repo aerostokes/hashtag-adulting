@@ -1,4 +1,4 @@
 const { sendMail } = require("./mailer");
-const { scheduleJob, cancleJob } = require("./scheduler");
+const { scheduleJob, cancelJob } = require("./scheduler");
 
-module.exports = { sendMail, scheduleJob, cancleJob };
+module.exports = { sendMail, scheduleJob, cancelJob };
