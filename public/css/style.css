@@ -195,7 +195,6 @@ main {
 }
 
 #desk {
-  /* border: 1px dashed grey; */
   width: 100%;
   height: 13rem;
   display: flex;
@@ -425,7 +424,7 @@ label {
   margin-bottom: 5px;
   justify-content: flex-end;
 }
-.checkCircle[type="checkbox"] {
+input[class="checkCircle"] {
   /* define the appearance of the unchecked checkbox */
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -592,57 +591,70 @@ li{
 
 }
 
-/* @media only screen and (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.5rem;
-  }
-  
-  header a {
-    margin-bottom: 0.5rem;
-  }
-
-  main {
-    margin-top: 60px;
-  }
-} */
-
 
 @media screen and (max-width: 576px) {
-/* html{
-  width:100vw;
-  display: flex;
-      justify-content: center;
-      flex-direction: row;
-      flex-wrap: wrap;
- }
 
+header{
+    max-width: 100vw;
+  }
+
+  #nextUP {
+    font-size:14px;
+    line-height: 20px;
+    max-height:200px;
+    overflow-y: auto;
+    padding-right: 5px;
+  }
+  
+  li{
+    max-width: 100%;
+    overflow:auto;
+    overflow-wrap: break-word;
+  }
+  
+
+#biggerSticky{
+  width:450px;
+  height: 450px;
+}
+#wizBtn{
+  display: flex;
+  justify-content: space-around;
+}
 #center{
+  margin-top: 0;
   flex-direction: column;
+  align-items: center;
+ 
 }
-#chalkboard{
-  width:100vw;
-}
+
 #catchPhrase{
+  text-align: center;
+  height: 310px;
+}
+
+#chalkBoard{
+  margin-top: 0;
+  width: 100vw;
+
+}
+
+#about{
+  display:flex;
+  justify-content: center;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 5px;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+aside{
   display: flex;
-  flex-direction: column;
-  justify-content:center;
-  width:100vw;
-  font-size: 14px;
+  justify-content: center;
+}
 
 
-}
-#bigSticky{
-  margin-top: 20px;
-  position: relative;
-}
-  header{
-    max-width: 100vh;
-    display: flex;
-    flex-direction: row;
-    
-  } */
 
 }
 

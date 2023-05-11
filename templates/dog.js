@@ -4,32 +4,22 @@ const { TemplateCategory, TemplateReminder } = require("../models");
 // Customize Template Info Here: ----------------------------------
 const templateRemindersArr = [
     {
-        task: "Check smoke detector batteries",
+        task: "Vaccinations",
         isRecurring: true,
         numPeriods: 1,
         timePeriod: "year",
     },{
-        task: "Change filters",
+        task: "Grooming",
         isRecurring: true,
         numPeriods: 6,
         timePeriod: "month",
-    },{
-        task: "Check your furnace and HVAC filters",
-        isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
-    },{
-        task: "Check and touch up exterior paint",
-        isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
     },
 ];
 
 const templateCategoryObj = {
-        name: "House",
-        emoji: "🏠",
-        color: "#38B7E3",
+        name: "Dog",
+        emoji: "🐕‍🦺",
+        color: "#D8F226",
         // choose from: #38B7E3, #D8F226, #FF478D, #9AD8DA, #FFCA21, #F469F4
         TemplateReminders: templateRemindersArr
     };

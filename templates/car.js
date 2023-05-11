@@ -13,6 +13,21 @@ const templateRemindersArr = [
         isRecurring: true,
         numPeriods: 6,
         timePeriod: "month",
+    },{
+        task: "Routine maintenance check",
+        isRecurring: true,
+        numPeriods: 1,
+        timePeriod: "year",
+    },{
+        task: "Change your air filters",
+        isRecurring: true,
+        numPeriods: 1,
+        timePeriod: "year",
+    },{
+        task: "Check spark plugs and brake pads",
+        isRecurring: true,
+        numPeriods: 2,
+        timePeriod: "year",
     },
 ];
 
