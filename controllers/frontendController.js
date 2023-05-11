@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
         if (!req.session.loggedIn) {
             const templateCategoriesData = await TemplateCategory.findAll();
             const templateCategoriesArr = templateCategoriesData.map(templateCategoryObj => templateCategoryObj.get({ plain: true }));
-            return res.render('../views/home.handlebars', { 
+            return res.render('home', { 
                 sticky: templateCategoriesArr, 
                 loggedIn: false,
             });
@@ -76,7 +76,7 @@ router.get("/dashboard/:id", async (req, res) => {
                 priorityArr.forEach(reminderObj => {
                     if (dayjs(reminderObj.nextDue).isBefore(dayjs().add(1,"day"))) { reminderObj.overdue = true }
                 });
-                return res.render('../views/dashboard.handlebars', {
+                return res.render('dashboard', {
                     loggedIn: true,
                     sticky: categoriesArr,
                     bigSticky: bigStickyArr[0],
@@ -102,7 +102,7 @@ router.get("/wizard", async (req, res) => {
             const templateCategoriesData = await TemplateCategory.findAll();
             const templateCategoriesArr = templateCategoriesData.map(templateCategoryObj => templateCategoryObj.get({ plain: true }));
             console.log(templateCategoriesArr);
-            return res.render('../views/wizard.handlebars', {
+            return res.render('wizard', {
                 loggedIn: true,
                 sticky: categoriesArr,
                 chalkBoard: templateCategoriesArr,
@@ -116,11 +116,11 @@ router.get("/wizard", async (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-    res.render('../views/signup.handlebars')
+    res.render('sign-up')
 })
 
 router.get("/category-editor", (req, res) => {
-    res.render('../views/category-editor.handlebars')
+    res.render('category-editor')
 })
 
 

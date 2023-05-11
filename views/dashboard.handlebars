@@ -20,7 +20,7 @@
       </div>
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
-            <li class="reminders" data-ReminderId="{{id}}">{{task}} - due: {{nextDue}}
+            <input type="checkbox" data-ReminderId="{{id}}"><li class="reminders" data-ReminderId="{{id}}">{{task}} - due: {{nextDue}}
               {{#if isRecurring}} 
               <i>  every {{numPeriods}} {{timePeriod}}(s)</i>
               {{/if}}
