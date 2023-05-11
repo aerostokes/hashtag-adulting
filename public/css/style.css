@@ -425,7 +425,7 @@ label {
   margin-bottom: 5px;
   justify-content: flex-end;
 }
-input[type="checkbox"] {
+.checkCircle[type="checkbox"] {
   /* define the appearance of the unchecked checkbox */
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -437,7 +437,7 @@ input[type="checkbox"] {
   border-radius: 20px;
 }
 
-input[type="checkbox"]:checked {
+.checkCircle [type="checkbox"]:checked {
   /* define the appearance of the checked checkbox */
   background-color: var(--blue-sticky);
   border-color: var(--blue-sticky);
