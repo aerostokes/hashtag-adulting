@@ -3,23 +3,51 @@
   <section id="center">
     <section id="chalkBoard">
       <div id="categoryEditor">
-        <form>
-            <label for="emoji"></label>
-            <input type="text" id="emoji">
-            
-            <input type ="text" id="name">Name of category:</input>
-            <p>Please select a color:</p>
-            <label for ="red">Red</label>
-            <input type ="radio" id="color1" name="color">
-            <label for ="blue">Blue</label>
-            <input type ="radio" id="color2" name="color">
-            <label for ="green">Green</label>
-            <input type ="radio" id="color3" name="color">
-            <label for ="yellow">Yellow</label>
-            <input type ="radio" id="color4" name="color">
-            <label for ="purple">Purple</label>
-            <input type ="radio" id="color5" name="color">
-            <input type = "submit" value = "Submit" id = "save-button">Save</input>
+        <form id="newCat">
+
+          <div class="emojiCat">
+            <div id="emojCatCreate">
+                <div class="catEdTitle">
+                  <label class="catTitle" for="emoji">Add your emoji:</label>
+                  <input type="text" id="emojiBox">
+                  </div>
+                <div class="catEdTitle"> 
+                  <label  type ="text"class="catTitle">Create category:</label>
+                  <input type="text" id="name">
+                  </div>
+            </div>
+
+              <div id="create">
+               <button type = "submit" value = "Submit" id = "save-button">Create</button>
+              </div>
+          </div>
+        <div id="colorList">
+             <p class="sticyColor">Select a sticky color:</p>
+            <div class="checkCat">
+              <input class="colorPick"type ="radio" id="color1" name="color">
+              <label class="colorName color1"for ="red">Magenta</label>
+            </div>
+            <div class="checkCat">
+                <input class="colorPick"type ="radio" id="color2" name="color">
+                <label class="colorName color2"for ="blue">Blue</label>
+            </div>
+            <div class="checkCat">
+                <input class="colorPick" type ="radio" id="color3" name="color">
+                <label class="colorName color3"for ="green">Teal</label>
+            </div>
+            <div class="checkCat">
+                <input class="colorPick" type ="radio" id="color4" name="color">
+                <label class="colorName color4"for ="yellow">Yellow</label>
+            </div>
+            <div class="checkCat">
+                <input class="colorPick" type ="radio" id="color5" name="color">
+                <label class="colorName color5"for ="purple">Pink</label>
+            </div>
+            <div class="checkCat">
+                <input class="colorPick" type ="radio" id="color6" name="color">
+                <label class="colorName color6"for ="purple">Chartreuse</label>
+            </div>
+        </div>
         </form>
             
             <script src="/js/categoryEditor.js"></script>
@@ -28,12 +56,17 @@
     </section>
 
     <aside id="bigSticky">
-      <h3>Login</h3>
+         <div id="logHead">
+        <h3 id="logTitle">Login</h3>
+      </div>
+      
       <form action="" id="login-form">
-        <input type="email" placeholder="email" id="login-email">
-        <input type="password" placeholder="password" id="login-password">
-        <button>Login</button>
-        <button>Sign Up</button>
+        <label for="email">Email:</label>
+        <input type="email" id="login-email">
+        <label for="password">Password:</label>
+        <input type="password" id="login-password">
+        <button id="login-button">Login</button>
+        <a id="sI" href="/signup">Sign Up</a>
       </form>
 
       <script src="/js/script.js"></script>
