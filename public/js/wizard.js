@@ -1,5 +1,5 @@
 const templateCategorySection = document.getElementById("categoryArr");
-const firstTemplateCategory = templateCategorySection.querySelector(".checkbox");
+const firstTemplateCategory = templateCategorySection.querySelector(".checkCircle");
 const bigStickyHeader = document.getElementById("stickHead");
 const bigStickyUl = document.getElementById("remindList");
 const saveButton = document.getElementById("save");
@@ -14,7 +14,7 @@ populateBigSticky(firstTemplateCategory.getAttribute("data-templateCategoryId"))
 // Callback functions:
 
 function handlerTemplateClick(event) {
-    if (event.target.matches(".checkbox")) {
+    if (event.target.matches(".checkCircle")) {
         const templateCategoryId = event.target.getAttribute("data-templateCategoryId");
         populateBigSticky(templateCategoryId);
     };
