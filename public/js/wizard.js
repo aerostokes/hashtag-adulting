@@ -23,7 +23,7 @@ function populateBigSticky(templateCategoryId) {
         const emojiEl = document.createElement("h4");
 
         nameEl.classList.add("bigStickyTitle");
-        emojiEl.setAttribute("id", "emoji")
+        emojiEl.setAttribute("id", "emoji1")
 
         nameEl.textContent = data.name;
         emojiEl.textContent = data.emoji;
