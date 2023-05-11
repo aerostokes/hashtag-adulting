@@ -49,11 +49,11 @@ const categoriesArr = [
 const remindersArr = [
     {
         task: "Oil change 1",
-        lastDone: "2023-01-01",
+        lastDone: "2022-09-01",
         isRecurring: true,
         numPeriods: 3,
         timePeriod: "month",
-        nextDue: "2023-04-01",
+        nextDue: "2023-01-01",
         note: "",
         CategoryId: 1,
     },{
@@ -86,7 +86,7 @@ const remindersArr = [
     },{
         task: "Paint the deck",
         isRecurring: false,
-        nextDue: "2023-12-01",
+        nextDue: "2023-05-15",
         note: "one time task",
         CategoryId: 2,
     },
