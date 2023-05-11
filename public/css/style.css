@@ -367,7 +367,7 @@ button {
   flex-direction: column;
 }
 
-input {
+input, select {
   height: 35px;
   border: 2px solid rgb(129, 128, 128);
   border-radius: 6px;

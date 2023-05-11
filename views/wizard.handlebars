@@ -5,19 +5,12 @@
         <h2 id="chalkHeader">Select the categories you wish to add:</h2>
         <span id="lineDash"></span>
         <ul id="categoryArr">
+          {{#each chalkBoard as |templateCategory| }}
             <div class="checkCat">
-                <input type="checkbox" id="categoryName" class="checkCircle">
-                <label for="categoryName" class="wizLab">House</label>
+                <input type="checkbox" id="categoryName{{id}}" data-templateCategoryId={{id}} class="checkCircle">
+                <label for="categoryName{{id}}" class="wizLab">{{name}}</label>
           </div>
-            <div class="checkCat">
-                <input type="checkbox" id="categoryName" class="checkCircle">
-                <label for="categoryName" class="wizLab">Pet</label>
-          </div>
-            <div class="checkCat">
-                <input type="checkbox" id="categoryName" class="checkCircle">
-                <label for="categoryName" class="wizLab">Car</label>
-          </div>
-           
+          {{/each}}
         </ul>
         <div id="wizBtn">
             <button id="save">Save</button>
@@ -29,43 +22,20 @@
 
     <aside id="biggerSticky">
       <div id="stickHead">
-        <h4 id="name" class="bigStickyTitle">House</h4>
-        <h4 id="emoji1">🏠</h4>
       </div>
-      <div id="remindList">
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
-        <li id="reminders" data-id="">Very important house stuff to do like now.</li>
+      <ul id="remindList">
+      </ul>
 
-      </div>
-
-      <div id="btn">
-        <button>+ Add Task</button>
-      </div>
 
     </aside>
   </section>
-  <section id="desk">
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="sticky">
-      {{! placeholder }}
-    </div>
-    <div id="addCategory">
-      <h5 id="acc">Add Custom Category</h5>
-    </div>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+    {{#each sticky}}
+      {{>sticky}}
+    {{/each}}
+    <script src="/js/desk.js"></script>
   </section>
+  </section>
+  
+  <script src="/js/wizard.js"></script>
 </section>
