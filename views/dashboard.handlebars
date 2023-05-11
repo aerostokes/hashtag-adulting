@@ -18,20 +18,21 @@
         <h4 id="name" class="bigStickyTitle">{{bigSticky.name}}</h4>
         <h4 id="emoji">{{bigSticky.emoji}}</h4>
       </div>
-      <div id="remindList">
+      <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
             <li class="reminders" data-ReminderId="{{id}}">{{task}} - due: {{nextDue}}
               {{#if isRecurring}} 
               <i>  every {{numPeriods}} {{timePeriod}}(s)</i>
               {{/if}}
+              {{#if note}} 
+                  ({{note}})
+              {{/if}}
             </li>
+
           {{/each}}
-
-
-      </div>
-
-      <div id="btn">
-        <button>+ Add Task</button>
+      </ol>
+      <div id="btn">;
+        <button id="addTask">+ Add Task</button>
       </div>
 
     </aside>
@@ -48,4 +49,5 @@
 
     <script src="/js/desk.js"></script>
   </section>
+      <script src="/js/dashboard.js"></script>
 </section>
