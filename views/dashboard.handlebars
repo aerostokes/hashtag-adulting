@@ -2,17 +2,12 @@
   <section id="center">
     <section id="chalkBoard">
       <div id="nextUp">
-        <h2 id="chalkHeader">Welcome back {{user.name}} here's what's up next...</h2>
+        <h2 id="chalkHeader">Up next...</h2>
         <span id="lineDash"></span>
         <ol id="nextTasks">
-          <li class="task" data-id="">Pet: Annual vet checkup for Fido.</li>
-          <li class="task" data-id="">Car: Replace windshield wipers: frequencey
-            6-12 months.</li>
-          <li class="task" data-id="">House: Change air filters: frequency 3-6
-            months.</li>
-          <li class="task" data-id="">House: Roof inspection: frequency 2-3
-            years.</li>
-          <li class="task" data-id="">Pet: Trim nails: frequency 4-6 weeks.</li>
+          {{#each upNext}}
+            <li class="task" data-ReminderId={{id}} {{#if overdue}}style="color:red"{{/if}}>{{Category.name}}: {{task}} - due: {{nextDue}}</li>
+          {{/each}}
         </ol>
 
       </div>
@@ -25,7 +20,7 @@
       </div>
       <div id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
-            <li class="reminders" data-id="{{id}}">{{task}} - due: {{nextDue}} 
+            <li class="reminders" data-ReminderId="{{id}}">{{task}} - due: {{nextDue}} 
               {{#if isRecurring}} 
               <i>every {{numPeriods}} {{timePeriod}}(s)</i>
               {{/if}}
