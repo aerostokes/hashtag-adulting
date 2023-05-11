@@ -14,14 +14,7 @@ router.get("/", async (req, res) => {
                 loggedIn: false,
             });
         } else {
-            const categoriesData = await Category.findAll({ 
-                where: { UserId: req.session.UserId },
-            });
-            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
-            return res.render('../views/home.handlebars', {
-                sticky: categoriesArr,
-                loggedIn: true
-            });
+            return res.redirect("/dashboard")
         };
     } catch (err) {
         console.log(err);
@@ -40,34 +33,17 @@ router.get("/logout", async (req, res) => {
 router.get("/dashboard", async (req, res) => {
     try {
         if (!req.session.loggedIn) {
-            res.redirect("/");
+            return res.redirect("/");
         } else {
             const categoriesData = await Category.findAll({ 
-                where: { UserId: req.session.UserId },
-                include: { 
-                    model: Reminder,
-                    include: Category,
-                }
+                where: { UserId: req.session.UserId }
             });
             const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
             if (categoriesArr.length == 0) {
-                res.redirect("/wizard")
+                return res.redirect("/wizard");
             } else {
-                const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
-                remindersArr.forEach(reminderObj => {
-                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MMM DD, YY")
-                });
-                const priorityArr = remindersArr.filter(reminderObj => dayjs(reminderObj.nextDue).isBefore(dayjs().add(2,"week")))
-                priorityArr.sort((a,b) => dayjs(a.nextDue).diff(dayjs(b.nextDue)));
-                priorityArr.forEach(reminderObj => {
-                    if (dayjs(reminderObj.nextDue).isBefore(dayjs().add(1,"day"))) { reminderObj.overdue = true }
-                });
-                return res.render('../views/dashboard.handlebars', {
-                    sticky: categoriesArr,
-                    loggedIn: true,
-                    bigSticky: categoriesArr[0],
-                    upNext: priorityArr,
-                });
+                const firstCategoryId = categoriesArr[0].id;
+                return res.redirect(`/dashboard/${firstCategoryId}`)
             };
         };
     } catch(err) {
