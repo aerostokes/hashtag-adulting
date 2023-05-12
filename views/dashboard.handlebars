@@ -21,13 +21,8 @@
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
             <li class="reminders" data-ReminderId="{{id}}">
-              <input type="checkbox" data-ReminderId="{{id}}" class="checkTask">
-              {{task}} - due: {{nextDue}}
-
-              {{#if isRecurring}} 
-                <i>  every {{numPeriods}} {{timePeriod}}(s)</i>
-              {{/if}}
-
+              <input type="checkbox" class="checkTask" data-ReminderId="{{id}}" >
+              {{task}}{{#if isRecurring}}<i>,  every {{numPeriods}} {{timePeriod}}(s)</i>{{/if}}  –  due: {{nextDue}}
               {{#if note}} 
                 <span style="font-style:italic; color:grey">
                 <br>      {{note}}
