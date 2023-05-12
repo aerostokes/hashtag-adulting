@@ -474,14 +474,27 @@ label {
   border-color: var(--blue-sticky);
 }
 
-.emojiCat {
+.catColorDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  height: 352px;
+}
+
+#emojCatCreate {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
   margin-left: 20px;
   margin-top: 30px;
-  height: 352px;
+
+  height: 176px;
+  width: 234px;
 }
 
 .catTitle {
@@ -490,7 +503,8 @@ label {
 
 .catEdTitle {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
   margin: 10px;
 }
@@ -536,9 +550,11 @@ label {
 #newCat {
   height: 352px;
   max-height: 352px;
+  margin-top: 35px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 
 input[type="radio"] {
@@ -559,13 +575,9 @@ input[type="radio"]:checked {
   border-color: var(--blue-sticky);
 }
 
-#emojCatCreate {
-  height: 176px;
-  width: 234px;
-}
-
 #emojiBox {
   width: 2rem;
+  text-align: center;
 }
 
 #create {
