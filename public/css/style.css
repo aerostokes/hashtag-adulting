@@ -149,7 +149,7 @@ header {
   font-size: 1.5rem;
   margin: 20px;
   color: rgb(232, 230, 230);
-  width: 90%;
+  width: 100%;
 }
 
 #logout {
@@ -382,7 +382,7 @@ button {
   font-size: 22px;
   font-weight: 900;
   color: rgb(49, 49, 49);
-  line-height: 28px;
+  line-height: 30px;
 }
 
 .checkTask {
@@ -403,6 +403,8 @@ button {
   justify-content: flex-start;
   align-items: flex-start;
   margin: 15px 40px 5px 40px;
+  overflow: auto;
+ 
 }
 
 #btn {
@@ -659,12 +661,6 @@ input[type="radio"]:checked {
     max-height: 200px;
     overflow-y: auto;
     padding-right: 5px;
-  }
-
-  li {
-    max-width: 100%;
-    overflow: auto;
-    overflow-wrap: break-word;
   }
 
   #biggerSticky {
