@@ -9,14 +9,11 @@ bigStickyOl.addEventListener("click", handlerBigStickClick)
 
 
 function handlerChalkboardClick() {
+
+
+    //TODO
     // <input type="date" id="date" style="color-scheme:dark">
-    // const deleteBtn = document.createElement("button");
-    // deleteBtn.setAttribute("style", "color:red")
-    // deleteBtn.textContent = "DELETE";
-    // formEl.append(deleteBtn)
-    // deleteBtn.addEventListener("click", () => {
-    //     // fetch("/api/reminders/")
-    // });
+
 };
 
 function handlerAddTaskBtnClick() {
@@ -28,20 +25,23 @@ function handlerAddTaskBtnClick() {
 
     newTaskForm.addEventListener("submit", e => {
         e.preventDefault();
-        const nextDue = newTaskForm.querySelector("#nextDue").value.trim();
-
         const newReminderObj = {
             task: newTaskForm.querySelector("#task").value.trim(),
-            lastDone: newTaskForm.querySelector("#lastDone").value,
             isRecurring: newTaskForm.querySelector("#isRecurring").checked,
-            numPeriods: newTaskForm.querySelector("#numPeriods").value,
-            timePeriod: newTaskForm.querySelector("#timePeriod").value,
             nextDue: newTaskForm.querySelector("#nextDue").value,
-            note: newTaskForm.querySelector("#note").value,
             CategoryId: categoryId,
         };
-        
-        console.log(newReminderObj);
+        if (newTaskForm.querySelector("#lastDone").value) {
+            newReminderObj.lastDone = newTaskForm.querySelector("#lastDone").value;
+        };
+        if (newTaskForm.querySelector("#numPeriods").value) {
+            newReminderObj.numPeriods = newTaskForm.querySelector("#numPeriods").value;
+            newReminderObj.timePeriod = newTaskForm.querySelector("#timePeriod").value;
+        };
+        if (newTaskForm.querySelector("#note").value) {
+            newReminderObj.note = newTaskForm.querySelector("#note").value;
+        };
+
         fetch("/api/reminders", {
             method: "POST", 
             body: JSON.stringify(newReminderObj),
@@ -53,157 +53,10 @@ function handlerAddTaskBtnClick() {
                 location.reload();
             } else {
                 alert("Error Occured, try again");
-                res.json().then(data => {
-
-                    console.log(data);
-                })
+                res.json().then(data => console.log(data))
             };
         });
     });
-    //     saveBtn.addEventListener("click", e => {
-    //     e.preventDefault();
-    //     newReminderObj = {
-    //         task: taskInput.value.trim(),
-    //         lastDone: lastDoneInput.value,
-    //         isRecurring: isRecurringInput.checked,
-    //         numPeriods: numPeriodsInput.value,
-    //         timePeriod: timePeriodSelect.value,
-    //         nextDue: nextDueInput.value,
-    //         note: noteInput.value,
-    //         CategoryId: categoryId
-    //     }
-    //     fetch("/api/reminders", {
-    //         method: "POST", 
-    //         body: JSON.stringify(newReminderObj),
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //     }).then(res => {
-    //         if (res.ok) {
-    //             location.reload();
-    //         } else {
-    //             alert("Error Occured, try again");
-    //         };
-    //     });
-    // });
-
-
-
-
-
-    // const categoryId = document.getElementById("biggerSticky").getAttribute("data-CategoryId");
-    // const formEl = document.createElement("form");
-    // bigStickyOl.append(formEl)
-
-    // const taskInput = document.createElement("input")
-    // taskInput.setAttribute("type", "text");
-    // taskInput.setAttribute("id", "task");
-    // taskInput.setAttribute("placeholder", "Task")
-    // taskInput.setAttribute("style", "width: 60%")
-    // formEl.append(taskInput)
-
-
-    // const isRecurringInput = document.createElement("input")
-    // isRecurringInput.setAttribute("type", "checkbox");
-    // isRecurringInput.setAttribute("id", "isRecurring");
-    // isRecurringInput.checked = true;
-    // formEl.append(isRecurringInput)
-    // const isRecurringLabel = document.createElement("label")
-    // isRecurringLabel.setAttribute("for", "isRecurring");
-    // isRecurringLabel.textContent = "Recurring"
-    // formEl.append(isRecurringLabel)
-
-    // const lastDoneLabel = document.createElement("label")
-    // lastDoneLabel.setAttribute("for", "lastDone");
-    // lastDoneLabel.textContent = "Last Done:"
-    // formEl.append(lastDoneLabel)
-    // const lastDoneInput = document.createElement("input")
-    // lastDoneInput.setAttribute("type", "date");
-    // lastDoneInput.setAttribute("id", "lastDone");
-    // formEl.append(lastDoneInput)
-    
-    // const numPeriodsLabel = document.createElement("label")
-    // numPeriodsLabel.setAttribute("for", "numPeriods");
-    // numPeriodsLabel.textContent = "Every:"
-    // formEl.append(numPeriodsLabel)
-    // const numPeriodsInput = document.createElement("input")
-    // numPeriodsInput.setAttribute("type", "number");
-    // numPeriodsInput.setAttribute("id", "numPeriods");
-    // numPeriodsInput.setAttribute("style", "width:60px");
-    // numPeriodsInput.setAttribute("placeholder", "Num");
-    // formEl.append(numPeriodsInput)
-
-    // const timePeriodSelect = document.createElement("select")
-    // timePeriodSelect.setAttribute("id", "timePeriod");
-    // const opt1 = document.createElement("option");
-    // const opt2 = document.createElement("option");
-    // const opt3 = document.createElement("option");
-    // opt1.value = "day";
-    // opt1.text = "day(s)";
-    // opt2.value = "week";
-    // opt2.text = "week(s)";
-    // opt3.value = "month";
-    // opt3.text = "month(s)";
-    // opt3.setAttribute("selected", "selected")
-    // opt4.value = "year";
-    // opt4.text = "year(s)";
-    // timePeriodSelect.add(opt1);
-    // timePeriodSelect.add(opt2);
-    // timePeriodSelect.add(opt3);
-    // timePeriodSelect.add(opt4);
-    // formEl.append(timePeriodSelect)
-
-    // const nextDueLabel = document.createElement("label")
-    // nextDueLabel.setAttribute("for", "nextDue");
-    // nextDueLabel.textContent = "Next Due:"
-    // formEl.append(nextDueLabel)
-    // const nextDueInput = document.createElement("input")
-    // nextDueInput.setAttribute("type", "date");
-    // nextDueInput.setAttribute("id", "nextDue");
-
-    // formEl.append(nextDueInput)
-
-    // const noteInput = document.createElement("input")
-    // noteInput.setAttribute("type", "text");
-    // noteInput.setAttribute("id", "note");
-    // noteInput.setAttribute("placeholder", "notes")
-    // noteInput.setAttribute("style", "width: 95%")
-    // formEl.append(noteInput)
-
-    // const saveBtn = document.createElement("button");
-    // saveBtn.textContent = "save";
-    // formEl.append(saveBtn)
-    // saveBtn.addEventListener("click", e => {
-    //     e.preventDefault();
-    //     newReminderObj = {
-    //         task: taskInput.value.trim(),
-    //         lastDone: lastDoneInput.value,
-    //         isRecurring: isRecurringInput.checked,
-    //         numPeriods: numPeriodsInput.value,
-    //         timePeriod: timePeriodSelect.value,
-    //         nextDue: nextDueInput.value,
-    //         note: noteInput.value,
-    //         CategoryId: categoryId
-    //     }
-    //     fetch("/api/reminders", {
-    //         method: "POST", 
-    //         body: JSON.stringify(newReminderObj),
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //     }).then(res => {
-    //         if (res.ok) {
-    //             location.reload();
-    //         } else {
-    //             alert("Error Occured, try again");
-    //         };
-    //     });
-    // });
-    
-    // const cancelBtn = document.createElement("button");
-    // cancelBtn.textContent = "cancel";
-    // formEl.append(cancelBtn);
-    // cancelBtn.addEventListener("click", () => location.reload());
 };
 
 function handlerBigStickClick(event) {
@@ -211,7 +64,7 @@ function handlerBigStickClick(event) {
     if (event.target.matches(".checkTask")) {
         markTaskComplete(reminderId);
     } else if (event.target.matches("li.reminders")) {
-        editTask(reminderId);
+        editTask(event.target);
     }
 }
 
@@ -256,12 +109,87 @@ async function markTaskComplete(reminderId) {
     }
 } 
 
-async function editTask(reminderId) {
-// TODO
-}
+async function editTask(taskLi) {
+    try {
+        addTaskBtn.setAttribute("hidden", "hidden")
 
-function createForm() {
+        const reminderId = taskLi.getAttribute("data-ReminderId");
+        const reminderResponse = await fetch(`/api/reminders/${reminderId}`);
+        const reminderData = await reminderResponse.json();
+
+        const editTaskForm = createForm(reminderData.isRecurring);
+        if (editTaskForm) {
+            taskLi.textContent = ""
+            editTaskForm.querySelector("#task").value = reminderData.task;
+            editTaskForm.querySelector("#lastDone").value = reminderData.lastDone;
+            editTaskForm.querySelector("#isRecurring").checked = reminderData.isRecurring;
+            editTaskForm.querySelector("#numPeriods").value = reminderData.numPeriods;
+            editTaskForm.querySelector("#timePeriod").value = reminderData.timePeriod;
+            editTaskForm.querySelector("#nextDue").value = reminderData.nextDue;
+            editTaskForm.querySelector("#note").value = reminderData.note;
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.setAttribute("style", "color:red")
+            deleteBtn.textContent = "delete";
+            editTaskForm.append(deleteBtn);
+            deleteBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                deleteReminder(reminderId);
+            });
+
+            taskLi.append(editTaskForm);
+            
+            editTaskForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const editReminderObj = {
+                    task: editTaskForm.querySelector("#task").value.trim(),
+                    isRecurring: editTaskForm.querySelector("#isRecurring").checked,
+                    nextDue: editTaskForm.querySelector("#nextDue").value,
+                };
+                if (editTaskForm.querySelector("#lastDone").value) {
+                    editReminderObj.lastDone = editTaskForm.querySelector("#lastDone").value;
+                } else {
+                    editReminderObj.lastDone = null;
+                };
+                if (editTaskForm.querySelector("#numPeriods").value) {
+                    editReminderObj.numPeriods = editTaskForm.querySelector("#numPeriods").value;
+                    editReminderObj.timePeriod = editTaskForm.querySelector("#timePeriod").value;
+                } else {
+                    editReminderObj.numPeriods = null;
+                    editReminderObj.timePeriod = null;
+                };
+                if (editTaskForm.querySelector("#note").value) {
+                    editReminderObj.note = editTaskForm.querySelector("#note").value;
+                } else {
+                    editReminderObj.note = null;
+                };
+                
+                const res = await fetch(`/api/reminders/${reminderId}`, {
+                    method: "PUT", 
+                    body: JSON.stringify(editReminderObj),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                if (res.ok) {
+                    location.reload();
+                } else {
+                    alert("Error Occured, try again");
+                    const data = await res.json()
+                    console.log(data);
+                };
+            });
+        };
+    } catch(err) {
+        alert("Error Occured, try again");
+        console.log(err);
+    };
+};
+
+function createForm(isRecurring=true) {
+    if (document.getElementById("addEditForm")) { return };
     const formEl = document.createElement("form");
+    formEl.setAttribute("id","addEditForm");
     formEl.setAttribute("style", "position:relative; width:100%");
 
     const firstRowDiv = document.createElement("div");
@@ -270,17 +198,12 @@ function createForm() {
         const taskDiv = document.createElement("div");
         taskDiv.setAttribute("style", "display:inline-block; width:70%");
         firstRowDiv.append(taskDiv);
-            const taskLabel = document.createElement("label");
-            taskLabel.setAttribute("for", "task");
-            taskLabel.setAttribute("style", "display:block");
-            taskLabel.textContent = "*Add New Task:";
-            taskDiv.append(taskLabel);
 
             const taskInput = document.createElement("input");
             taskInput.setAttribute("type", "text");
             taskInput.setAttribute("id", "task");
             taskInput.setAttribute("style", "display:block; width: 100%");
-            taskInput.setAttribute("placeholder", "Task");
+            taskInput.setAttribute("placeholder", "*Task");
             taskInput.setAttribute("required", "required");
             taskDiv.append(taskInput);
 
@@ -296,7 +219,7 @@ function createForm() {
             const lastDoneInput = document.createElement("input");
             lastDoneInput.setAttribute("type", "date");
             lastDoneInput.setAttribute("id", "lastDone");
-            lastDoneInput.setAttribute("style", "display:block; width:120px");
+            lastDoneInput.setAttribute("style", "display:block; width:140px");
             lastDoneDiv.append(lastDoneInput);
     
     const secondRowDiv = document.createElement("div");
@@ -309,7 +232,6 @@ function createForm() {
             isRecurringInput.setAttribute("type", "checkbox");
             isRecurringInput.setAttribute("id", "isRecurring");
             isRecurringInput.setAttribute("style", "display:block; transform:translate(150%, 30%)");
-            isRecurringInput.checked = true;
             recurringDiv.append(isRecurringInput);
 
             const isRecurringLabel = document.createElement("label");
@@ -319,7 +241,6 @@ function createForm() {
             recurringDiv.append(isRecurringLabel);
 
         const numPeriodsDiv = document.createElement("div");
-        numPeriodsDiv.setAttribute("style", "display:inline-block");
         secondRowDiv.append(numPeriodsDiv);
             const numPeriodsLabel = document.createElement("label");
             numPeriodsLabel.setAttribute("for", "numPeriods");
@@ -332,11 +253,9 @@ function createForm() {
             numPeriodsInput.setAttribute("id", "numPeriods");
             numPeriodsInput.setAttribute("style", "display:block; width:60px");
             numPeriodsInput.setAttribute("placeholder", "Num");
-            numPeriodsInput.setAttribute("required", "required");
             numPeriodsDiv.append(numPeriodsInput);
 
         const timePeriodDiv = document.createElement("div");
-        timePeriodDiv.setAttribute("style", "display:inline-block");
         secondRowDiv.append(timePeriodDiv);
             const timePeriodSelect = document.createElement("select");
             timePeriodSelect.setAttribute("id", "timePeriod");
@@ -360,17 +279,23 @@ function createForm() {
             timePeriodSelect.add(opt4);
             timePeriodDiv.append(timePeriodSelect);
 
+        // Add event listener to hide/show/require the numPeriods and timePeriod fields based on the isRecurring checkbox
         isRecurringInput.addEventListener("click", () => {
             if (isRecurringInput.checked) {
                 numPeriodsDiv.setAttribute("style", "display:inline-block");
                 timePeriodDiv.setAttribute("style", "display:inline-block");
                 numPeriodsInput.setAttribute("required", "required");
+                timePeriodSelect.setAttribute("required", "required");
             } else {
                 numPeriodsDiv.setAttribute("style", "display:none");
                 timePeriodDiv.setAttribute("style", "display:none");
                 numPeriodsInput.removeAttribute("required");
+                timePeriodSelect.removeAttribute("required");
             };
         });
+        // Initiate with !isRecurring argument and then immediately click to trigger to isRecurring
+        isRecurringInput.checked = !isRecurring;
+        isRecurringInput.click();
 
         const nextDueDiv = document.createElement("div");
         nextDueDiv.setAttribute("id", "timePeriodDiv");
@@ -385,7 +310,7 @@ function createForm() {
             const nextDueInput = document.createElement("input");
             nextDueInput.setAttribute("type", "date");
             nextDueInput.setAttribute("id", "nextDue");
-            nextDueInput.setAttribute("style", "display:block; width:120px");
+            nextDueInput.setAttribute("style", "display:block; width:140px");
             nextDueInput.setAttribute("required", "required");
             nextDueDiv.append(nextDueInput);
 
@@ -420,7 +345,30 @@ function createForm() {
     const cancelBtn = document.createElement("button");
     cancelBtn.textContent = "cancel";
     formEl.append(cancelBtn);
-    cancelBtn.addEventListener("click", () => location.reload());
+    cancelBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        location.reload()
+    });
 
     return formEl;
+};
+
+async function deleteReminder(reminderId) {
+    try {
+        const res = await fetch(`/api/reminders/${reminderId}`, {
+            method: "DELETE", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (res.ok) {
+            location.reload();
+        } else {
+            alert("Error Occured, try again");
+            console.log(res);
+        }   
+    } catch(err) {
+        alert("Error Occured, try again");
+        console.log(err);
+    };
 };
