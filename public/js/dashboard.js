@@ -1,11 +1,23 @@
+const addCategorySticky = document.getElementById("addCategory" );
 const chalkboard = document.getElementById("nextTasks");
-const bigStickyOl = document.getElementById("remindList")
-const addTaskBtn = document.getElementById("addTask")
+const bigStickyHead = document.getElementById("stickHead");
+const bigStickyOl = document.getElementById("remindList");
+const addTaskBtn = document.getElementById("addTask");
 
 // On page load
+addCategorySticky.addEventListener("click", handlerAddCategoryClick);
 chalkboard.addEventListener("click", handlerChalkboardClick);
+bigStickyHead.addEventListener("click", handlerBigStickyClickCategory);
+bigStickyOl.addEventListener("click", handlerBigStickyClickTask);
 addTaskBtn.addEventListener("click", handlerAddTaskBtnClick);
-bigStickyOl.addEventListener("click", handlerBigStickClick)
+
+
+
+// Callback functions:
+
+function handlerAddCategoryClick() {
+    location.href = "/wizard"
+}
 
 
 function handlerChalkboardClick() {
@@ -16,57 +28,19 @@ function handlerChalkboardClick() {
 
 };
 
-function handlerAddTaskBtnClick() {
-    addTaskBtn.setAttribute("hidden", "hidden")
-    const categoryId = document.getElementById("biggerSticky").getAttribute("data-CategoryId");
 
-    const newTaskForm = createForm();
-    bigStickyOl.append(newTaskForm);
-
-    newTaskForm.addEventListener("submit", e => {
-        e.preventDefault();
-        const newReminderObj = {
-            task: newTaskForm.querySelector("#task").value.trim(),
-            isRecurring: newTaskForm.querySelector("#isRecurring").checked,
-            nextDue: newTaskForm.querySelector("#nextDue").value,
-            CategoryId: categoryId,
-        };
-        if (newTaskForm.querySelector("#lastDone").value) {
-            newReminderObj.lastDone = newTaskForm.querySelector("#lastDone").value;
-        };
-        if (newTaskForm.querySelector("#numPeriods").value) {
-            newReminderObj.numPeriods = newTaskForm.querySelector("#numPeriods").value;
-            newReminderObj.timePeriod = newTaskForm.querySelector("#timePeriod").value;
-        };
-        if (newTaskForm.querySelector("#note").value) {
-            newReminderObj.note = newTaskForm.querySelector("#note").value;
-        };
-
-        fetch("/api/reminders", {
-            method: "POST", 
-            body: JSON.stringify(newReminderObj),
-            headers: {
-              "Content-Type": "application/json",
-            },
-        }).then(res => {
-            if (res.ok) {
-                location.reload();
-            } else {
-                alert("Error Occured, try again");
-                res.json().then(data => console.log(data))
-            };
-        });
-    });
+function handlerBigStickyClickCategory() {
+    //TODO
 };
 
-function handlerBigStickClick(event) {
+function handlerBigStickyClickTask(event) {
     const reminderId = event.target.getAttribute("data-ReminderId");
     if (event.target.matches(".checkTask")) {
         markTaskComplete(reminderId);
     } else if (event.target.matches("li.reminders")) {
         editTask(event.target);
     }
-}
+};
 
 async function markTaskComplete(reminderId) {
     try {
@@ -107,7 +81,7 @@ async function markTaskComplete(reminderId) {
         alert("Error Occured, try again");
         console.log(err);
     }
-} 
+};
 
 async function editTask(taskLi) {
     try {
@@ -184,6 +158,50 @@ async function editTask(taskLi) {
         alert("Error Occured, try again");
         console.log(err);
     };
+};
+
+
+function handlerAddTaskBtnClick() {
+    addTaskBtn.setAttribute("hidden", "hidden")
+    const categoryId = document.getElementById("biggerSticky").getAttribute("data-CategoryId");
+
+    const newTaskForm = createForm();
+    bigStickyOl.append(newTaskForm);
+
+    newTaskForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const newReminderObj = {
+            task: newTaskForm.querySelector("#task").value.trim(),
+            isRecurring: newTaskForm.querySelector("#isRecurring").checked,
+            nextDue: newTaskForm.querySelector("#nextDue").value,
+            CategoryId: categoryId,
+        };
+        if (newTaskForm.querySelector("#lastDone").value) {
+            newReminderObj.lastDone = newTaskForm.querySelector("#lastDone").value;
+        };
+        if (newTaskForm.querySelector("#numPeriods").value) {
+            newReminderObj.numPeriods = newTaskForm.querySelector("#numPeriods").value;
+            newReminderObj.timePeriod = newTaskForm.querySelector("#timePeriod").value;
+        };
+        if (newTaskForm.querySelector("#note").value) {
+            newReminderObj.note = newTaskForm.querySelector("#note").value;
+        };
+
+        fetch("/api/reminders", {
+            method: "POST", 
+            body: JSON.stringify(newReminderObj),
+            headers: {
+              "Content-Type": "application/json",
+            },
+        }).then(res => {
+            if (res.ok) {
+                location.reload();
+            } else {
+                alert("Error Occured, try again");
+                res.json().then(data => console.log(data))
+            };
+        });
+    });
 };
 
 function createForm(isRecurring=true) {

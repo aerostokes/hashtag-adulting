@@ -14,9 +14,9 @@
     </section>
 
     <aside id="biggerSticky" data-CategoryId={{bigSticky.id}} style="background-color:{{bigSticky.color}}">
-      <div id="stickHead">
-        <h4 id="name" class="bigStickyTitle">{{bigSticky.name}}</h4>
-        <h4 id="emoji">{{bigSticky.emoji}}</h4>
+      <div id="stickHead" data-CategoryId={{bigSticky.id}} >
+        <h4 id="name" class="bigStickyTitle" style="pointer-events: none;">{{bigSticky.name}}</h4>
+        <h4 id="emoji" style="pointer-events: none;">{{bigSticky.emoji}}</h4>
       </div>
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
@@ -44,8 +44,8 @@
     {{/each}}
 
     <div id="addCategory">
-      <h5 class="acc">➕</h5>
-      <h5 class="acc">Add New Category</h5>
+      <h5 class="acc" style="pointer-events: none;">➕</h5>
+      <h5 class="acc" style="pointer-events: none;">Add New Category</h5>
     </div>
 
     <script src="/js/desk.js"></script>

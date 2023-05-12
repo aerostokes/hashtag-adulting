@@ -14,7 +14,9 @@
 <body>
     <header>
         <a href="/">#ADULTING</a> 
-        <a href="/logout" id="logout">Logout</a>
+        {{#if loggedIn}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
     </header>
 
     <main>
