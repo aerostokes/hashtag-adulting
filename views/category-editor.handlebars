@@ -55,21 +55,24 @@
       </div>
     </section>
 
-    <aside id="bigSticky">
-         <div id="logHead">
-        <h3 id="logTitle">Login</h3>
+        <aside id="biggerSticky" data-CategoryId={{bigSticky.id}} style="background-color:{{bigSticky.color}}">
+      <div id="stickHead" data-CategoryId={{bigSticky.id}} >
+        <h4 id="name" class="bigStickyTitle" style="pointer-events: none;">{{bigSticky.name}}</h4>
+        <h4 id="emoji" style="pointer-events: none;">{{bigSticky.emoji}}</h4>
       </div>
-      
-      <form action="" id="login-form">
-        <label for="email">Email:</label>
-        <input type="email" id="login-email">
-        <label for="password">Password:</label>
-        <input type="password" id="login-password">
-        <button id="login-button">Login</button>
-        <a id="sI" href="/signup">Sign Up</a>
-      </form>
+      <ol id="remindList">
+          {{#each bigSticky.Reminders as |reminder|}}
+            <li class="reminders" data-ReminderId="{{id}}">
+              ᐧ {{task}}{{#if isRecurring}}   (every {{numPeriods}} {{timePeriod}}(s))</i>{{/if}}  –  due: {{nextDue}}
+              {{#if note}} 
+                <span style="font-style:italic; color:grey">
+                <br>      {{note}}
+                </span>
+              {{/if}}
+            </li>
 
-      <script src="/js/script.js"></script>
+          {{/each}}
+      </ol>
 
     </aside>
   </section>

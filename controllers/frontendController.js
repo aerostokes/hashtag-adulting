@@ -118,15 +118,50 @@ router.get("/wizard", async (req, res) => {
         console.log(err);
         res.status(500).json({ msg: "Error Occurred", err });
     };
-
 });
 
 router.get("/signup", (req, res) => {
     res.render('sign-up', { loggedIn: false })
 })
 
-router.get("/category-editor", (req, res) => {
-    res.render('category-editor', { loggedIn: true})
+router.get("/category-editor/:id", async (req, res) => {
+    try {
+        if (!req.session.loggedIn) {
+            return res.redirect("/");
+        } else {
+            // Fetch all Categories for the User, sort by Reminder.nextDue so that stickies will be ordered by what needs most immediate attention
+            const categoriesData = await Category.findAll({ 
+                where: { UserId: req.session.UserId },
+                include: { 
+                    model: Reminder,
+                    include: Category,
+                },
+                order: [[Reminder, "nextDue", "ASC"]],
+            });
+            const categoriesArr = categoriesData.map(categoryObj => categoryObj.get({ plain: true }));
+            
+            // Find the Category entry for the /:id. If it doesn't exist (or doesn't belong to this user), then redirect to the dashboard
+            const bigStickyArr = categoriesArr.filter(cateogryObj => cateogryObj.id === parseInt(req.params.id));
+            if (bigStickyArr.length == 0) {
+                return res.redirect("/dashboard")
+            } else {
+                // From the array of Categories (with associated Reminders), create an array of all Reminders for this user
+                const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
+                remindersArr.forEach(reminderObj => {
+                    reminderObj.nextDue = dayjs(reminderObj.nextDue).format("MM/DD/YY")
+                });
+                return res.render('category-editor', {
+                    loggedIn: true,
+                    sticky: categoriesArr,
+                    bigSticky: bigStickyArr[0],
+                });
+            };
+        };
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({ msg: "Error Occurred", err });
+    };
+
 })
 
 
