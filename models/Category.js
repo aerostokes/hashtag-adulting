@@ -10,7 +10,7 @@ module.exports = Category.init(
             allowNull: false,
         },
         emoji: {
-            type: DataTypes.STRING(2),
+            type: DataTypes.STRING(5),
         },
         color: {
             type: DataTypes.STRING,

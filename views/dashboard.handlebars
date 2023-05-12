@@ -6,7 +6,7 @@
         <span id="lineDash"></span>
         <ol id="nextTasks">
           {{#each chalkBoard}}
-            <li class="task" data-ReminderId={{id}} {{#if overdue}}style="color:#ff6989; font-size:22px; font-weight:900;"{{/if}}>{{Category.name}}: {{task}} - due: {{nextDue}}</li>
+            <li class="task" data-ReminderId={{id}} style="font-size:22px; font-weight:900;{{#if overdue}} color:#ff6989{{/if}}">{{Category.name}}: {{task}} - due: {{nextDue}}</li>
           {{/each}}
         </ol>
 

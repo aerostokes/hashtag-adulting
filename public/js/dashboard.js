@@ -20,6 +20,7 @@ function handlerAddCategoryClick() {
 }
 
 function handlerBigStickyClickCategory(event) {
+    console.log("hello world");
     const CategoryId = event.target.getAttribute("data-CategoryId")
     location.href = `/category-editor/${CategoryId}`
 };
