@@ -14,20 +14,15 @@
     </section>
 
     <aside id="biggerSticky" data-CategoryId={{bigSticky.id}} style="background-color:{{bigSticky.color}}">
-      <div id="stickHead">
-        <h4 id="name" class="bigStickyTitle">{{bigSticky.name}}</h4>
-        <h4 id="emoji">{{bigSticky.emoji}}</h4>
+      <div id="stickHead" data-CategoryId={{bigSticky.id}} >
+        <h4 id="name" class="bigStickyTitle" style="pointer-events: none;">{{bigSticky.name}}</h4>
+        <h4 id="emoji" style="pointer-events: none;">{{bigSticky.emoji}}</h4>
       </div>
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
             <li class="reminders" data-ReminderId="{{id}}">
-              <input type="checkbox" data-ReminderId="{{id}}" class="checkTask">
-              {{task}} - due: {{nextDue}}
-
-              {{#if isRecurring}} 
-                <i>  every {{numPeriods}} {{timePeriod}}(s)</i>
-              {{/if}}
-
+              <input type="checkbox" class="checkTask" data-ReminderId="{{id}}" >
+              {{task}}{{#if isRecurring}}   (every {{numPeriods}} {{timePeriod}}(s))</i>{{/if}}  –  due: {{nextDue}}
               {{#if note}} 
                 <span style="font-style:italic; color:grey">
                 <br>      {{note}}
@@ -49,8 +44,8 @@
     {{/each}}
 
     <div id="addCategory">
-      <h5 class="acc">➕</h5>
-      <h5 class="acc">Add New Category</h5>
+      <h5 class="acc" style="pointer-events: none;">➕</h5>
+      <h5 class="acc" style="pointer-events: none;">Add New Category</h5>
     </div>
 
     <script src="/js/desk.js"></script>
