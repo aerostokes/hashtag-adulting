@@ -120,9 +120,23 @@ router.get("/wizard", async (req, res) => {
     };
 });
 
-router.get("/signup", (req, res) => {
-    res.render('sign-up', { loggedIn: false })
-})
+router.get("/signup", async (req, res) => {
+    try {
+        if (!req.session.loggedIn) {
+            const templateCategoriesData = await TemplateCategory.findAll();
+            const templateCategoriesArr = templateCategoriesData.map(templateCategoryObj => templateCategoryObj.get({ plain: true }));
+            return res.render('sign-up', { 
+                sticky: templateCategoriesArr, 
+                loggedIn: false,
+            });
+        } else {
+            return res.redirect("/dashboard")
+        };
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "Error Occurred", err });
+    };
+});
 
 router.get("/category-editor/:id", async (req, res) => {
     try {
