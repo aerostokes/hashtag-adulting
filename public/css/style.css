@@ -88,6 +88,11 @@ h3 {
   margin-top: 5px;
 }
 
+h4 {
+  font-size: 21px;
+  font-family: "larken", sans-serif;
+}
+
 p {
   text-align: right;
   font-family: "Times New Roman", Times, serif;
@@ -222,16 +227,16 @@ main {
   margin: 20px 10px 20px 10px;
 }
 
-#lStickEmoj{
-  margin:5px;
-justify-content: center;
-align-self: center;
-font-size:40px;
+#lStickEmoj {
+  margin: 5px;
+  justify-content: center;
+  align-self: center;
+  font-size: 40px;
 }
-#lStickText{
+#lStickText {
   text-align: center;
   font-size: 20px;
-  margin:5px;
+  margin: 5px;
   justify-content: center;
   align-self: center;
   color: rgb(57, 56, 56);
@@ -355,7 +360,7 @@ button {
   line-height: 28px;
 }
 
-.checkTask{
+.checkTask {
   margin-right: 15px;
   transform: scale(1.5);
   line-height: 28px;
@@ -594,9 +599,6 @@ input[type="radio"]:checked {
   color: var(--Yel-Grn-sticky);
 }
 
-
-
-
 /* MEDIA QUERIES */
 
 @media screen and (max-width: 992px) {
@@ -618,7 +620,6 @@ input[type="radio"]:checked {
 
   li {
     max-width: 100%;
-   
   }
 }
 
@@ -684,9 +685,9 @@ input[type="radio"]:checked {
 }
 
 @media only screen and (max-width: 480px) {
-html{
-  margin: 0;
-}
+  html {
+    margin: 0;
+  }
 
   #about {
     height: 600px;
@@ -699,7 +700,7 @@ html{
   #catchPhrase {
     height: 380px;
   }
-  #biggerSticky{
-    transform: scale(.75);
+  #biggerSticky {
+    transform: scale(0.75);
   }
 }
