@@ -6,10 +6,10 @@ const addTaskBtn = document.getElementById("addTask");
 
 // On page load
 addCategorySticky.addEventListener("click", handlerAddCategoryClick);
-chalkboard.addEventListener("click", handlerChalkboardClick);
 bigStickyHead.addEventListener("click", handlerBigStickyClickCategory);
 bigStickyOl.addEventListener("click", handlerBigStickyClickTask);
 addTaskBtn.addEventListener("click", handlerAddTaskBtnClick);
+chalkboard.addEventListener("click", handlerChalkboardClick);
 
 
 
@@ -19,18 +19,9 @@ function handlerAddCategoryClick() {
     location.href = "/wizard"
 }
 
-
-function handlerChalkboardClick() {
-
-
-    //TODO
-    // <input type="date" id="date" style="color-scheme:dark">
-
-};
-
-
-function handlerBigStickyClickCategory() {
-    //TODO
+function handlerBigStickyClickCategory(event) {
+    const CategoryId = event.target.getAttribute("data-CategoryId")
+    location.href = `/category-editor/${CategoryId}`
 };
 
 function handlerBigStickyClickTask(event) {
@@ -202,6 +193,12 @@ function handlerAddTaskBtnClick() {
             };
         });
     });
+};
+
+function handlerChalkboardClick() {
+    //TODO
+    // <input type="date" id="date" style="color-scheme:dark">
+
 };
 
 function createForm(isRecurring=true) {
