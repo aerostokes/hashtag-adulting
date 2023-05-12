@@ -122,11 +122,11 @@ router.get("/wizard", async (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-    res.render('sign-up')
+    res.render('sign-up', { loggedIn: false })
 })
 
 router.get("/category-editor", (req, res) => {
-    res.render('category-editor')
+    res.render('category-editor', { loggedIn: true})
 })
 
 
