@@ -126,7 +126,7 @@ router.get("/signup", async (req, res) => {
         if (!req.session.loggedIn) {
             const templateCategoriesData = await TemplateCategory.findAll();
             const templateCategoriesArr = templateCategoriesData.map(templateCategoryObj => templateCategoryObj.get({ plain: true }));
-            return res.render('home', { 
+            return res.render('sign-up', { 
                 sticky: templateCategoriesArr, 
                 loggedIn: false,
             });
