@@ -149,7 +149,7 @@ header {
   font-size: 1.5rem;
   margin: 20px;
   color: rgb(232, 230, 230);
-  width: 90%;
+  width: 100%;
 }
 
 #logout {
@@ -264,6 +264,7 @@ main {
   color: rgb(57, 56, 56);
 }
 
+
 #addCategory {
   display: flex;
   justify-content: center;
@@ -279,6 +280,8 @@ main {
   margin: 5px;
 }
 
+
+
 #nextUp {
   width: 75%;
   margin-left: 40px;
@@ -287,6 +290,7 @@ main {
 #chalkHeader {
   font-size: 2rem;
 }
+
 
 #biggerSticky {
   display: flex;
@@ -297,22 +301,7 @@ main {
   margin-right: 50px;
   height: 29rem;
   width: 50rem;
-  animation-name: grow;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
 }
-/* @keyframes grow {
-  from {
-   
-    width: 22rem;
-    height: 22rem;
-  }
-  to {
-
-    width: 50rem;
-    height: 29rem;
-  }
-} */
 
 ol {
   margin-top: 20px;
@@ -377,12 +366,14 @@ button {
   border-style: none;
 }
 .reminders {
-  /* display: flex; */
-  align-items: start;
+  display:block;
   font-size: 22px;
   font-weight: 900;
   color: rgb(49, 49, 49);
-  line-height: 28px;
+  line-height: 30px;
+  text-indent: -25px;
+  margin-left: 35px;
+
 }
 
 .checkTask {
@@ -391,6 +382,8 @@ button {
   transform: scale(1.5) translateY(2px);
 }
 
+
+
 .bigStickyTitle {
   font-size: 3rem;
   color: rgb(41, 41, 41);
@@ -398,12 +391,14 @@ button {
 
 #remindList {
   height: 22rem;
-  /* display: flex;
-  flex-direction: column; */
-  justify-content: flex-start;
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
   margin: 15px 40px 5px 40px;
+  overflow: auto;
+ 
 }
+
+
 
 #btn {
   height: 2rem;
@@ -439,6 +434,8 @@ label {
   color: rgb(77, 76, 76);
   margin: 3px;
 }
+
+
 
 #login-button {
   font-family: "larken", sans-serif;
@@ -481,7 +478,7 @@ label {
 .checkCat {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items:flex-start;
   margin-top: 5px;
   margin-bottom: 5px;
   justify-content: flex-end;
@@ -575,6 +572,13 @@ label {
   padding-right: 5px;
   line-height: 2rem;
 }
+#isRecurring{
+  margin-right:40px;
+
+}
+
+
+
 
 #newCat {
   height: 352px;
@@ -673,12 +677,6 @@ input[type="radio"]:checked {
     max-height: 200px;
     overflow-y: auto;
     padding-right: 5px;
-  }
-
-  li {
-    max-width: 100%;
-    overflow: auto;
-    overflow-wrap: break-word;
   }
 
   #biggerSticky {
