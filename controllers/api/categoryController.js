@@ -54,6 +54,7 @@ router.post("/", async (req, res) => {
         if (!req.session.loggedIn) {
             return res.status(403).json({ msg: "Login required" });
         } else {
+            console.log(req.session.UserId);
             const category = await Category.create({
                 name: req.body.name,
                 emoji: req.body.emoji,

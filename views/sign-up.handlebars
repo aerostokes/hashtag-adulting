@@ -7,7 +7,13 @@
         <span id="line"></span>
         <div id="about">
           <p>
-            To get started, simply create a user account and choose from our templates or create your own customized reminders. You can easily set up recurring reminders to make sure you never miss an important task again. With #Adulting, you can focus on enjoying your life and let us take care of the details. Download our app today and start adulting like a pro!
+            To get started, simply create a user account, select the templates 
+            that match your adult life, and start receiving email reminders. 
+            <br>Want more control of your tasks? Customize your dashboard by adding/deleting
+            tasks, moving due dates, adjusting the recurring time intervals,
+            or even building categories from scratch!
+            <br>With #Adulting, you can focus on enjoying life and let us take 
+            care of the details. Sign up today and start adulting like a pro!
           </p>
         </div>
       </div>
@@ -30,10 +36,12 @@
     </aside>
   </section>
   
-  <section id="desk">
-    {{#each sticky}}
-    {{>sticky}}
-    {{/each}}
-    <script src="/js/desk.js"></script>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+      {{#each sticky}}
+        {{>sticky}}
+      {{/each}}
+
+      <script src="/js/desk.js"></script>
+      
   </section>
 </section>

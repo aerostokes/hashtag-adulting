@@ -44,7 +44,7 @@ const templateCategoryObj = {
 const seedTemplate = async () => {
     try {
         await TemplateCategory.create(templateCategoryObj, {include: [TemplateReminder]});
-        console.log(`Seeded ${templateCategoryObj.name} Template`);
+        console.log(`\x1b[36m\n\n----------------------------------Seeded ${templateCategoryObj.name} Template----------------------------------\n\n\x1b[37m`);
     } catch(err) {
         console.log(err);
     };

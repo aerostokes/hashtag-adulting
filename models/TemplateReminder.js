@@ -14,7 +14,7 @@ TemplateReminder.init({
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-    numInterval: {
+    numIntervals: {
         type: DataTypes.INTEGER,
     },
     timeInterval: {

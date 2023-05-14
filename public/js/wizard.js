@@ -41,7 +41,9 @@ function populateBigSticky(templateCategoryId) {
         data.TemplateReminders.forEach(templateReminder => {
             const taskLi = document.createElement("li");
             taskLi.classList.add("reminders");
-            taskLi.innerHTML = `${templateReminder.task}  <i>every ${templateReminder.numIntervals} ${templateReminder.timeInterval}</i>`;
+            let timeIntervalStr = templateReminder.timeInterval
+            if (templateReminder.numIntervals !== 1) { timeIntervalStr += "s" }
+            taskLi.innerHTML = `ᐧ${templateReminder.task}  <i>every ${templateReminder.numIntervals} ${timeIntervalStr}</i>`;
             bigStickyUl.append(taskLi);
         });
     })
@@ -61,6 +63,7 @@ function handlerSaveCategories() {
             emoji: templateCategoryData.emoji,
             color: templateCategoryData.color,
         }
+        console.log(newCategoryObj);
         const resCategory = await fetch("api/categories", {
             method: "POST", 
             body: JSON.stringify(newCategoryObj),
@@ -79,7 +82,7 @@ function handlerSaveCategories() {
                 isRecurring: templateReminderObj.isRecurring,
                 numIntervals: templateReminderObj.numIntervals,
                 timeInterval: templateReminderObj.timeInterval,
-                nextDue: new Date(),
+                nextDue: dayjs().add(1,"day"),
                 CategoryId: newCategoryId,
             }
             console.log(newReminderObj);

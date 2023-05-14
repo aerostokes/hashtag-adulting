@@ -9,7 +9,7 @@ const templateRemindersArr = [
         numIntervals: 1,
         timeInterval: "year",
     },{
-        task: "Change filters",
+        task: "Change air filters",
         isRecurring: true,
         numIntervals: 6,
         timeInterval: "month",
@@ -38,7 +38,7 @@ const templateCategoryObj = {
 const seedTemplate = async () => {
     try {
         await TemplateCategory.create(templateCategoryObj, {include: [TemplateReminder]});
-        console.log(`Seeded ${templateCategoryObj.name} Template`);
+        console.log(`\x1b[36m\n\n----------------------------------Seeded ${templateCategoryObj.name} Template----------------------------------\n\n\x1b[37m`);
     } catch(err) {
         console.log(err);
     };
