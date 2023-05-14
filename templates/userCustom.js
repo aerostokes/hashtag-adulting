@@ -7,21 +7,20 @@ const templateRemindersArr = [
     {
         task: "Your Task 1",
         isRecurring: true,
-        numPeriods: 3,
-        timePeriod: "month",
+        numIntervals: 3,
+        timeInterval: "month",
     },{
         task: "Your Task 2",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },
 ];
 
 const templateCategoryObj = {
         name: "Your Custom",
         emoji: "⭐️",
-        color: "#FF478D",
-        // choose from: #38B7E3, #D8F226, #FF478D, #9AD8DA, #FFCA21, #F469F4
+        color: "color6",
         TemplateReminders: templateRemindersArr
     };
 //----------------------------------------------------------------
@@ -29,7 +28,7 @@ const templateCategoryObj = {
 const seedTemplate = async () => {
     try {
         await TemplateCategory.create(templateCategoryObj, {include: [TemplateReminder]});
-        console.log(`Seeded ${templateCategoryObj.name} Template`);
+        console.log(`\x1b[36m\n\n----------------------------------Seeded ${templateCategoryObj.name} Template----------------------------------\n\n\x1b[37m`);
     } catch(err) {
         console.log(err);
     };

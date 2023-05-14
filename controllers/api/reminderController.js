@@ -69,8 +69,8 @@ router.post("/", async (req, res) => {
                     task: req.body.task,
                     lastDone: req.body.lastDone,
                     isRecurring: req.body.isRecurring,
-                    numPeriods: req.body.numPeriods,
-                    timePeriod: req.body.timePeriod,
+                    numIntervals: req.body.numIntervals,
+                    timeInterval: req.body.timeInterval,
                     nextDue: req.body.nextDue,
                     note: req.body.note,
                     CategoryId: req.body.CategoryId

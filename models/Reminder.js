@@ -17,10 +17,10 @@ Reminder.init({
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-    numPeriods: {
+    numIntervals: {
         type: DataTypes.INTEGER,
     },
-    timePeriod: {
+    timeInterval: {
         type: DataTypes.STRING,
     },
     nextDue: {
@@ -47,8 +47,8 @@ async function handleAfterCreateAndUpdate(reminder) {
     scheduleJob(
         `${reminder.id}`,
         new Date(reminder.nextDue),
-        () => sendMail(user.email, reminder.note),
-    );
+        () => sendMail(user.email, `Reminder: \n${reminder.task} due today! \n${reminder.note}\nhttps://hashtag-adulting.herokuapp.com/dashboard/${reminder.CategoryId}`),
+    )
 }
 
 function handleBeforeDestroy(reminder) {

@@ -6,37 +6,37 @@ const templateRemindersArr = [
     {
         task: "Window inspection",
         isRecurring: true,
-        numPeriods: 4,
-        timePeriod: "month",
+        numIntervals: 4,
+        timeInterval: "month",
     },{
         task: "Cabinet inspection and disinfection",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeInterval: "month",
     },{
         task: "Air conditioner filter inspection",
         isRecurring: true,
-        numPeriods: 3,
-        timePeriod: "month",
+        numIntervals: 3,
+        timeInterval: "month",
     },
     {
         task: "Smoke and carbon monoxide detector test",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "month",
+        numIntervals: 1,
+        timeInterval: "month",
     },{
         task: "Smoke and carbon monoxide battery replacement",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },
 ];
 
 const templateCategoryObj = {
         name: "Apartment",
         emoji: "🏡",
-        color: "#9AD8DA",
-        // choose from: #38B7E3, #D8F226, #FF478D, #9AD8DA, #FFCA21, #F469F4
+        color: "color1",
+        // choose from: color1, color2, color3, color4, color5, color6
         TemplateReminders: templateRemindersArr
     };
 //----------------------------------------------------------------
@@ -44,7 +44,7 @@ const templateCategoryObj = {
 const seedTemplate = async () => {
     try {
         await TemplateCategory.create(templateCategoryObj, {include: [TemplateReminder]});
-        console.log(`Seeded ${templateCategoryObj.name} Template`);
+        console.log(`\x1b[36m\n\n----------------------------------Seeded ${templateCategoryObj.name} Template----------------------------------\n\n\x1b[37m`);
     } catch(err) {
         console.log(err);
     };
