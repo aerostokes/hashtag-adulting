@@ -29,8 +29,8 @@ const templateRemindersArr = [
 const templateCategoryObj = {
         name: "House",
         emoji: "🏠",
-        color: "#38B7E3",
-        // choose from: #38B7E3, #D8F226, #FF478D, #9AD8DA, #FFCA21, #F469F4
+        color: "color4",
+        // choose from: color1, color2, color3, color4, color5, color6
         TemplateReminders: templateRemindersArr
     };
 //----------------------------------------------------------------

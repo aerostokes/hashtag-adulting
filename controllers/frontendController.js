@@ -71,6 +71,9 @@ router.get("/dashboard/:id", async (req, res) => {
             if (bigStickyArr.length == 0) {
                 return res.redirect("/dashboard")
             } else {
+                bigStickyArr[0].Reminders.forEach(reminderObj => {
+                    if (reminderObj.numPeriods != 1) { reminderObj.plural = true }
+                });
                 // From the array of Categories (with associated Reminders), create an array of all Reminders for this user
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {
@@ -159,6 +162,9 @@ router.get("/category-editor/:id", async (req, res) => {
             if (bigStickyArr.length == 0) {
                 return res.redirect("/dashboard")
             } else {
+                bigStickyArr[0].Reminders.forEach(reminderObj => {
+                    if (reminderObj.numPeriods != 1) { reminderObj.plural = true }
+                });
                 // From the array of Categories (with associated Reminders), create an array of all Reminders for this user
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {

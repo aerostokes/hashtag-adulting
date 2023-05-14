@@ -1,5 +1,6 @@
 const templateCategorySection = document.getElementById("categoryArr");
 const firstTemplateCategory = templateCategorySection.querySelector(".checkCircle");
+const bigStickyAside = document.getElementById("biggerSticky")
 const bigStickyHeader = document.getElementById("stickHead");
 const bigStickyUl = document.getElementById("remindList");
 const saveButton = document.getElementById("save");
@@ -22,6 +23,7 @@ function handlerTemplateClick(event) {
 
 function populateBigSticky(templateCategoryId) {
     fetch(`/api/templates/${templateCategoryId}`).then(res => res.json()).then(data => {
+        bigStickyAside.setAttribute("class", data.color)
         bigStickyHeader.innerHTML = "";
         const nameEl = document.createElement("h4");
         const emojiEl = document.createElement("h4");
