@@ -41,7 +41,7 @@ function populateBigSticky(templateCategoryId) {
         data.TemplateReminders.forEach(templateReminder => {
             const taskLi = document.createElement("li");
             taskLi.classList.add("reminders");
-            taskLi.innerHTML = `${templateReminder.task}  <i>every ${templateReminder.numPeriods} ${templateReminder.timePeriod}</i>`;
+            taskLi.innerHTML = `${templateReminder.task}  <i>every ${templateReminder.numIntervals} ${templateReminder.timeInterval}</i>`;
             bigStickyUl.append(taskLi);
         });
     })
@@ -77,8 +77,8 @@ function handlerSaveCategories() {
             newReminderObj = {
                 task: templateReminderObj.task,
                 isRecurring: templateReminderObj.isRecurring,
-                numPeriods: templateReminderObj.numPeriods,
-                timePeriod: templateReminderObj.timePeriod,
+                numIntervals: templateReminderObj.numIntervals,
+                timeInterval: templateReminderObj.timeInterval,
                 nextDue: new Date(),
                 CategoryId: newCategoryId,
             }

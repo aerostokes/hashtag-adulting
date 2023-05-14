@@ -6,23 +6,23 @@ const templateRemindersArr = [
     {
         task: "Check smoke detector batteries",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },{
         task: "Change filters",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeInterval: "month",
     },{
         task: "Check your furnace and HVAC filters",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },{
         task: "Check and touch up exterior paint",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },
 ];
 

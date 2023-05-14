@@ -17,10 +17,10 @@ Reminder.init({
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-    numPeriods: {
+    numIntervals: {
         type: DataTypes.INTEGER,
     },
-    timePeriod: {
+    timeInterval: {
         type: DataTypes.STRING,
     },
     nextDue: {

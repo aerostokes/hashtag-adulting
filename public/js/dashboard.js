@@ -48,12 +48,12 @@ async function markTaskComplete(reminderId) {
                 "Content-Type": "application/json",
                 },
             });
-        // If it is recurring, update the Reminder entry to lastDone = today, and nextDue based on the stored time period. 
+        // If it is recurring, update the Reminder entry to lastDone = today, and nextDue based on the stored interval. 
         } else {
             const newReminderObj = {
                 id: reminderId,
                 lastDone: dayjs().format("YYYY-MM-DD"),
-                nextDue: dayjs().add(reminderData.numPeriods,reminderData.timePeriod).format("YYYY-MM-DD"),
+                nextDue: dayjs().add(reminderData.numIntervals,reminderData.timeInterval).format("YYYY-MM-DD"),
             };
             res = await fetch(`/api/reminders/${reminderId}`, {
                 method: "PUT", 
@@ -89,8 +89,8 @@ async function editTask(taskLi) {
             editTaskForm.querySelector("#task").value = reminderData.task;
             editTaskForm.querySelector("#lastDone").value = reminderData.lastDone;
             editTaskForm.querySelector("#isRecurring").checked = reminderData.isRecurring;
-            editTaskForm.querySelector("#numIntervals").value = reminderData.numPeriods;
-            editTaskForm.querySelector("#timeInterval").value = reminderData.timePeriod;
+            editTaskForm.querySelector("#numIntervals").value = reminderData.numIntervals;
+            editTaskForm.querySelector("#timeInterval").value = reminderData.timeInterval;
             editTaskForm.querySelector("#nextDue").value = reminderData.nextDue;
             editTaskForm.querySelector("#note").value = reminderData.note;
 
@@ -115,11 +115,11 @@ async function editTask(taskLi) {
                     editReminderObj.lastDone = null;
                 };
                 if (editTaskForm.querySelector("#numIntervals").value) {
-                    editReminderObj.numPeriods = editTaskForm.querySelector("#numIntervals").value;
-                    editReminderObj.timePeriod = editTaskForm.querySelector("#timeInterval").value;
+                    editReminderObj.numIntervals = editTaskForm.querySelector("#numIntervals").value;
+                    editReminderObj.timeInterval = editTaskForm.querySelector("#timeInterval").value;
                 } else {
-                    editReminderObj.numPeriods = null;
-                    editReminderObj.timePeriod = null;
+                    editReminderObj.numIntervals = null;
+                    editReminderObj.timeInterval = null;
                 };
                 if (editTaskForm.querySelector("#note").value) {
                     editReminderObj.note = editTaskForm.querySelector("#note").value;
@@ -172,8 +172,8 @@ function handlerAddTaskBtnClick() {
             newReminderObj.lastDone = newTaskForm.querySelector("#lastDone").value;
         };
         if (newTaskForm.querySelector("#numIntervals").value) {
-            newReminderObj.numPeriods = newTaskForm.querySelector("#numIntervals").value;
-            newReminderObj.timePeriod = newTaskForm.querySelector("#timeInterval").value;
+            newReminderObj.numIntervals = newTaskForm.querySelector("#numIntervals").value;
+            newReminderObj.timeInterval = newTaskForm.querySelector("#timeInterval").value;
         };
         if (newTaskForm.querySelector("#note").value) {
             newReminderObj.note = newTaskForm.querySelector("#note").value;

@@ -14,10 +14,10 @@ TemplateReminder.init({
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
-    numPeriods: {
+    numInterval: {
         type: DataTypes.INTEGER,
     },
-    timePeriod: {
+    timeInterval: {
         type: DataTypes.STRING,
     },
     nextDue: {

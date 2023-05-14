@@ -6,29 +6,29 @@ const templateRemindersArr = [
     {
         task: "Window inspection",
         isRecurring: true,
-        numPeriods: 4,
-        timePeriod: "month",
+        numIntervals: 4,
+        timeInterval: "month",
     },{
         task: "Cabinet inspection and disinfection",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeInterval: "month",
     },{
         task: "Air conditioner filter inspection",
         isRecurring: true,
-        numPeriods: 3,
-        timePeriod: "month",
+        numIntervals: 3,
+        timeInterval: "month",
     },
     {
         task: "Smoke and carbon monoxide detector test",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "month",
+        numIntervals: 1,
+        timeInterval: "month",
     },{
         task: "Smoke and carbon monoxide battery replacement",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },
 ];
 

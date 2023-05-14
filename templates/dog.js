@@ -6,13 +6,13 @@ const templateRemindersArr = [
     {
         task: "Vaccinations",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },{
         task: "Grooming",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeInterval: "month",
     },
 ];
 

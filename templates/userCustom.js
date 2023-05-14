@@ -7,13 +7,13 @@ const templateRemindersArr = [
     {
         task: "Your Task 1",
         isRecurring: true,
-        numPeriods: 3,
-        timePeriod: "month",
+        numIntervals: 3,
+        timeInterval: "month",
     },{
         task: "Your Task 2",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },
 ];
 

@@ -64,7 +64,7 @@
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
             <li class="reminders" data-ReminderId={{id}}>
-              ᐧ {{task}}{{#if isRecurring}}   (every {{numPeriods}} {{timePeriod}}{{#if plural}}s{{/if}})</i>{{/if}}  –  due: {{nextDue}}
+              ᐧ {{task}}{{#if isRecurring}}   (every {{numIntervals}} {{timeInterval}}{{#if plural}}s{{/if}})</i>{{/if}}  –  due: {{nextDue}}
               {{#if note}} 
                 <span style="font-style:italic; color:grey">
                 <br>      {{note}}

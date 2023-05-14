@@ -6,28 +6,28 @@ const templateRemindersArr = [
     {
         task: "Oil change",
         isRecurring: true,
-        numPeriods: 3,
-        timePeriod: "month",
+        numIntervals: 3,
+        timeInterval: "month",
     },{
         task: "Rotate tires",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeInterval: "month",
     },{
         task: "Routine maintenance check",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },{
         task: "Change your air filters",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeInterval: "year",
     },{
         task: "Check spark plugs and brake pads",
         isRecurring: true,
-        numPeriods: 2,
-        timePeriod: "year",
+        numIntervals: 2,
+        timeInterval: "year",
     },
 ];
 

@@ -22,49 +22,13 @@
           {{#each bigSticky.Reminders as |reminder|}}
             <li class="reminders" data-ReminderId="{{id}}">
               <input type="checkbox" class="checkTask" data-ReminderId="{{id}}" >
-              {{task}}{{#if isRecurring}} (every {{numPeriods}} {{timePeriod}}{{#if plural}}s{{/if}})</i>{{/if}}   –  due: {{nextDue}}{{#if note}}
+              {{task}}{{#if isRecurring}} (every {{numIntervals}} {{timeInterval}}{{#if plural}}s{{/if}})</i>{{/if}}   –  due: {{nextDue}}{{#if note}}
               <span style="font-size:75%; font-style:italic; color:grey;">
                       {{note}}
                 </span>
               {{/if}}
             </li>
           {{/each}}
-
-          {{!-- testing --}}
-      {{!-- <li class="reminder">
-        <form style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; font-size:90%; line-height:1">
-          <p style="font-size: 20px; transform:translateX(-4px)">📝 </p>
-          <input type="text" style="flex: 10 10 50%">
-          <div style="display:flex">
-            <label for="" style="width:30px; text-align:end">Last Done:</label>
-            <input type="date" name="" id="" style="width:105px" placeholder="Task">
-          </div>
-          <div style="display:flex; flex:1 1; justify-content:space-between">
-            <div style="display:flex; flex-direction:column; width: 55px">
-              <label for="">Recurring</label>
-              <input type="checkbox" name="" id="" style="height:15px">
-            </div>
-            <div style="display:flex; align-items:center">
-              <label for="" style="width:32px">Every:</label>
-              <input type="text" style="width:30px"> 
-              <input type="text" name="" id="" style="width:70px" value="month(s)">
-            </div>
-            <div style="display:flex">
-              <label for="" style="width:30px; text-align:end">Next Due:</label>
-              <input type="date" name="" id="" style="width:105px">
-            </div>
-          </div>
-          <input type="text" style="flex: 1 1 30%; font-size:75%" placeholder="notes">
-          <div style="flex:1 1; display:flex; justify-content:center">
-            <button>save</button>
-            <button>cancel</button>
-            <button>delete</button>
-          </div>
-        </form>
-      </li> --}}
-
-
-
       </ol>
       <div id="btn">
         <button id="addTask">+ Add Task</button>
