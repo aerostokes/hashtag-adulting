@@ -9,12 +9,12 @@ deskSection.addEventListener("click", handlerStickyClick);
 function handlerStickyClick(event) {
     if (event.target.matches("#sticky")) {
         if (deskSection.getAttribute("data-loggedIn") === "false") {
-            window.location.assign("/signup");
+            location.href = "/signup";
         } else {
             const CategoryId = event.target.getAttribute("data-CategoryId");
-            window.location.assign(`/dashboard/${CategoryId}`);
+            location.href = `/dashboard/${CategoryId}`;
         }
     } else if (event.target.matches("#addCategory")) {
-        window.location.assign("/wizard");
+        location.href = "/wizard";
     }
 }

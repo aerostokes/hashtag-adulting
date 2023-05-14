@@ -1,23 +1,30 @@
-const addCategorySticky = document.getElementById("addCategory" );
-const chalkboard = document.getElementById("nextTasks");
+const chalkboardOl = document.getElementById("nextTasks");
 const bigStickyHead = document.getElementById("stickHead");
 const bigStickyOl = document.getElementById("remindList");
 const addTaskBtn = document.getElementById("addTask");
+const addCategorySticky = document.getElementById("addCategory" );
+let reminderId
 
 // On page load
-addCategorySticky.addEventListener("click", handlerAddCategoryClick);
+chalkboardOl.addEventListener("click", handlerChalkboardClick);
 bigStickyHead.addEventListener("click", handlerBigStickyClickCategory);
 bigStickyOl.addEventListener("click", handlerBigStickyClickTask);
 addTaskBtn.addEventListener("click", handlerAddTaskBtnClick);
-chalkboard.addEventListener("click", handlerChalkboardClick);
-
+addCategorySticky.addEventListener("click", () => {
+    location.href = "/wizard"
+});
 
 
 // Callback functions:
 
-function handlerAddCategoryClick() {
-    location.href = "/wizard"
-}
+function handlerChalkboardClick(event) {
+    if (event.target.matches(".checkTask")) {
+        markTaskComplete(event);
+    } else if (event.target.matches("li.task")) {
+        categoryId = event.target.getAttribute("data-CategoryId");
+        location.href = `/dashboard/${categoryId}`;
+    }
+};
 
 function handlerBigStickyClickCategory(event) {
     const CategoryId = event.target.getAttribute("data-CategoryId")
@@ -25,19 +32,21 @@ function handlerBigStickyClickCategory(event) {
 };
 
 function handlerBigStickyClickTask(event) {
-    const reminderId = event.target.getAttribute("data-ReminderId");
     if (event.target.matches(".checkTask")) {
-        markTaskComplete(reminderId);
+        markTaskComplete(event);
     } else if (event.target.matches("li.reminders")) {
         editTask(event.target);
     }
 };
 
-async function markTaskComplete(reminderId) {
+async function markTaskComplete(event) {
     try {
+        const reminderId = event.target.getAttribute("data-ReminderId");
         const reminderResponse = await fetch(`/api/reminders/${reminderId}`);
         const reminderData = await reminderResponse.json();
         let res;
+        const reminderLiArr = document.querySelectorAll(`li[data-ReminderId='${reminderId}']`)
+        let newInnerHTML;
 
         // If the task is not recurring, than delete the database entry.
         if (!reminderData.isRecurring) {
@@ -47,23 +56,27 @@ async function markTaskComplete(reminderId) {
                 "Content-Type": "application/json",
                 },
             });
-        // If it is recurring, update the Reminder entry to lastDone = today, and nextDue based on the stored time period. 
+            newInnerHTML = `<strike>${reminderData.task}</strike> – <b>completed: TODAY</b>`
+        // If it is recurring, update the Reminder entry to lastDone = today, and nextDue based on the stored interval. 
         } else {
-            const newReminderObj = {
+            const editReminderObj = {
                 id: reminderId,
                 lastDone: dayjs().format("YYYY-MM-DD"),
-                nextDue: dayjs().add(reminderData.numPeriods,reminderData.timePeriod).format("YYYY-MM-DD"),
+                nextDue: dayjs().add(reminderData.numIntervals,reminderData.timeInterval).format("YYYY-MM-DD"),
             };
             res = await fetch(`/api/reminders/${reminderId}`, {
                 method: "PUT", 
-                body: JSON.stringify(newReminderObj),
+                body: JSON.stringify(editReminderObj),
                 headers: {
                 "Content-Type": "application/json",
                 },
             });
+            newInnerHTML = `<strike style="pointer-events:none">${reminderData.task}</strike> – completed: TODAY, next due: ${dayjs(editReminderObj.nextDue).format("MM/DD/YY")}`
         }
         if (res.ok) {
-            location.reload();
+            reminderLiArr.forEach(li => {
+                li.innerHTML = newInnerHTML;
+            });
         } else {
             alert("Error Occured, try again");
             console.log(res);
@@ -82,28 +95,25 @@ async function editTask(taskLi) {
         const reminderResponse = await fetch(`/api/reminders/${reminderId}`);
         const reminderData = await reminderResponse.json();
 
-        const editTaskForm = createForm(reminderData.isRecurring);
+        const editTaskForm = createForm(reminderData.isRecurring, true);
         if (editTaskForm) {
             taskLi.textContent = ""
             editTaskForm.querySelector("#task").value = reminderData.task;
             editTaskForm.querySelector("#lastDone").value = reminderData.lastDone;
             editTaskForm.querySelector("#isRecurring").checked = reminderData.isRecurring;
-            editTaskForm.querySelector("#numPeriods").value = reminderData.numPeriods;
-            editTaskForm.querySelector("#timePeriod").value = reminderData.timePeriod;
+            editTaskForm.querySelector("#numIntervals").value = reminderData.numIntervals;
+            editTaskForm.querySelector("#timeInterval").value = reminderData.timeInterval;
             editTaskForm.querySelector("#nextDue").value = reminderData.nextDue;
             editTaskForm.querySelector("#note").value = reminderData.note;
 
-            const deleteBtn = document.createElement("button");
-            deleteBtn.setAttribute("style", "color:red")
-            deleteBtn.textContent = "delete";
-            editTaskForm.append(deleteBtn);
+            taskLi.append(editTaskForm);
+
+            const deleteBtn = editTaskForm.querySelector("#deleteBtn")
             deleteBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 deleteReminder(reminderId);
             });
 
-            taskLi.append(editTaskForm);
-            
             editTaskForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const editReminderObj = {
@@ -116,12 +126,12 @@ async function editTask(taskLi) {
                 } else {
                     editReminderObj.lastDone = null;
                 };
-                if (editTaskForm.querySelector("#numPeriods").value) {
-                    editReminderObj.numPeriods = editTaskForm.querySelector("#numPeriods").value;
-                    editReminderObj.timePeriod = editTaskForm.querySelector("#timePeriod").value;
+                if (editTaskForm.querySelector("#numIntervals").value) {
+                    editReminderObj.numIntervals = editTaskForm.querySelector("#numIntervals").value;
+                    editReminderObj.timeInterval = editTaskForm.querySelector("#timeInterval").value;
                 } else {
-                    editReminderObj.numPeriods = null;
-                    editReminderObj.timePeriod = null;
+                    editReminderObj.numIntervals = null;
+                    editReminderObj.timeInterval = null;
                 };
                 if (editTaskForm.querySelector("#note").value) {
                     editReminderObj.note = editTaskForm.querySelector("#note").value;
@@ -156,8 +166,11 @@ function handlerAddTaskBtnClick() {
     addTaskBtn.setAttribute("hidden", "hidden")
     const categoryId = document.getElementById("biggerSticky").getAttribute("data-CategoryId");
 
+    const newLi = document.createElement("li");
+    newLi.setAttribute("class", "reminders")
+    bigStickyOl.append(newLi)
     const newTaskForm = createForm();
-    bigStickyOl.append(newTaskForm);
+    newLi.append(newTaskForm);
 
     newTaskForm.addEventListener("submit", e => {
         e.preventDefault();
@@ -170,9 +183,9 @@ function handlerAddTaskBtnClick() {
         if (newTaskForm.querySelector("#lastDone").value) {
             newReminderObj.lastDone = newTaskForm.querySelector("#lastDone").value;
         };
-        if (newTaskForm.querySelector("#numPeriods").value) {
-            newReminderObj.numPeriods = newTaskForm.querySelector("#numPeriods").value;
-            newReminderObj.timePeriod = newTaskForm.querySelector("#timePeriod").value;
+        if (newTaskForm.querySelector("#numIntervals").value) {
+            newReminderObj.numIntervals = newTaskForm.querySelector("#numIntervals").value;
+            newReminderObj.timeInterval = newTaskForm.querySelector("#timeInterval").value;
         };
         if (newTaskForm.querySelector("#note").value) {
             newReminderObj.note = newTaskForm.querySelector("#note").value;
@@ -195,206 +208,173 @@ function handlerAddTaskBtnClick() {
     });
 };
 
-function handlerChalkboardClick() {
-    //TODO
-    // <input type="date" id="date" style="color-scheme:dark">
 
-};
 
-function createForm(isRecurring=true) {
+function createForm(isRecurring=true, withDelete=false) {
     if (document.getElementById("addEditForm")) { return };
     const formEl = document.createElement("form");
     formEl.setAttribute("id","addEditForm");
-    formEl.setAttribute("style", "position:relative; width:100%");
+    formEl.setAttribute("style", "display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; text-indent:0px; font-size:80%; line-height:1");
+        const editEmoji = document.createElement("p");
+        editEmoji.setAttribute("style", "text-indent:-25px; font-size: 20px; transform:translateX(-9px)");
+        editEmoji.textContent = "📝";
+        formEl.append(editEmoji);
 
-    const firstRowDiv = document.createElement("div");
-    firstRowDiv.setAttribute("style", "display:flex; flex-direction: row; justify-content: space-between; margin-top: 20px; width:50%;");
-    formEl.append(firstRowDiv);
-    
-    const taskDiv = document.createElement("div");
-    taskDiv.setAttribute("style", "display:inline-block; width:30%;");
-    firstRowDiv.append(taskDiv);
-// added label for task
-    const taskLabel = document.createElement("label");
-    taskLabel.setAttribute("for", "task");
-    taskLabel.setAttribute("style", "display:block;");
-    taskLabel.textContent = "*Task:";
-    taskDiv.append(taskLabel); // Append label to taskDiv before input element
-    
-    const taskInput = document.createElement("input");
-    taskInput.setAttribute("type", "text");
-    taskInput.setAttribute("id", "task");
-    taskInput.setAttribute("style", "display:block; width: 100%;");
-    taskInput.setAttribute("placeholder", "Add Task");
-    taskInput.setAttribute("required", "required");
-    taskDiv.append(taskInput);
+        const taskInput = document.createElement("input");
+        taskInput.setAttribute("type", "text");
+        taskInput.setAttribute("id", "task");
+        taskInput.setAttribute("style", "flex: 10 10 50%");
+        taskInput.setAttribute("placeholder", "*Task");
+        taskInput.setAttribute("required", "required");
+        formEl.append(taskInput);
 
         const lastDoneDiv = document.createElement("div");
-        lastDoneDiv.setAttribute("style", "display:inline-block");
-        firstRowDiv.append(lastDoneDiv);
+        lastDoneDiv.setAttribute("style", "display:flex");
+        formEl.append(lastDoneDiv);
             const lastDoneLabel = document.createElement("label");
             lastDoneLabel.setAttribute("for", "lastDone");
-            lastDoneLabel.setAttribute("style", "display:block");
+            lastDoneLabel.setAttribute("style", "width:30px; text-align:end");
             lastDoneLabel.textContent = "Last Done:";
             lastDoneDiv.append(lastDoneLabel);
 
             const lastDoneInput = document.createElement("input");
             lastDoneInput.setAttribute("type", "date");
             lastDoneInput.setAttribute("id", "lastDone");
-            lastDoneInput.setAttribute("style", "display:block; width:140px");
+            lastDoneInput.setAttribute("style", "width: 120px");
             lastDoneDiv.append(lastDoneInput);
-    
-    const secondRowDiv = document.createElement("div");
-    secondRowDiv.setAttribute("style", "display:flex; flex-direction: column; margin-top: 10px; width:100%;");
-    formEl.append(secondRowDiv);
-        const recurringDiv = document.createElement("div");
-        recurringDiv.setAttribute('id','recurring_checkbox')
-        recurringDiv. setAttribute("style", "display:flex; flex-direction: row; align-self:center ;width: 78%;");
-        secondRowDiv.append(recurringDiv);
-        const isRecurringLabel = document.createElement("label");
-        isRecurringLabel.setAttribute("for", "isRecurring");
-        isRecurringLabel.setAttribute("style", "display:block; margin-right:10px;");
-        isRecurringLabel.textContent = "Is this a Recurring Event?";
-        recurringDiv.append(isRecurringLabel);
 
-            const isRecurringInput = document.createElement("input");
-            isRecurringInput.setAttribute("type", "checkbox");
-            isRecurringInput.setAttribute("id", "isRecurring");
-            isRecurringInput.setAttribute("style", "display:block; height: 20px; width: 20px;");
-            recurringDiv.append(isRecurringInput);
+        const calcDueDiv = document.createElement("div");
+        calcDueDiv.setAttribute("style", "display:flex; flex:1 1; justify-content:space-between");
+        formEl.append(calcDueDiv);
+            const recurringDiv = document.createElement("div");
+            recurringDiv.setAttribute("style", "display:flex; flex-direction:column; width: 55px");
+            calcDueDiv.append(recurringDiv);
+                const isRecurringLabel = document.createElement("label");
+                isRecurringLabel.setAttribute("for", "isRecurring");
+                isRecurringLabel.textContent = "Recurring";
+                recurringDiv.append(isRecurringLabel);
 
+                const isRecurringInput = document.createElement("input");
+                isRecurringInput.setAttribute("type", "checkbox");
+                isRecurringInput.setAttribute("id", "isRecurring");
+                isRecurringInput.setAttribute("style", "transform:translateX(20px); height: 15px");
+                recurringDiv.append(isRecurringInput);
 
-        const numPeriodsDiv = document.createElement("div");
-        const scheduleDiv = document.createElement('div')
-        scheduleDiv.setAttribute('style','display:flex; flex-direction: row; justify-content:space-between;width:50%; margin-top:20px;')
-        secondRowDiv.append(scheduleDiv)
-        scheduleDiv.append(numPeriodsDiv);
-            const numPeriodsLabel = document.createElement("label");
-            numPeriodsLabel.setAttribute("for", "numPeriods");
-            numPeriodsLabel.setAttribute('style','display:block;')
-            numPeriodsLabel.textContent = "*Every:";
-            numPeriodsDiv.append(numPeriodsLabel);
+            const intervalDiv = document.createElement("div");
+            // See event listener below for intervalDiv styling
+            calcDueDiv.append(intervalDiv);
+                const numIntervalsLabel = document.createElement("label");
+                numIntervalsLabel.setAttribute("for", "numIntervals");
+                numIntervalsLabel.setAttribute("style", "width:32px");
+                numIntervalsLabel.textContent = "Every:";
+                intervalDiv.append(numIntervalsLabel);
 
-            const numPeriodsInput = document.createElement("input");
-            numPeriodsInput.setAttribute("type", "number");
-            numPeriodsInput.setAttribute("id", "numPeriods");
-            numPeriodsInput.setAttribute("style", "display: flex;  justify-content: center; width:60px");
-            numPeriodsInput.setAttribute("placeholder", "Num");
-            numPeriodsDiv.append(numPeriodsInput);
+                const numIntervalsInput = document.createElement("input");
+                numIntervalsInput.setAttribute("type", "number");
+                numIntervalsInput.setAttribute("id", "numIntervals");
+                numIntervalsInput.setAttribute("style", "flex:0 1; max-width:53px; text-align:center");
+                numIntervalsInput.setAttribute("placeholder", "Num");
+                intervalDiv.append(numIntervalsInput);
 
-        const timePeriodDiv = document.createElement("div");
-        scheduleDiv.append(timePeriodDiv);
-// added label for timePeriod
-        const timePeriodLabel = document.createElement("label");
-        timePeriodLabel.setAttribute("for", "timePeriod");
-        timePeriodLabel.setAttribute("style", "display:block");
-        timePeriodLabel.textContent = "*Time Interval:";
-        timePeriodDiv.append(timePeriodLabel);
+                const timeIntervalSelect = document.createElement("select");
+                timeIntervalSelect.setAttribute("id", "timeInterval");
+                timeIntervalSelect.setAttribute("style", "flex:0 1; max-width:87px");
+                const opt1 = document.createElement("option");
+                const opt2 = document.createElement("option");
+                const opt3 = document.createElement("option");
+                const opt4 = document.createElement("option");
+                opt1.value = "day";
+                opt1.text = "day(s)";
+                opt2.value = "week";
+                opt2.text = "week(s)";
+                opt3.value = "month";
+                opt3.text = "month(s)";
+                opt3.setAttribute("selected", "selected");
+                opt4.value = "year";
+                opt4.text = "year(s)";
+                timeIntervalSelect.add(opt1);
+                timeIntervalSelect.add(opt2);
+                timeIntervalSelect.add(opt3);
+                timeIntervalSelect.add(opt4);
+                intervalDiv.append(timeIntervalSelect);
+            const nextDueDiv = document.createElement("div");
+            nextDueDiv.setAttribute("style", "display:flex");
+            calcDueDiv.append(nextDueDiv);
+                const nextDueLabel = document.createElement("label");
+                nextDueLabel.setAttribute("for", "nextDue");
+                nextDueLabel.setAttribute("style", "width:30px; text-align:end");
+                nextDueLabel.textContent = "*Next Due:";
+                nextDueDiv.append(nextDueLabel);
 
-            const timePeriodSelect = document.createElement("select");
-            timePeriodSelect.setAttribute("id", "timePeriod");
-            timePeriodSelect.setAttribute("style", "display:block; width: 6rem;");
-            const opt1 = document.createElement("option");
-            const opt2 = document.createElement("option");
-            const opt3 = document.createElement("option");
-            const opt4 = document.createElement("option");
-            opt1.value = "day";
-            opt1.text = "day";
-            opt2.value = "week";
-            opt2.text = "week";
-            opt3.value = "month";
-            opt3.text = "month";
-            opt3.setAttribute("selected", "selected");
-            opt4.value = "year";
-            opt4.text = "year";
-            timePeriodSelect.add(opt1);
-            timePeriodSelect.add(opt2);
-            timePeriodSelect.add(opt3);
-            timePeriodSelect.add(opt4);
-            timePeriodDiv.append(timePeriodSelect);
-
-        // Add event listener to hide/show/require the numPeriods and timePeriod fields based on the isRecurring checkbox
-        isRecurringInput.addEventListener("click", () => {
-            if (isRecurringInput.checked) {
-                numPeriodsDiv.setAttribute("style", "display:inline-block");
-                timePeriodDiv.setAttribute("style", "display:inline-block");
-                numPeriodsInput.setAttribute("required", "required");
-                timePeriodSelect.setAttribute("required", "required");
-            } else {
-                numPeriodsDiv.setAttribute("style", "display:none");
-                timePeriodDiv.setAttribute("style", "display:none");
-                numPeriodsInput.removeAttribute("required");
-                timePeriodSelect.removeAttribute("required");
-            };
-        });
-        // Initiate with !isRecurring argument and then immediately click to trigger to isRecurring
-        isRecurringInput.checked = !isRecurring;
-        isRecurringInput.click();
-
-        const nextDueDiv = document.createElement("div");
-        nextDueDiv.setAttribute("id", "timePeriodDiv");
-        nextDueDiv.setAttribute("style", "display:inline-block");
-        scheduleDiv.append(nextDueDiv);
-            const nextDueLabel = document.createElement("label");
-            nextDueLabel.setAttribute("for", "nextDue");
-            nextDueLabel.setAttribute("style", "display:block");
-            nextDueLabel.textContent = "*Next Due:";
-            nextDueDiv.append(nextDueLabel);
-
-            const nextDueInput = document.createElement("input");
-            nextDueInput.setAttribute("type", "date");
-            nextDueInput.setAttribute("id", "nextDue");
-            nextDueInput.setAttribute("style", "display:block; width:120px");
-            nextDueInput.setAttribute("required", "required");
-            nextDueDiv.append(nextDueInput);
-
-            lastDoneInput.addEventListener("change", () => {
-                if (numPeriodsInput.value && lastDoneInput.value) {
-                    nextDueInput.value = dayjs(lastDoneInput.value).add(numPeriodsInput.value, timePeriodSelect.value).format("YYYY-MM-DD");
-                };
-            });
-            numPeriodsInput.addEventListener("change", () => {
-                if (numPeriodsInput.value && lastDoneInput.value) {
-                    nextDueInput.value = dayjs(lastDoneInput.value).add(numPeriodsInput.value, timePeriodSelect.value).format("YYYY-MM-DD");
-                };
-            });
-            timePeriodSelect.addEventListener("change", () => {
-                if (numPeriodsInput.value && lastDoneInput.value) {
-                    nextDueInput.value = dayjs(lastDoneInput.value).add(numPeriodsInput.value, timePeriodSelect.value).format("YYYY-MM-DD");
-                };
-            });
-// added label for notes
-        const noteDiv = document.createElement('div')
-        noteDiv.setAttribute('style','margin-top: 20px')
-        secondRowDiv.append(noteDiv)
-        const noteLabel = document.createElement("label");
-        noteLabel.setAttribute("for", "note");
-        noteLabel.setAttribute("style", "display:block");
-        noteLabel.textContent = "Notes:";
-        noteDiv.append(noteLabel);
+                const nextDueInput = document.createElement("input");
+                nextDueInput.setAttribute("type", "date");
+                nextDueInput.setAttribute("id", "nextDue");
+                nextDueInput.setAttribute("style", "width:120px");
+                nextDueInput.setAttribute("required", "required");
+                nextDueDiv.append(nextDueInput);
 
         const noteInput = document.createElement("input");
         noteInput.setAttribute("type", "text");
         noteInput.setAttribute("id", "note");
-        noteInput.setAttribute("style", "display:inline-block; height: 3rem; width:50%");
-        noteInput.setAttribute("placeholder", "Add note");
-        noteDiv.append(noteInput);
+        noteInput.setAttribute("style", "flex: 1 1 25%; font-size:75%");
+        noteInput.setAttribute("placeholder", "notes (optional)");
+        formEl.append(noteInput);
+        
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.setAttribute("style", "flex:1 1; display:flex; justify-content:center");
+        formEl.append(buttonsDiv);
+            const saveBtn = document.createElement("button");
+            saveBtn.setAttribute("type", "submit")
+            saveBtn.textContent = "save";
+            buttonsDiv.append(saveBtn);
+            
+            const cancelBtn = document.createElement("button");
+            cancelBtn.textContent = "cancel";
+            buttonsDiv.append(cancelBtn);
+            cancelBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                location.reload()
+            });
 
-    const saveCancelDiv = document.createElement('div')
-    saveCancelDiv.setAttribute('style','display:flex; flex-direction:row; justify-content: space-around; width:50%;')
-    formEl.append(saveCancelDiv);
-    const saveBtn = document.createElement("button");
-    saveBtn.setAttribute("type", "submit")
-    saveBtn.textContent = "Save";
-    saveCancelDiv.append(saveBtn)
+            if (withDelete) {
+                const deleteBtn = document.createElement("button");
+                deleteBtn.setAttribute("id", "deleteBtn")
+                deleteBtn.setAttribute("style", "color:red")
+                deleteBtn.textContent = "delete";
+                buttonsDiv.append(deleteBtn);
+            }
 
-    
-    const cancelBtn = document.createElement("button");
-    cancelBtn.textContent = "Cancel";
-    saveCancelDiv.append(cancelBtn);
-    cancelBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        location.reload()
+    // Add event listener to hide/show/require the numIntervals and timeInterval fields based on the isRecurring checkbox
+    isRecurringInput.addEventListener("click", () => {
+        if (isRecurringInput.checked) {
+            intervalDiv.setAttribute("style", "display:flex; align-items:center; flex:1 1");
+            numIntervalsInput.setAttribute("required", "required");
+            timeIntervalSelect.setAttribute("required", "required");
+        } else {
+            intervalDiv.setAttribute("style", "display:none");
+            numIntervalsInput.removeAttribute("required");
+            timeIntervalSelect.removeAttribute("required");
+        };
+    });
+
+    // Initiate with !isRecurring argument and then immediately click to trigger to isRecurring
+    isRecurringInput.checked = !isRecurring;
+    isRecurringInput.click();
+
+    lastDoneInput.addEventListener("change", () => {
+        if (numIntervalsInput.value && lastDoneInput.value) {
+            nextDueInput.value = dayjs(lastDoneInput.value).add(numIntervalsInput.value, timeIntervalSelect.value).format("YYYY-MM-DD");
+        };
+    });
+    numIntervalsInput.addEventListener("change", () => {
+        if (numIntervalsInput.value && lastDoneInput.value) {
+            nextDueInput.value = dayjs(lastDoneInput.value).add(numIntervalsInput.value, timeIntervalSelect.value).format("YYYY-MM-DD");
+        };
+    });
+    timeIntervalSelect.addEventListener("change", () => {
+        if (numIntervalsInput.value && lastDoneInput.value) {
+            nextDueInput.value = dayjs(lastDoneInput.value).add(numIntervalsInput.value, timeIntervalSelect.value).format("YYYY-MM-DD");
+        };
     });
 
     return formEl;

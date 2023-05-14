@@ -1,5 +1,6 @@
 const templateCategorySection = document.getElementById("categoryArr");
 const firstTemplateCategory = templateCategorySection.querySelector(".checkCircle");
+const bigStickyAside = document.getElementById("biggerSticky")
 const bigStickyHeader = document.getElementById("stickHead");
 const bigStickyUl = document.getElementById("remindList");
 const saveButton = document.getElementById("save");
@@ -22,6 +23,7 @@ function handlerTemplateClick(event) {
 
 function populateBigSticky(templateCategoryId) {
     fetch(`/api/templates/${templateCategoryId}`).then(res => res.json()).then(data => {
+        bigStickyAside.setAttribute("class", data.color)
         bigStickyHeader.innerHTML = "";
         const nameEl = document.createElement("h4");
         const emojiEl = document.createElement("h4");
@@ -39,7 +41,9 @@ function populateBigSticky(templateCategoryId) {
         data.TemplateReminders.forEach(templateReminder => {
             const taskLi = document.createElement("li");
             taskLi.classList.add("reminders");
-            taskLi.innerHTML = `${templateReminder.task}  <i>every ${templateReminder.numPeriods} ${templateReminder.timePeriod}</i>`;
+            let timeIntervalStr = templateReminder.timeInterval
+            if (templateReminder.numIntervals !== 1) { timeIntervalStr += "s" }
+            taskLi.innerHTML = `ᐧ${templateReminder.task}  <i>every ${templateReminder.numIntervals} ${timeIntervalStr}</i>`;
             bigStickyUl.append(taskLi);
         });
     })
@@ -59,6 +63,7 @@ function handlerSaveCategories() {
             emoji: templateCategoryData.emoji,
             color: templateCategoryData.color,
         }
+        console.log(newCategoryObj);
         const resCategory = await fetch("api/categories", {
             method: "POST", 
             body: JSON.stringify(newCategoryObj),
@@ -75,9 +80,9 @@ function handlerSaveCategories() {
             newReminderObj = {
                 task: templateReminderObj.task,
                 isRecurring: templateReminderObj.isRecurring,
-                numPeriods: templateReminderObj.numPeriods,
-                timePeriod: templateReminderObj.timePeriod,
-                nextDue: new Date(),
+                numIntervals: templateReminderObj.numIntervals,
+                timeInterval: templateReminderObj.timeInterval,
+                nextDue: dayjs().add(1,"day"),
                 CategoryId: newCategoryId,
             }
             console.log(newReminderObj);

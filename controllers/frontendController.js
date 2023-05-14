@@ -71,6 +71,9 @@ router.get("/dashboard/:id", async (req, res) => {
             if (bigStickyArr.length == 0) {
                 return res.redirect("/dashboard")
             } else {
+                bigStickyArr[0].Reminders.forEach(reminderObj => {
+                    if (reminderObj.numIntervals != 1) { reminderObj.plural = true }
+                });
                 // From the array of Categories (with associated Reminders), create an array of all Reminders for this user
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {
@@ -80,8 +83,9 @@ router.get("/dashboard/:id", async (req, res) => {
                 const priorityArr = remindersArr.filter(reminderObj => dayjs(reminderObj.nextDue).isBefore(dayjs().add(2,"week")))
                 priorityArr.sort((a,b) => dayjs(a.nextDue).diff(dayjs(b.nextDue)));
                 priorityArr.forEach(reminderObj => {
-                    if (dayjs(reminderObj.nextDue).isBefore(dayjs().add(1,"day"))) { reminderObj.overdue = true }
+                    if (dayjs(reminderObj.nextDue).isBefore(dayjs())) { reminderObj.overdue = true }
                 });
+                console.log(priorityArr);
                 return res.render('dashboard', {
                     loggedIn: true,
                     sticky: categoriesArr,
@@ -159,6 +163,9 @@ router.get("/category-editor/:id", async (req, res) => {
             if (bigStickyArr.length == 0) {
                 return res.redirect("/dashboard")
             } else {
+                bigStickyArr[0].Reminders.forEach(reminderObj => {
+                    if (reminderObj.numIntervals != 1) { reminderObj.plural = true }
+                });
                 // From the array of Categories (with associated Reminders), create an array of all Reminders for this user
                 const remindersArr = categoriesArr.map(categoryObj => categoryObj.Reminders).flat();
                 remindersArr.forEach(reminderObj => {

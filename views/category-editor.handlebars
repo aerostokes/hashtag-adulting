@@ -12,34 +12,34 @@
                   </div>
                 <div class="catEdTitle"> 
                   <label class="catTitle" for="name">Category Name:</label>
-                  <input type="text" id="name">
+                  <input type="text" id="name" required="required">
                   </div>
             </div>
 
             <div id="colorList">
                 <p class="sticyColor">Select a sticky color:</p>
                 <div class="checkCat">
-                  <input class="colorPick"type ="radio" id="color1" name="color">
+                  <input class="colorPick" type ="radio" id="color1" name="color" value="color1">
                   <label class="colorName color1"for ="color1">Magenta</label>
                 </div>
                 <div class="checkCat">
-                    <input class="colorPick"type ="radio" id="color2" name="color">
+                    <input class="colorPick"type ="radio" id="color2" name="color" value="color2">
                     <label class="colorName color2"for ="color2">Blue</label>
                 </div>
                 <div class="checkCat">
-                    <input class="colorPick" type ="radio" id="color3" name="color">
+                    <input class="colorPick" type ="radio" id="color3" name="color" value="color3">
                     <label class="colorName color3"for ="color3">Teal</label>
                 </div>
                 <div class="checkCat">
-                    <input class="colorPick" type ="radio" id="color4" name="color">
+                    <input class="colorPick" type ="radio" id="color4" name="color" value="color4">
                     <label class="colorName color4"for ="color4">Yellow</label>
                 </div>
                 <div class="checkCat">
-                    <input class="colorPick" type ="radio" id="color5" name="color">
+                    <input class="colorPick" type ="radio" id="color5" name="color" value="color5">
                     <label class="colorName color5"for ="color5">Pink</label>
                 </div>
                 <div class="checkCat">
-                    <input class="colorPick" type ="radio" id="color6" name="color">
+                    <input class="colorPick" type ="radio" id="color6" name="color" value="color6">
                     <label class="colorName color6"for ="color6">Chartreuse</label>
                 </div>
             </div>
@@ -48,6 +48,7 @@
           <div id="create">
             <button type = "submit" value = "Submit" id = "save-button">Update</button>
             <button id = "cancel-button">Cancel</button>
+            <button id = "deleteBtn" style="color:red">Delete</button>
           </div>
         </form>
             
@@ -56,15 +57,15 @@
       </div>
     </section>
 
-        <aside id="biggerSticky" data-CategoryId="{{bigSticky.id}}" style="background-color:{{bigSticky.color}}">
-      <div id="stickHead" data-CategoryId="{{bigSticky.id}}" >
+    <aside id="biggerSticky" class={{bigSticky.color}} data-CategoryId={{bigSticky.id}}>
+      <div id="stickHead" data-CategoryId={{bigSticky.id}}>
         <h4 id="name" class="bigStickyTitle" style="pointer-events: none;">{{bigSticky.name}}</h4>
         <h4 id="emoji" style="pointer-events: none;">{{bigSticky.emoji}}</h4>
       </div>
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
-            <li class="reminders" data-ReminderId="{{id}}">
-              ᐧ {{task}}{{#if isRecurring}}   (every {{numPeriods}} {{timePeriod}}(s))</i>{{/if}}  –  due: {{nextDue}}
+            <li class="reminders" data-ReminderId={{id}}>
+              ᐧ {{task}}{{#if isRecurring}}   (every {{numIntervals}} {{timeInterval}}{{#if plural}}s{{/if}})</i>{{/if}}  –  due: {{nextDue}}
               {{#if note}} 
                 <span style="font-style:italic; color:grey">
                 <br>      {{note}}

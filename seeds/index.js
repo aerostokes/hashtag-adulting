@@ -18,30 +18,30 @@ const usersArr = [
 ];
 
 const categoriesArr = [
-// choose color from: #38B7E3, #D8F226, #FF478D, #9AD8DA, #FFCA21, #F469F4
+
 
     {
         name: 'Car 1',
         emoji: '🚗',
-        color: '#38B7E3',
+        color: 'color1',
         UserId: 1,
     },
     {
         name: 'House 1',
         emoji: '🏠',
-        color: '#D8F226',
+        color: 'color2',
         UserId: 1,
     },    
     {
         name: 'Car 2',
         emoji: '🚙',
-        color: '#FF478D',
+        color: 'color3',
         UserId: 2,
     },
     {
         name: 'House 2',
         emoji: '🏡',
-        color: '#9AD8DA',
+        color: 'color4',
         UserId: 2,
     },
 ];
@@ -51,8 +51,8 @@ const remindersArr = [
         task: "Oil change 1",
         lastDone: "2022-09-01",
         isRecurring: true,
-        numPeriods: 3,
-        timePeriod: "month",
+        numIntervals: 3,
+        timeIntervals: "month",
         nextDue: "2023-01-01",
         note: "",
         CategoryId: 1,
@@ -60,8 +60,8 @@ const remindersArr = [
         task: "Rotate tires 1",
         lastDone: "2023-01-01",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeIntervals: "month",
         nextDue: "2023-07-01",
         note: "",
         CategoryId: 1,
@@ -69,8 +69,8 @@ const remindersArr = [
         task: "Rotate tires 3",
         lastDone: "2023-06-01",
         isRecurring: true,
-        numPeriods: 6,
-        timePeriod: "month",
+        numIntervals: 6,
+        timeIntervals: "month",
         nextDue: "2023-12-01",
         note: "",
         CategoryId: 3,
@@ -78,8 +78,8 @@ const remindersArr = [
         task: "Check smoke detector batteries",
         lastDone: "2023-01-01",
         isRecurring: true,
-        numPeriods: 1,
-        timePeriod: "year",
+        numIntervals: 1,
+        timeIntervals: "year",
         nextDue: "2023-12-01",
         note: "",
         CategoryId: 2,

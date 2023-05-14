@@ -297,7 +297,7 @@ main {
   flex-direction: column;
   padding: 10px;
   padding-bottom: 40px;
-  background-color: var(--blue-sticky);
+  /* background-color: var(--blue-sticky); */
   margin-right: 50px;
   height: 29rem;
   width: 50rem;
@@ -321,7 +321,7 @@ li {
   font-weight: 300;
   font-style: normal;
   color: rgb(232, 230, 230);
-  list-style-type: none;
+  list-style-type:none;
   line-height: 25px;
   margin-left: 10px;
   text-align: left;
@@ -357,7 +357,7 @@ button {
   font-family: "larken", sans-serif;
   font-weight: 300;
   font-style: normal;
-  margin-top: 15px;
+  /* margin-top: 15px; */
   padding: 5px 10px 5px 10px;
   font-size: 18px;
   color: rgb(191, 189, 189);
@@ -373,17 +373,24 @@ button {
   line-height: 30px;
   text-indent: -25px;
   margin-left: 35px;
+}
 
+.clickable:hover {
+  color:black;
+  cursor:pointer;
+}
+
+.task:hover {
+  color:rgb(219, 242, 242);
+  cursor:pointer;
 }
 
 .checkTask {
-  position: relative;
-  width:1rem;
-  height: 1rem;
-  margin-right: 15px;
-  transform: scale(1.5);
-  
+  margin-right: 10px;
+  height: 20px;
+  transform: scale(1.5) translateY(2px);
 }
+
 
 
 
@@ -568,8 +575,7 @@ label {
   align-items: center;
   justify-content: flex-end;
   font-size: 16px;
-  background-color: rgb(45, 45, 45);
-  color: azure;
+  color: rgb(49, 49, 49);
   border-radius: 2px;
   margin: 0;
   width: 200px;
@@ -625,22 +631,22 @@ input[type="radio"]:checked {
   width: 234px;
 }
 .color1 {
-  color: var(--magenta-sticky);
+  background-color: var(--magenta-sticky);
 }
 .color2 {
-  color: var(--blue-sticky);
+  background-color: var(--blue-sticky);
 }
 .color3 {
-  color: var(--teal-sticky);
+  background-color: var(--teal-sticky);
 }
 .color4 {
-  color: var(--yellow-sticky);
+  background-color: var(--yellow-sticky);
 }
 .color5 {
-  color: var(--pink-sticky);
+  background-color: var(--pink-sticky);
 }
 .color6 {
-  color: var(--Yel-Grn-sticky);
+  background-color: var(--Yel-Grn-sticky);
 }
 
 /* MEDIA QUERIES */
@@ -664,6 +670,9 @@ input[type="radio"]:checked {
 
   li {
     max-width: 100%;
+  }
+  .reminders {
+    font-size: 16px
   }
 }
 
@@ -720,6 +729,10 @@ input[type="radio"]:checked {
     display: flex;
     justify-content: center;
   }
+
+  #remindList {
+    margin: 15px 25px 5px 25px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -741,4 +754,5 @@ input[type="radio"]:checked {
   #biggerSticky {
     transform: scale(0.75);
   }
+
 }
