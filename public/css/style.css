@@ -19,6 +19,28 @@ html {
   height: 100%;
 }
 
+
+
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+/* Scroll bar */
+::-webkit-scrollbar-thumb {
+  background-color: #4d4c4c;
+  border-radius: 4px;
+  opacity: 0.005;
+}
+
+/* Scroll bar track */
+::-webkit-scrollbar-track {
+ border: 1px solid rgb(81, 80, 80);
+  border-radius: 4px;
+  opacity: 0.5;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -88,6 +110,11 @@ h3 {
   margin-top: 5px;
 }
 
+h4 {
+  font-size: 21px;
+  font-family: "larken", sans-serif;
+}
+
 p {
   text-align: right;
   font-family: "Times New Roman", Times, serif;
@@ -119,10 +146,10 @@ header {
   font-family: "ccmeanwhile", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   margin: 20px;
   color: rgb(232, 230, 230);
-  width: 90%;
+  width: 100%;
 }
 
 #logout {
@@ -222,20 +249,21 @@ main {
   margin: 20px 10px 20px 10px;
 }
 
-#lStickEmoj{
-  margin:5px;
-justify-content: center;
-align-self: center;
-font-size:40px;
+#lStickEmoj {
+  margin: 5px;
+  justify-content: center;
+  align-self: center;
+  font-size: 40px;
 }
-#lStickText{
+#lStickText {
   text-align: center;
   font-size: 20px;
-  margin:5px;
+  margin: 5px;
   justify-content: center;
   align-self: center;
   color: rgb(57, 56, 56);
 }
+
 
 #addCategory {
   display: flex;
@@ -252,6 +280,8 @@ font-size:40px;
   margin: 5px;
 }
 
+
+
 #nextUp {
   width: 75%;
   margin-left: 40px;
@@ -260,6 +290,7 @@ font-size:40px;
 #chalkHeader {
   font-size: 2rem;
 }
+
 
 #biggerSticky {
   display: flex;
@@ -270,25 +301,13 @@ font-size:40px;
   margin-right: 50px;
   height: 29rem;
   width: 50rem;
-  animation-name: grow;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
 }
-/* @keyframes grow {
-  from {
-   
-    width: 22rem;
-    height: 22rem;
-  }
-  to {
-
-    width: 50rem;
-    height: 29rem;
-  }
-} */
 
 ol {
   margin-top: 20px;
+  max-width: 100%;
+  overflow: auto;
+  overflow-wrap: break-word;
 }
 #lineDash {
   display: flex;
@@ -347,19 +366,26 @@ button {
   border-style: none;
 }
 .reminders {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
+  display:block;
+  font-size: 22px;
   font-weight: 900;
-  color: black;
-  line-height: 28px;
+  color: rgb(49, 49, 49);
+  line-height: 30px;
+  text-indent: -25px;
+  margin-left: 35px;
+
 }
 
-.checkTask{
+.checkTask {
+  position: relative;
+  width:1rem;
+  height: 1rem;
   margin-right: 15px;
   transform: scale(1.5);
-  line-height: 28px;
+  
 }
+
+
 
 .bigStickyTitle {
   font-size: 3rem;
@@ -370,10 +396,12 @@ button {
   height: 22rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
   margin: 15px 40px 5px 40px;
+  overflow: auto;
+ 
 }
+
+
 
 #btn {
   height: 2rem;
@@ -409,6 +437,8 @@ label {
   color: rgb(77, 76, 76);
   margin: 3px;
 }
+
+
 
 #login-button {
   font-family: "larken", sans-serif;
@@ -451,7 +481,7 @@ label {
 .checkCat {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items:flex-start;
   margin-top: 5px;
   margin-bottom: 5px;
   justify-content: flex-end;
@@ -474,14 +504,27 @@ label {
   border-color: var(--blue-sticky);
 }
 
-.emojiCat {
+.catColorDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  height: 352px;
+}
+
+#emojCatCreate {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
   margin-left: 20px;
   margin-top: 30px;
-  height: 352px;
+
+  height: 176px;
+  width: 234px;
 }
 
 .catTitle {
@@ -490,7 +533,8 @@ label {
 
 .catEdTitle {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
   margin: 10px;
 }
@@ -532,13 +576,22 @@ label {
   padding-right: 5px;
   line-height: 2rem;
 }
+#isRecurring{
+  margin-right:40px;
+
+}
+
+
+
 
 #newCat {
   height: 352px;
   max-height: 352px;
+  margin-top: 35px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 
 input[type="radio"] {
@@ -559,13 +612,9 @@ input[type="radio"]:checked {
   border-color: var(--blue-sticky);
 }
 
-#emojCatCreate {
-  height: 176px;
-  width: 234px;
-}
-
 #emojiBox {
   width: 2rem;
+  text-align: center;
 }
 
 #create {
@@ -594,9 +643,6 @@ input[type="radio"]:checked {
   color: var(--Yel-Grn-sticky);
 }
 
-
-
-
 /* MEDIA QUERIES */
 
 @media screen and (max-width: 992px) {
@@ -618,7 +664,6 @@ input[type="radio"]:checked {
 
   li {
     max-width: 100%;
-   
   }
 }
 
@@ -633,12 +678,6 @@ input[type="radio"]:checked {
     max-height: 200px;
     overflow-y: auto;
     padding-right: 5px;
-  }
-
-  li {
-    max-width: 100%;
-    overflow: auto;
-    overflow-wrap: break-word;
   }
 
   #biggerSticky {
@@ -684,9 +723,9 @@ input[type="radio"]:checked {
 }
 
 @media only screen and (max-width: 480px) {
-html{
-  margin: 0;
-}
+  html {
+    margin: 0;
+  }
 
   #about {
     height: 600px;
@@ -699,7 +738,7 @@ html{
   #catchPhrase {
     height: 380px;
   }
-  #biggerSticky{
-    transform: scale(.75);
+  #biggerSticky {
+    transform: scale(0.75);
   }
 }

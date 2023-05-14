@@ -6,7 +6,7 @@
         <span id="lineDash"></span>
         <ol id="nextTasks">
           {{#each chalkBoard}}
-            <li class="task" data-ReminderId={{id}} {{#if overdue}}style="color:red"{{/if}}>{{Category.name}}: {{task}} - due: {{nextDue}}</li>
+            <li class="task" data-ReminderId={{id}} {{#if overdue}}style="color:#ff6989; font-size:22px; font-weight:900;"{{/if}}>{{Category.name}}: {{task}} - due: {{nextDue}}</li>
           {{/each}}
         </ol>
 
@@ -24,15 +24,16 @@
               <input type="checkbox" class="checkTask" data-ReminderId="{{id}}" >
               {{task}}{{#if isRecurring}}   (every {{numPeriods}} {{timePeriod}}(s))</i>{{/if}}  –  due: {{nextDue}}
               {{#if note}} 
-                <span style="font-style:italic; color:grey">
+                <span style="font-style:italic; color:rgb(217, 215, 215)">
                 <br>      {{note}}
                 </span>
               {{/if}}
             </li>
 
           {{/each}}
+          
       </ol>
-      <div id="btn">
+      <div id="btn" style="display:flex;  align-self: center;">
         <button id="addTask">+ Add Task</button>
       </div>
 

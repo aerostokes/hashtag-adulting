@@ -3,51 +3,52 @@
   <section id="center">
     <section id="chalkBoard">
       <div id="categoryEditor">
-        <form id="newCat">
-
-          <div class="emojiCat">
+        <form id="newCat" data-CategoryId="{{bigSticky.id}}">
+          <div class="catColorDiv">
             <div id="emojCatCreate">
                 <div class="catEdTitle">
-                  <label class="catTitle" for="emoji">Add your emoji:</label>
+                  <label class="catTitle" for="emoji">Emoji:</label>
                   <input type="text" id="emojiBox">
                   </div>
                 <div class="catEdTitle"> 
-                  <label  type ="text"class="catTitle">Create category:</label>
+                  <label class="catTitle" for="name">Category Name:</label>
                   <input type="text" id="name">
                   </div>
             </div>
 
-              <div id="create">
-               <button type = "submit" value = "Submit" id = "save-button">Create</button>
-              </div>
+            <div id="colorList">
+                <p class="sticyColor">Select a sticky color:</p>
+                <div class="checkCat">
+                  <input class="colorPick"type ="radio" id="color1" name="color">
+                  <label class="colorName color1"for ="color1">Magenta</label>
+                </div>
+                <div class="checkCat">
+                    <input class="colorPick"type ="radio" id="color2" name="color">
+                    <label class="colorName color2"for ="color2">Blue</label>
+                </div>
+                <div class="checkCat">
+                    <input class="colorPick" type ="radio" id="color3" name="color">
+                    <label class="colorName color3"for ="color3">Teal</label>
+                </div>
+                <div class="checkCat">
+                    <input class="colorPick" type ="radio" id="color4" name="color">
+                    <label class="colorName color4"for ="color4">Yellow</label>
+                </div>
+                <div class="checkCat">
+                    <input class="colorPick" type ="radio" id="color5" name="color">
+                    <label class="colorName color5"for ="color5">Pink</label>
+                </div>
+                <div class="checkCat">
+                    <input class="colorPick" type ="radio" id="color6" name="color">
+                    <label class="colorName color6"for ="color6">Chartreuse</label>
+                </div>
+            </div>
           </div>
-        <div id="colorList">
-             <p class="sticyColor">Select a sticky color:</p>
-            <div class="checkCat">
-              <input class="colorPick"type ="radio" id="color1" name="color">
-              <label class="colorName color1"for ="red">Magenta</label>
-            </div>
-            <div class="checkCat">
-                <input class="colorPick"type ="radio" id="color2" name="color">
-                <label class="colorName color2"for ="blue">Blue</label>
-            </div>
-            <div class="checkCat">
-                <input class="colorPick" type ="radio" id="color3" name="color">
-                <label class="colorName color3"for ="green">Teal</label>
-            </div>
-            <div class="checkCat">
-                <input class="colorPick" type ="radio" id="color4" name="color">
-                <label class="colorName color4"for ="yellow">Yellow</label>
-            </div>
-            <div class="checkCat">
-                <input class="colorPick" type ="radio" id="color5" name="color">
-                <label class="colorName color5"for ="purple">Pink</label>
-            </div>
-            <div class="checkCat">
-                <input class="colorPick" type ="radio" id="color6" name="color">
-                <label class="colorName color6"for ="purple">Chartreuse</label>
-            </div>
-        </div>
+
+          <div id="create">
+            <button type = "submit" value = "Submit" id = "save-button">Update</button>
+            <button id = "cancel-button">Cancel</button>
+          </div>
         </form>
             
             <script src="/js/categoryEditor.js"></script>
@@ -55,39 +56,31 @@
       </div>
     </section>
 
-    <aside id="bigSticky">
-         <div id="logHead">
-        <h3 id="logTitle">Login</h3>
+        <aside id="biggerSticky" data-CategoryId="{{bigSticky.id}}" style="background-color:{{bigSticky.color}}">
+      <div id="stickHead" data-CategoryId="{{bigSticky.id}}" >
+        <h4 id="name" class="bigStickyTitle" style="pointer-events: none;">{{bigSticky.name}}</h4>
+        <h4 id="emoji" style="pointer-events: none;">{{bigSticky.emoji}}</h4>
       </div>
-      
-      <form action="" id="login-form">
-        <label for="email">Email:</label>
-        <input type="email" id="login-email">
-        <label for="password">Password:</label>
-        <input type="password" id="login-password">
-        <button id="login-button">Login</button>
-        <a id="sI" href="/signup">Sign Up</a>
-      </form>
+      <ol id="remindList">
+          {{#each bigSticky.Reminders as |reminder|}}
+            <li class="reminders" data-ReminderId="{{id}}">
+              ᐧ {{task}}{{#if isRecurring}}   (every {{numPeriods}} {{timePeriod}}(s))</i>{{/if}}  –  due: {{nextDue}}
+              {{#if note}} 
+                <span style="font-style:italic; color:grey">
+                <br>      {{note}}
+                </span>
+              {{/if}}
+            </li>
 
-      <script src="/js/script.js"></script>
+          {{/each}}
+      </ol>
 
     </aside>
   </section>
-  <section id="desk">
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="sticky">
-        {{!-- placeholder --}}
-        </div>
-        <div id="addCategory">
-            <h5 id="acc">Add Custom Category</h5>
-        </div>
+  <section id="desk" data-loggedIn={{loggedIn}}>
+    {{#each sticky}}
+      {{>sticky}}
+    {{/each}}
+    <script src="/js/desk.js"></script>
   </section>
 </section>
