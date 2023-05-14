@@ -14,13 +14,13 @@
     </section>
 
     <aside id="biggerSticky" class={{bigSticky.color}} data-CategoryId={{bigSticky.id}}>
-      <div id="stickHead" data-CategoryId={{bigSticky.id}} >
+      <div id="stickHead" class="clickable" data-CategoryId={{bigSticky.id}} >
         <h4 id="name" class="bigStickyTitle" style="pointer-events: none;">{{bigSticky.name}}</h4>
         <h4 id="emoji" style="pointer-events: none;">{{bigSticky.emoji}}</h4>
       </div>
       <ol id="remindList">
           {{#each bigSticky.Reminders as |reminder|}}
-            <li class="reminders" data-ReminderId="{{id}}">
+            <li class="reminders clickable" data-ReminderId="{{id}}">
               <input type="checkbox" class="checkTask" data-ReminderId="{{id}}">
               {{task}}{{#if isRecurring}} (every {{numIntervals}} {{timeInterval}}{{#if plural}}s{{/if}})</i>{{/if}}   –  due: {{nextDue}}{{#if note}}
               <span style="font-size:75%; font-style:italic; color:grey;">

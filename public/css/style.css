@@ -373,7 +373,16 @@ button {
   line-height: 30px;
   text-indent: -25px;
   margin-left: 35px;
+}
 
+.clickable:hover {
+  color:black;
+  cursor:pointer;
+}
+
+.task:hover {
+  color:rgb(219, 242, 242);
+  cursor:pointer;
 }
 
 .checkTask {
@@ -381,6 +390,7 @@ button {
   height: 20px;
   transform: scale(1.5) translateY(2px);
 }
+
 
 
 

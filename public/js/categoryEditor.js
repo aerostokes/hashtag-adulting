@@ -1,5 +1,6 @@
 const editCategoryForm = document.getElementById("newCat");
 const cancelEditBtn = document.getElementById("cancel-button");
+const deleteBtn = document.getElementById("deleteBtn");
 const categoryId = editCategoryForm.getAttribute("data-CategoryId");
 const emojiInput = editCategoryForm.querySelector("#emojiBox");
 const nameInput = editCategoryForm.querySelector("#name");
@@ -11,6 +12,8 @@ cancelEditBtn.addEventListener("click", (e) => {
     e.preventDefault();
     location.href = `/dashboard/${categoryId}`;
 });
+deleteBtn.addEventListener("click", handlerCategoryDelete);
+
 
 // Callback functions:
 
@@ -49,6 +52,27 @@ async function handlerCategorySubmit(e) {
             const data = await res.json()
             console.log(data);
         };
+    } catch(err) {
+        alert("Error Occured, try again");
+        console.log(err);
+    };
+};
+
+async function handlerCategoryDelete(e) {
+    try {
+        e.preventDefault();
+        const res = await fetch(`/api/categories/${categoryId}`, {
+            method: "DELETE", 
+            headers: {
+            "Content-Type": "application/json",
+            },
+        });
+        if (res.ok) {
+            location.href = "/dashboard";
+        } else {
+            alert("Error Occured, try again");
+            console.log(res);
+        }   
     } catch(err) {
         alert("Error Occured, try again");
         console.log(err);

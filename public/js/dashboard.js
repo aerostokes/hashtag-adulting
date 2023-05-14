@@ -71,7 +71,7 @@ async function markTaskComplete(event) {
                 "Content-Type": "application/json",
                 },
             });
-            newInnerHTML = `<strike>${reminderData.task}</strike> – <b>completed: TODAY, next due: ${dayjs(editReminderObj.nextDue).format("MM/DD/YY")}</b>`
+            newInnerHTML = `<strike style="pointer-events:none">${reminderData.task}</strike> – completed: TODAY, next due: ${dayjs(editReminderObj.nextDue).format("MM/DD/YY")}`
         }
         if (res.ok) {
             reminderLiArr.forEach(li => {
