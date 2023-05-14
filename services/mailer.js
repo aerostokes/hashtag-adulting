@@ -1,12 +1,12 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-async function sendMail(to, text) {
+async function sendMail(to, html) {
     const msg = {
         to,
         from: 'adultingdoesnthavetobehard@gmail.com',
         subject: 'Adulting Reminder!',
-        text: text,
+        html: html,
     };
 
     try {
