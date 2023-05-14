@@ -79,6 +79,7 @@ async function editTask(taskLi) {
     try {
         addTaskBtn.setAttribute("hidden", "hidden")
 
+        taskLi.removeAttribute("class")
         const reminderId = taskLi.getAttribute("data-ReminderId");
         const reminderResponse = await fetch(`/api/reminders/${reminderId}`);
         const reminderData = await reminderResponse.json();
@@ -155,7 +156,6 @@ function handlerAddTaskBtnClick() {
     const categoryId = document.getElementById("biggerSticky").getAttribute("data-CategoryId");
 
     const newLi = document.createElement("li");
-    newLi.setAttribute("class", "reminders")
     bigStickyOl.append(newLi)
     const newTaskForm = createForm();
     newLi.append(newTaskForm);
