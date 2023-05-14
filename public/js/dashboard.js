@@ -1,44 +1,52 @@
-const addCategorySticky = document.getElementById("addCategory" );
-const chalkboard = document.getElementById("nextTasks");
+const chalkboardOl = document.getElementById("nextTasks");
 const bigStickyHead = document.getElementById("stickHead");
 const bigStickyOl = document.getElementById("remindList");
 const addTaskBtn = document.getElementById("addTask");
+const addCategorySticky = document.getElementById("addCategory" );
+let reminderId
 
 // On page load
-addCategorySticky.addEventListener("click", handlerAddCategoryClick);
+chalkboardOl.addEventListener("click", handlerChalkboardClick);
 bigStickyHead.addEventListener("click", handlerBigStickyClickCategory);
 bigStickyOl.addEventListener("click", handlerBigStickyClickTask);
 addTaskBtn.addEventListener("click", handlerAddTaskBtnClick);
-chalkboard.addEventListener("click", handlerChalkboardClick);
-
+addCategorySticky.addEventListener("click", () => {
+    location.href = "/wizard"
+});
 
 
 // Callback functions:
 
-function handlerAddCategoryClick() {
-    location.href = "/wizard"
-}
+function handlerChalkboardClick(event) {
+    if (event.target.matches(".checkTask")) {
+        markTaskComplete(event);
+    } else if (event.target.matches("li.task")) {
+        categoryId = event.target.getAttribute("data-CategoryId");
+        location.href = `/dashboard/${categoryId}`;
+    }
+};
 
 function handlerBigStickyClickCategory(event) {
-    console.log("hello world");
     const CategoryId = event.target.getAttribute("data-CategoryId")
     location.href = `/category-editor/${CategoryId}`
 };
 
 function handlerBigStickyClickTask(event) {
-    const reminderId = event.target.getAttribute("data-ReminderId");
     if (event.target.matches(".checkTask")) {
-        markTaskComplete(reminderId);
+        markTaskComplete(event);
     } else if (event.target.matches("li.reminders")) {
         editTask(event.target);
     }
 };
 
-async function markTaskComplete(reminderId) {
+async function markTaskComplete(event) {
     try {
+        const reminderId = event.target.getAttribute("data-ReminderId");
         const reminderResponse = await fetch(`/api/reminders/${reminderId}`);
         const reminderData = await reminderResponse.json();
         let res;
+        const reminderLiArr = document.querySelectorAll(`li[data-ReminderId='${reminderId}']`)
+        let newInnerHTML;
 
         // If the task is not recurring, than delete the database entry.
         if (!reminderData.isRecurring) {
@@ -48,23 +56,27 @@ async function markTaskComplete(reminderId) {
                 "Content-Type": "application/json",
                 },
             });
+            newInnerHTML = `<strike>${reminderData.task}</strike> – <b>completed: TODAY</b>`
         // If it is recurring, update the Reminder entry to lastDone = today, and nextDue based on the stored interval. 
         } else {
-            const newReminderObj = {
+            const editReminderObj = {
                 id: reminderId,
                 lastDone: dayjs().format("YYYY-MM-DD"),
                 nextDue: dayjs().add(reminderData.numIntervals,reminderData.timeInterval).format("YYYY-MM-DD"),
             };
             res = await fetch(`/api/reminders/${reminderId}`, {
                 method: "PUT", 
-                body: JSON.stringify(newReminderObj),
+                body: JSON.stringify(editReminderObj),
                 headers: {
                 "Content-Type": "application/json",
                 },
             });
+            newInnerHTML = `<strike>${reminderData.task}</strike> – <b>completed: TODAY, next due: ${editReminderObj.nextDue}</b>`
         }
         if (res.ok) {
-            location.reload();
+            reminderLiArr.forEach(li => {
+                li.innerHTML = newInnerHTML;
+            });
         } else {
             alert("Error Occured, try again");
             console.log(res);
@@ -79,7 +91,6 @@ async function editTask(taskLi) {
     try {
         addTaskBtn.setAttribute("hidden", "hidden")
 
-        taskLi.removeAttribute("class")
         const reminderId = taskLi.getAttribute("data-ReminderId");
         const reminderResponse = await fetch(`/api/reminders/${reminderId}`);
         const reminderData = await reminderResponse.json();
@@ -156,6 +167,7 @@ function handlerAddTaskBtnClick() {
     const categoryId = document.getElementById("biggerSticky").getAttribute("data-CategoryId");
 
     const newLi = document.createElement("li");
+    newLi.setAttribute("class", "reminders")
     bigStickyOl.append(newLi)
     const newTaskForm = createForm();
     newLi.append(newTaskForm);
@@ -196,19 +208,15 @@ function handlerAddTaskBtnClick() {
     });
 };
 
-function handlerChalkboardClick() {
-    //TODO
-    // <input type="date" id="date" style="color-scheme:dark">
 
-};
 
 function createForm(isRecurring=true, withDelete=false) {
     if (document.getElementById("addEditForm")) { return };
     const formEl = document.createElement("form");
     formEl.setAttribute("id","addEditForm");
-    formEl.setAttribute("style", "display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; font-size:80%; line-height:1");
+    formEl.setAttribute("style", "display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; text-indent:0px; font-size:80%; line-height:1");
         const editEmoji = document.createElement("p");
-        editEmoji.setAttribute("style", "font-size: 20px; transform:translateX(-4px)");
+        editEmoji.setAttribute("style", "text-indent:-25px; font-size: 20px; transform:translateX(-9px)");
         editEmoji.textContent = "📝";
         formEl.append(editEmoji);
 
@@ -232,7 +240,7 @@ function createForm(isRecurring=true, withDelete=false) {
             const lastDoneInput = document.createElement("input");
             lastDoneInput.setAttribute("type", "date");
             lastDoneInput.setAttribute("id", "lastDone");
-            lastDoneInput.setAttribute("style", "width:px");
+            lastDoneInput.setAttribute("style", "width: 120px");
             lastDoneDiv.append(lastDoneInput);
 
         const calcDueDiv = document.createElement("div");
@@ -249,7 +257,7 @@ function createForm(isRecurring=true, withDelete=false) {
                 const isRecurringInput = document.createElement("input");
                 isRecurringInput.setAttribute("type", "checkbox");
                 isRecurringInput.setAttribute("id", "isRecurring");
-                isRecurringInput.setAttribute("style", "height: 15px");
+                isRecurringInput.setAttribute("style", "transform:translateX(20px); height: 15px");
                 recurringDiv.append(isRecurringInput);
 
             const intervalDiv = document.createElement("div");
@@ -264,13 +272,13 @@ function createForm(isRecurring=true, withDelete=false) {
                 const numIntervalsInput = document.createElement("input");
                 numIntervalsInput.setAttribute("type", "number");
                 numIntervalsInput.setAttribute("id", "numIntervals");
-                numIntervalsInput.setAttribute("style", "flex:0 1; max-width:55px; text-align:center");
+                numIntervalsInput.setAttribute("style", "flex:0 1; max-width:53px; text-align:center");
                 numIntervalsInput.setAttribute("placeholder", "Num");
                 intervalDiv.append(numIntervalsInput);
 
                 const timeIntervalSelect = document.createElement("select");
                 timeIntervalSelect.setAttribute("id", "timeInterval");
-                timeIntervalSelect.setAttribute("style", "flex:0 1; max-width:90px");
+                timeIntervalSelect.setAttribute("style", "flex:0 1; max-width:87px");
                 const opt1 = document.createElement("option");
                 const opt2 = document.createElement("option");
                 const opt3 = document.createElement("option");
@@ -301,7 +309,7 @@ function createForm(isRecurring=true, withDelete=false) {
                 const nextDueInput = document.createElement("input");
                 nextDueInput.setAttribute("type", "date");
                 nextDueInput.setAttribute("id", "nextDue");
-                nextDueInput.setAttribute("style", "width:125px");
+                nextDueInput.setAttribute("style", "width:120px");
                 nextDueInput.setAttribute("required", "required");
                 nextDueDiv.append(nextDueInput);
 

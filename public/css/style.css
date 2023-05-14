@@ -719,6 +719,10 @@ input[type="radio"]:checked {
     display: flex;
     justify-content: center;
   }
+
+  #remindList {
+    margin: 15px 25px 5px 25px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
