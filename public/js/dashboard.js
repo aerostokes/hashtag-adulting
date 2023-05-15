@@ -216,31 +216,38 @@ function createForm(isRecurring=true, withDelete=false) {
     formEl.setAttribute("id","addEditForm");
     formEl.setAttribute("style", "display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; text-indent:0px; font-size:80%; line-height:1");
         const editEmoji = document.createElement("p");
-        editEmoji.setAttribute("style", "text-indent:-25px; font-size: 20px; transform:translateX(-9px)");
+        editEmoji.setAttribute("style", "text-indent:-25px; font-size: 20px; transform:translate(-9px, 7px)");
         editEmoji.textContent = "📝";
         formEl.append(editEmoji);
 
-        const taskInput = document.createElement("input");
-        taskInput.setAttribute("type", "text");
-        taskInput.setAttribute("id", "task");
-        taskInput.setAttribute("style", "flex: 10 10 50%");
-        taskInput.setAttribute("placeholder", "*Task");
-        taskInput.setAttribute("required", "required");
-        formEl.append(taskInput);
+        const taskDiv = document.createElement("div");
+        taskDiv.setAttribute("style", "flex: 1 1 50%; display:flex; flex-direction:column");
+        formEl.append(taskDiv);
+            const taskLabel = document.createElement("label");
+            taskLabel.setAttribute("for", "task");
+            taskLabel.setAttribute("style", "width:30px; text-align:end");
+            taskLabel.textContent = "*Task:";
+            taskDiv.append(taskLabel);
+ 
+            const taskInput = document.createElement("input");
+            taskInput.setAttribute("type", "text");
+            taskInput.setAttribute("id", "task");
+            taskInput.setAttribute("placeholder", "Task Name")
+            taskInput.setAttribute("required", "required");
+            taskDiv.append(taskInput);
 
         const lastDoneDiv = document.createElement("div");
-        lastDoneDiv.setAttribute("style", "display:flex");
+        lastDoneDiv.setAttribute("style", "display:flex; flex-direction:column");
         formEl.append(lastDoneDiv);
             const lastDoneLabel = document.createElement("label");
             lastDoneLabel.setAttribute("for", "lastDone");
-            lastDoneLabel.setAttribute("style", "width:30px; text-align:end");
             lastDoneLabel.textContent = "Last Done:";
             lastDoneDiv.append(lastDoneLabel);
 
             const lastDoneInput = document.createElement("input");
             lastDoneInput.setAttribute("type", "date");
             lastDoneInput.setAttribute("id", "lastDone");
-            lastDoneInput.setAttribute("style", "width: 120px");
+            lastDoneInput.setAttribute("style", "width: 125px");
             lastDoneDiv.append(lastDoneInput);
 
         const calcDueDiv = document.createElement("div");
@@ -257,7 +264,7 @@ function createForm(isRecurring=true, withDelete=false) {
                 const isRecurringInput = document.createElement("input");
                 isRecurringInput.setAttribute("type", "checkbox");
                 isRecurringInput.setAttribute("id", "isRecurring");
-                isRecurringInput.setAttribute("style", "transform:translateX(20px); height: 15px");
+                isRecurringInput.setAttribute("style", "transform:translate(17px, 10px); height: 15px");
                 recurringDiv.append(isRecurringInput);
 
             const intervalDiv = document.createElement("div");
@@ -269,56 +276,67 @@ function createForm(isRecurring=true, withDelete=false) {
                 numIntervalsLabel.textContent = "Every:";
                 intervalDiv.append(numIntervalsLabel);
 
-                const numIntervalsInput = document.createElement("input");
-                numIntervalsInput.setAttribute("type", "number");
-                numIntervalsInput.setAttribute("id", "numIntervals");
-                numIntervalsInput.setAttribute("style", "flex:0 1; max-width:53px; text-align:center");
-                numIntervalsInput.setAttribute("placeholder", "Num");
-                intervalDiv.append(numIntervalsInput);
+                const timeDiv = document.createElement("div");
+                timeDiv.setAttribute("style", "flex:0 1; display:flex; flex-direction:row");
+                intervalDiv.append(timeDiv);
+                    const numIntervalsInput = document.createElement("input");
+                    numIntervalsInput.setAttribute("type", "number");
+                    numIntervalsInput.setAttribute("id", "numIntervals");
+                    numIntervalsInput.setAttribute("style", "flex:0 1; max-width:53px; text-align:center");
+                    numIntervalsInput.setAttribute("placeholder", "Num");
+                    timeDiv.append(numIntervalsInput);
 
-                const timeIntervalSelect = document.createElement("select");
-                timeIntervalSelect.setAttribute("id", "timeInterval");
-                timeIntervalSelect.setAttribute("style", "flex:0 1; max-width:87px");
-                const opt1 = document.createElement("option");
-                const opt2 = document.createElement("option");
-                const opt3 = document.createElement("option");
-                const opt4 = document.createElement("option");
-                opt1.value = "day";
-                opt1.text = "day(s)";
-                opt2.value = "week";
-                opt2.text = "week(s)";
-                opt3.value = "month";
-                opt3.text = "month(s)";
-                opt3.setAttribute("selected", "selected");
-                opt4.value = "year";
-                opt4.text = "year(s)";
-                timeIntervalSelect.add(opt1);
-                timeIntervalSelect.add(opt2);
-                timeIntervalSelect.add(opt3);
-                timeIntervalSelect.add(opt4);
-                intervalDiv.append(timeIntervalSelect);
+                    const timeIntervalSelect = document.createElement("select");
+                    timeIntervalSelect.setAttribute("id", "timeInterval");
+                    timeIntervalSelect.setAttribute("style", "flex:0 1; max-width:87px");
+                    const opt1 = document.createElement("option");
+                    const opt2 = document.createElement("option");
+                    const opt3 = document.createElement("option");
+                    const opt4 = document.createElement("option");
+                    opt1.value = "day";
+                    opt1.text = "day(s)";
+                    opt2.value = "week";
+                    opt2.text = "week(s)";
+                    opt3.value = "month";
+                    opt3.text = "month(s)";
+                    opt3.setAttribute("selected", "selected");
+                    opt4.value = "year";
+                    opt4.text = "year(s)";
+                    timeIntervalSelect.add(opt1);
+                    timeIntervalSelect.add(opt2);
+                    timeIntervalSelect.add(opt3);
+                    timeIntervalSelect.add(opt4);
+                    timeDiv.append(timeIntervalSelect);
+
             const nextDueDiv = document.createElement("div");
-            nextDueDiv.setAttribute("style", "display:flex");
+            nextDueDiv.setAttribute("style", "display:flex; flex-direction:column");
             calcDueDiv.append(nextDueDiv);
                 const nextDueLabel = document.createElement("label");
                 nextDueLabel.setAttribute("for", "nextDue");
-                nextDueLabel.setAttribute("style", "width:30px; text-align:end");
                 nextDueLabel.textContent = "*Next Due:";
                 nextDueDiv.append(nextDueLabel);
 
                 const nextDueInput = document.createElement("input");
                 nextDueInput.setAttribute("type", "date");
                 nextDueInput.setAttribute("id", "nextDue");
-                nextDueInput.setAttribute("style", "width:120px");
+                nextDueInput.setAttribute("style", "width:125px");
                 nextDueInput.setAttribute("required", "required");
                 nextDueDiv.append(nextDueInput);
 
-        const noteInput = document.createElement("input");
-        noteInput.setAttribute("type", "text");
-        noteInput.setAttribute("id", "note");
-        noteInput.setAttribute("style", "flex: 1 1 25%; font-size:75%");
-        noteInput.setAttribute("placeholder", "notes (optional)");
-        formEl.append(noteInput);
+        const noteDiv = document.createElement("div");
+        noteDiv.setAttribute("style", "flex: 1 1 20%; display:flex; flex-direction:column");
+        formEl.append(noteDiv);
+            const noteLabel = document.createElement("label");
+            noteLabel.setAttribute("for", "note");
+            noteLabel.textContent = "Note:";
+            noteDiv.append(noteLabel);
+
+            const noteInput = document.createElement("input");
+            noteInput.setAttribute("type", "text");
+            noteInput.setAttribute("id", "note");
+            noteInput.setAttribute("style", "font-size:75%; font-style:italic; color:grey");
+            noteInput.setAttribute("placeholder", "optional notes");
+            noteDiv.append(noteInput);
         
         const buttonsDiv = document.createElement("div");
         buttonsDiv.setAttribute("style", "flex:1 1; display:flex; justify-content:center");
@@ -347,7 +365,7 @@ function createForm(isRecurring=true, withDelete=false) {
     // Add event listener to hide/show/require the numIntervals and timeInterval fields based on the isRecurring checkbox
     isRecurringInput.addEventListener("click", () => {
         if (isRecurringInput.checked) {
-            intervalDiv.setAttribute("style", "display:flex; align-items:center; flex:1 1");
+            intervalDiv.setAttribute("style", "flex:1 1; display:flex; flex-direction:column");
             numIntervalsInput.setAttribute("required", "required");
             timeIntervalSelect.setAttribute("required", "required");
         } else {
