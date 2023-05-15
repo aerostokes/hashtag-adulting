@@ -23,7 +23,7 @@
             <li class="reminders clickable" data-ReminderId="{{id}}">
               <input type="checkbox" class="checkTask" data-ReminderId="{{id}}">
               {{task}}{{#if isRecurring}} (every {{numIntervals}} {{timeInterval}}{{#if plural}}s{{/if}})</i>{{/if}}   –  due: {{nextDue}}{{#if note}}
-              <span style="font-size:75%; font-style:italic; color:grey;">
+              <span style="font-size:75%; font-style:italic; color:rgb(217, 215, 215)">
                       {{note}}
                 </span>
               {{/if}}
